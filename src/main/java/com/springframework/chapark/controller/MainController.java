@@ -1,17 +1,32 @@
 package com.springframework.chapark.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class MainController {
 
-	Logger logger = LoggerFactory.getLogger(MainController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
-	@RequestMapping(value = "/main.do")
-	public String main() {
+	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	public String main(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		// 현재 날짜 및 시간 가져오기
+		LocalDateTime currentDateTime = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG).withLocale(locale);
+		String formattedDate = currentDateTime.format(formatter);
+
+		model.addAttribute("serverTime", formattedDate);
 
 		return "main";
 	}
