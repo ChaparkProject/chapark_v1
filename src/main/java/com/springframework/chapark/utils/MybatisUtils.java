@@ -1,4 +1,4 @@
-package com.springframework.chapark.Mybatis;
+package com.springframework.chapark.utils;
 
 import java.lang.reflect.Array;
 import java.util.List;
