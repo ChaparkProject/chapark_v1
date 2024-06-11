@@ -15,8 +15,8 @@
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean id="LoggerInterceptor"
-				class="com.springframework.chapark.common.LoggerInterceptor"></bean>
+			<bean id="chaparkLogger"
+				class="com.springframework.chapark.common.chaparkLogger"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
 
@@ -33,6 +33,6 @@
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver"
 		p:order="1"
 		p:viewClass="org.springframework.web.servlet.view.JstlView"
-		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp">
+		p:prefix="/WEB-INF/views/" p:suffix=".jsp">
 	</bean>
 </beans>
