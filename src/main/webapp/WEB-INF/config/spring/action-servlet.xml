@@ -18,6 +18,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-	<context:component-scan base-package="com.springframework.chapark" />
+	<context:component-scan
+		base-package="com.springframework.chapark" />
 
 </beans:beans>
