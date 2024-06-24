@@ -26,7 +26,7 @@ public class MainController {
 
 	@Autowired
 	private chaparkService chaparkService;
-
+	//테스트용
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
 	public String mber(Model model, Map paramMap) {
@@ -39,7 +39,7 @@ public class MainController {
 
 		return "mberTest";
 	}
-
+	// 테스트용
 	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
 	public String main(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
