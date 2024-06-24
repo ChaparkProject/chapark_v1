@@ -29,12 +29,9 @@ public class MainController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
-	public String mber(Model model, Map paramMap, @RequestParam int mberSeq) {
+	public String mber(Model model, Map paramMap) {
 		try {
-			Map<String, Object> HashMap = new HashMap<>();
-	        HashMap.put("mberSeq", mberSeq);
-	        
-			Map<String, Object> member = chaparkService.selectMap("tb_member.selectMberTest", HashMap);
+			Map<String, Object> member = chaparkService.selectMap("tb_member.selectMberTest", paramMap);
 			model.addAttribute("member", member);
 		} catch (Exception e) {
 			e.printStackTrace();
