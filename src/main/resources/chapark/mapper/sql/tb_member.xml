@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="tb_member">
+	<select id="selectMberTest" resultType="map" parameterType="map">
+		SELECT 
+			MBER_SEQ
+			, MBER_ID
+			, MBER_PW
+			, MBER_NAME
+			, MBER_EMAIL
+			, MBER_ZIP
+			, MBER_JIB
+			, MBER_ADDR
+			, MBER_TEL
+			, MBER_AUTH
+		FROM
+			TB_MEMBER
+		WHERE
+			MBER_ID = #{mberId}
+	</select>
+
+</mapper>

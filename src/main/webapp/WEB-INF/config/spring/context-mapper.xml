@@ -8,12 +8,12 @@
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:/mapper/**/*_SQL.xml" />
+		<property name="mapperLocations" value="classpath:/chapark/mapper/sql/**/*_SQL.xml" />
 	</bean>
 
 	<bean id="sqlSessionTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSession" />
+		class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" index="0" ref="sqlSession" />
 	</bean>
+	
 </beans>

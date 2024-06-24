@@ -2,10 +2,16 @@ package com.springframework.chapark.common;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
+@Repository
 public class ChaparkDAO {
+	
 
 	private SqlSession sqlSession;
 
@@ -15,9 +21,8 @@ public class ChaparkDAO {
 	}
 
 	// 단건 조회 (Map)
-	public Map<String, Object> selectMap(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.selectOne(sql, paramMap);
+	public Map<String, Object> selectMap(Map<String, Object> paramMap, String sqlId) {
+		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
 	// 단건 조회 (Object)

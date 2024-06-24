@@ -5,15 +5,28 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<bean id="sqlSession"
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+    <property name="url" value="jdbc:mysql://129.154.54.137/chapark_v1" />
+    <property name="username" value="chapark" />
+    <property name="password" value="ckqkr12#$" />
+</bean>
+
+
+	<!-- MyBatis SqlSessionFactoryBean 설정 -->
+	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations"
-			value="classpath:/mapper/**/*_SQL.xml" />
+		<property name="mapperLocations" value="classpath:/chapark/mapper/sql/**/*.xml" />
 	</bean>
 
-	<bean id="sqlSessionTemplate"
-		class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSession" />
-	</bean>
+	<!-- MyBatis SqlSessionTemplate 설정 -->
+<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+    <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+</bean>
+
+<!-- DAO 빈 등록 -->
+<bean id="chaparkDAO" class="com.springframework.chapark.common.ChaparkDAO">
+    <constructor-arg name="sqlSession" ref="sqlSessionTemplate" />
+</bean>
 </beans>

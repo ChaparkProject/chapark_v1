@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class chaparkService {
 	private final ChaparkDAO chaparkDAO;
 
@@ -14,8 +16,8 @@ public class chaparkService {
 	}
 
 	// 단건 조회 (Map)
-	public Map<String, Object> selectMap(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.selectMap(paramMap, mapperName, sqlId);
+	public Map selectMap(String sqlId, Map paramMap) throws Exception {
+		return chaparkDAO.selectMap(paramMap, sqlId);
 	}
 
 	// 단건 조회 (Object)
