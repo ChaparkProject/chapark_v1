@@ -16,26 +16,15 @@
 				<th>Member ID</th>
            		<th>Password</th>
             	<th>Name</th>
-            	<th>Email</th>
-            	<th>Zip</th>
-            	<th>Jib</th>
-            	<th>Address</th>
-            	<th>Phone</th>
-            	<th>Authority</th>
+
 			</tr>
 		</thead>
 		<tbody>
-		  <c:forEach items="${memberList}" var="memberList">
+		  <c:forEach items="${memberList}" var="list">
 				<tr>
-					<td>${memberList.MBER_ID}</td>
-            		<td>${memberList.MBER_PW}</td>
-            		<td>${memberList.MBER_NAME}</td>
-            		<td>${memberList.MBER_EMAIL}</td>
-            		<td>${memberList.MBER_ZIP}</td>
-            		<td>${memberList.MBER_JIB}</td>
-            		<td>${memberList.MBER_ADDR}</td>
-            		<td>${memberList.MBER_TEL}</td>
-            		<td>${memberList.MBER_AUTH}</td>
+					<td>${list.MBER_ID}</td>
+            		<td>${list.mberPw}</td>
+            		<td>${list.mberName}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

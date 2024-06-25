@@ -6,7 +6,7 @@
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
-			, MBER_PW
+			, MBER_PW 
 			, MBER_NAME
 			, MBER_EMAIL
 			, MBER_ZIP
