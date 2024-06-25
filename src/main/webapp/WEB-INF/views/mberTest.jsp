@@ -27,15 +27,15 @@
 		<tbody>
 		  <c:forEach items="${memberList}" var="memberList">
 				<tr>
-					<td>${memberList.mberId}</td>
-            		<td>${memberList.mberPw}</td>
-            		<td>${memberList.mberName}</td>
-            		<td>${memberList.mberEmail}</td>
-            		<td>${memberList.mberZip}</td>
-            		<td>${memberList.mberJib}</td>
-            		<td>${memberList.mberAddr}</td>
-            		<td>${memberList.mberTel}</td>
-            		<td>${memberList.mberAuth}</td>
+					<td>${memberList.MBER_ID}</td>
+            		<td>${memberList.MBER_PW}</td>
+            		<td>${memberList.MBER_NAME}</td>
+            		<td>${memberList.MBER_EMAIL}</td>
+            		<td>${memberList.MBER_ZIP}</td>
+            		<td>${memberList.MBER_JIB}</td>
+            		<td>${memberList.MBER_ADDR}</td>
+            		<td>${memberList.MBER_TEL}</td>
+            		<td>${memberList.MBER_AUTH}</td>
 				</tr>
 			</c:forEach>
 		</tbody>
