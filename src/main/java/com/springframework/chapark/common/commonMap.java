@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class chaparkMap {
+public class commonMap {
 	Map<String, Object> map = new HashMap<String, Object>();
 
 	public void put(String key, Object value) {

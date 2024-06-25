@@ -1,44 +1,45 @@
 package com.springframework.chapark.common;
 
 import java.util.Enumeration;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import com.springframework.chapark.controller.MainController;
 
-public class CustomMapArgumentResolver {
-	private static final Logger logger = (Logger) LoggerFactory.getLogger(CustomMapArgumentResolver.class);
+public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver {
+    private static final Logger logger = LoggerFactory.getLogger(CustomMapArgumentResolver.class);
     
-    public Object resolveArgument(MethodParameter para, ModelAndViewContainer mvc, NativeWebRequest webReq,
-            WebDataBinderFactory binderFactory) throws Exception {
+    @Override
+    public boolean supportsParameter(MethodParameter parameter) {
+        return commonMap.class.isAssignableFrom(parameter.getParameterType());
+    }
+
+    @Override
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
          
-        chaparkMap chaparkMap = new chaparkMap();
+        commonMap commonMap = new commonMap();
          
-        HttpServletRequest req = (HttpServletRequest)webReq.getNativeRequest();
-        Enumeration<?> enumeration = req.getParameterNames();
+        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
+        Enumeration<?> enumeration = request.getParameterNames();
          
-        String key = null;
-        String[] values = null;
-        while(enumeration.hasMoreElements()) {
+        String key;
+        String[] values;
+        while (enumeration.hasMoreElements()) {
             key = (String) enumeration.nextElement();
-            values = req.getParameterValues(key);
-            if(values!=null ) {
-            	chaparkMap.put(key, (values.length>1)? values : values[0]);
+            values = request.getParameterValues(key);
+            if (values != null) {
+                commonMap.put(key, (values.length > 1) ? values : values[0]);
             }
         }
          
-        return chaparkMap;
+        return commonMap;
     }
- 
-    public boolean supportsParameter(MethodParameter para) {
-        return chaparkMap.class.isAssignableFrom(para.getParameterType());
-    }
-
 }

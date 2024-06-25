@@ -21,14 +21,13 @@ public class ChaparkDAO {
 	}
 
 	// 단건 조회 (Map)
-	public Map<String, Object> selectMap(Map<String, Object> paramMap, String sqlId) {
+	public Map selectMap(commonMap paramMap, String sqlId) {
 		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
 	// 단건 조회 (Object)
-	public Object selectObject(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.selectOne(sql, paramMap);
+	public Object selectObject(commonMap paramMap, String sqlId) {
+		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
 	// 다건 조회 (페이징 처리)

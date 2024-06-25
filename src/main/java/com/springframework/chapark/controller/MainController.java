@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.springframework.chapark.common.chaparkService;
+import com.springframework.chapark.common.ChaparkService;
+import com.springframework.chapark.common.commonMap;
 
 @Controller
 public class MainController {
@@ -25,13 +26,13 @@ public class MainController {
 	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@Autowired
-	private chaparkService chaparkService;
+	private ChaparkService ChaparkService;
 	//테스트용
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
-	public String mber(Model model, Map paramMap) {
+	public String mber(Model model, commonMap commonMap) {
 		try {
-			Map<String, Object> member = chaparkService.selectMap("tb_member.selectMberTest", paramMap);
+			Map<String, Object> member = ChaparkService.selectMap("tb_member.selectMberTest", commonMap);
 			model.addAttribute("member", member);
 		} catch (Exception e) {
 			e.printStackTrace();

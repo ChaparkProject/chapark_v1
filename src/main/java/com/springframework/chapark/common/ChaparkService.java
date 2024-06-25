@@ -7,22 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class chaparkService {
+public class ChaparkService {
 	private final ChaparkDAO chaparkDAO;
 
 	@Autowired
-	public chaparkService(ChaparkDAO chaparkDAO) {
+	public ChaparkService(ChaparkDAO chaparkDAO) {
 		this.chaparkDAO = chaparkDAO;
 	}
 
 	// 단건 조회 (Map)
-	public Map selectMap(String sqlId, Map paramMap) throws Exception {
+	public Map selectMap(String sqlId, commonMap paramMap) throws Exception {
 		return chaparkDAO.selectMap(paramMap, sqlId);
 	}
 
 	// 단건 조회 (Object)
-	public Object selectObject(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.selectObject(paramMap, mapperName, sqlId);
+	public Object selectObject(commonMap paramMap, String sqlId) {
+		return chaparkDAO.selectObject(paramMap, sqlId);
 	}
 
 	// 다건 조회 (페이징 처리)

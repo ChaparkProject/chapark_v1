@@ -12,6 +12,7 @@
 
 	<table border="1">
 		<thead>
+			<input type="text" value="" />
 			<tr>
 				<th>Member ID</th>
            		<th>Password</th>
@@ -37,6 +38,11 @@
             <td>${member.mberAuth}</td>
 			</tr>
 		</tbody>
+		<form action="mber.do" method="GET">
+        	<label for="mberId">Member ID:</label>
+        	<input type="text" id="mberId" name="mberId" required>
+        	<button type="submit">Submit</button>
+    </form>
 	</table>
 </body>
 </html>
