@@ -16,7 +16,7 @@ public class ChaparkService {
 	}
 
 	// 단건 조회 (Map)
-	public Map selectMap(String sqlId, commonMap paramMap) throws Exception {
+	public Map selectMap(String sqlId, Map paramMap) throws Exception {
 		return chaparkDAO.selectMap(paramMap, sqlId);
 	}
 
@@ -34,9 +34,9 @@ public class ChaparkService {
 
 	// 다건 조회 (List)
 	// 추후 수정 예정
-	public List<Map<String, Object>> selectList(Map<String, Object> paramMap) {
+	public List<Map> selectList(Map paramMap,String sqlId) {
 		// 여기에 다건 조회 로직 추가
-		return chaparkDAO.selectList(paramMap);
+		return chaparkDAO.selectList(paramMap, sqlId);
 	}
 
 	// 삽입

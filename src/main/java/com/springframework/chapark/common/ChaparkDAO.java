@@ -21,7 +21,7 @@ public class ChaparkDAO {
 	}
 
 	// 단건 조회 (Map)
-	public Map selectMap(commonMap paramMap, String sqlId) {
+	public Map selectMap(Map paramMap, String sqlId) {
 		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
@@ -38,8 +38,8 @@ public class ChaparkDAO {
 
 	// 다건 조회 (List)
 	// 추후 수정 예정
-	public List<Map<String, Object>> selectList(Map<String, Object> paramMap) {
-		return sqlSession.selectList("namespace.selectMultipleList", paramMap);
+	public List<Map> selectList(Map paramMap, String sqlId) {
+		return sqlSession.selectList(sqlId, paramMap);
 	}
 
 	// 삽입

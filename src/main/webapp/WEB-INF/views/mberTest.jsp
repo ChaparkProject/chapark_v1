@@ -12,7 +12,6 @@
 
 	<table border="1">
 		<thead>
-			<input type="text" value="" />
 			<tr>
 				<th>Member ID</th>
            		<th>Password</th>
@@ -26,23 +25,20 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-			<td>${member.mberId}</td>
-            <td>${member.mberPw}</td>
-            <td>${member.mberName}</td>
-            <td>${member.mberEmail}</td>
-            <td>${member.mberZip}</td>
-            <td>${member.mberJib}</td>
-            <td>${member.mberAddr}</td>
-            <td>${member.mberTel}</td>
-            <td>${member.mberAuth}</td>
-			</tr>
+		  <c:forEach items="${memberList}" var="memberList">
+				<tr>
+					<td>${memberList.mberId}</td>
+            		<td>${memberList.mberPw}</td>
+            		<td>${memberList.mberName}</td>
+            		<td>${memberList.mberEmail}</td>
+            		<td>${memberList.mberZip}</td>
+            		<td>${memberList.mberJib}</td>
+            		<td>${memberList.mberAddr}</td>
+            		<td>${memberList.mberTel}</td>
+            		<td>${memberList.mberAuth}</td>
+				</tr>
+			</c:forEach>
 		</tbody>
-		<form action="mber.do" method="GET">
-        	<label for="mberId">Member ID:</label>
-        	<input type="text" id="mberId" name="mberId" required>
-        	<button type="submit">Submit</button>
-    </form>
 	</table>
 </body>
 </html>

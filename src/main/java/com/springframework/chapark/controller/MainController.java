@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,10 +31,11 @@ public class MainController {
 	//테스트용
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
-	public String mber(Model model, commonMap commonMap) {
+	public String mber(Model model, Map paramMap) {
 		try {
-			Map<String, Object> member = ChaparkService.selectMap("tb_member.selectMberTest", commonMap);
-			model.addAttribute("member", member);
+			paramMap.put("mberId", "test1");
+			List<Map> memberList = ChaparkService.selectList(paramMap, "tb_member.selectMberTest");
+			model.addAttribute("memberList", memberList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
