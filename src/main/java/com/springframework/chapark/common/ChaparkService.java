@@ -4,23 +4,25 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class chaparkService {
+@Service
+public class ChaparkService {
 	private final ChaparkDAO chaparkDAO;
 
 	@Autowired
-	public chaparkService(ChaparkDAO chaparkDAO) {
+	public ChaparkService(ChaparkDAO chaparkDAO) {
 		this.chaparkDAO = chaparkDAO;
 	}
 
 	// 단건 조회 (Map)
-	public Map<String, Object> selectMap(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.selectMap(paramMap, mapperName, sqlId);
+	public Map selectMap(String sqlId, Map paramMap) throws Exception {
+		return chaparkDAO.selectMap(paramMap, sqlId);
 	}
 
 	// 단건 조회 (Object)
-	public Object selectObject(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.selectObject(paramMap, mapperName, sqlId);
+	public Object selectObject(commonMap paramMap, String sqlId) {
+		return chaparkDAO.selectObject(paramMap, sqlId);
 	}
 
 	// 다건 조회 (페이징 처리)
@@ -32,9 +34,9 @@ public class chaparkService {
 
 	// 다건 조회 (List)
 	// 추후 수정 예정
-	public List<Map<String, Object>> selectList(Map<String, Object> paramMap) {
+	public List<Map> selectList(Map paramMap,String sqlId) {
 		// 여기에 다건 조회 로직 추가
-		return chaparkDAO.selectList(paramMap);
+		return chaparkDAO.selectList(paramMap, sqlId);
 	}
 
 	// 삽입

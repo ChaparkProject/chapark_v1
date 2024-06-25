@@ -2,10 +2,16 @@ package com.springframework.chapark.common;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
+@Repository
 public class ChaparkDAO {
+	
 
 	private SqlSession sqlSession;
 
@@ -15,15 +21,13 @@ public class ChaparkDAO {
 	}
 
 	// 단건 조회 (Map)
-	public Map<String, Object> selectMap(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.selectOne(sql, paramMap);
+	public Map selectMap(Map paramMap, String sqlId) {
+		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
 	// 단건 조회 (Object)
-	public Object selectObject(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.selectOne(sql, paramMap);
+	public Object selectObject(commonMap paramMap, String sqlId) {
+		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
 	// 다건 조회 (페이징 처리)
@@ -34,8 +38,8 @@ public class ChaparkDAO {
 
 	// 다건 조회 (List)
 	// 추후 수정 예정
-	public List<Map<String, Object>> selectList(Map<String, Object> paramMap) {
-		return sqlSession.selectList("namespace.selectMultipleList", paramMap);
+	public List<Map> selectList(Map paramMap, String sqlId) {
+		return sqlSession.selectList(sqlId, paramMap);
 	}
 
 	// 삽입
