@@ -21,7 +21,7 @@ public class ChaparkService {
 	}
 
 	// 단건 조회 (Object)
-	public Object selectObject(commonMap paramMap, String sqlId) {
+	public Object selectObject(Map paramMap, String sqlId) {
 		return chaparkDAO.selectObject(paramMap, sqlId);
 	}
 
@@ -40,17 +40,17 @@ public class ChaparkService {
 	}
 
 	// 삽입
-	public int insert(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.insert(paramMap, mapperName, sqlId);
+	public int insert(Map paramMap,String sqlId) {
+		return chaparkDAO.insert(paramMap, sqlId);
 	}
 
 	// 업데이트
-	public int update(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.update(paramMap, mapperName, sqlId);
+	public int update(Map paramMap, String sqlId) {
+		return chaparkDAO.update(paramMap, sqlId);
 	}
 
 	// 삭제
-	public int delete(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		return chaparkDAO.delete(paramMap, mapperName, sqlId);
+	public int delete(Map paramMap, String sqlId) {
+		return chaparkDAO.delete(paramMap, sqlId);
 	}
 }

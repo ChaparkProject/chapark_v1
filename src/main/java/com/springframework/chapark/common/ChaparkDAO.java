@@ -26,7 +26,7 @@ public class ChaparkDAO {
 	}
 
 	// 단건 조회 (Object)
-	public Object selectObject(commonMap paramMap, String sqlId) {
+	public Object selectObject(Map paramMap, String sqlId) {
 		return sqlSession.selectOne(sqlId, paramMap);
 	}
 
@@ -43,20 +43,17 @@ public class ChaparkDAO {
 	}
 
 	// 삽입
-	public int insert(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.insert(sql, paramMap);
+	public int insert(Map paramMap, String sqlId) {
+		return sqlSession.insert(sqlId, paramMap);
 	}
 
 	// 업데이트
-	public int update(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.update(sql, paramMap);
+	public int update(Map<String, Object> paramMap, String sqlId) {
+		return sqlSession.update(sqlId, paramMap);
 	}
 
 	// 삭제
-	public int delete(Map<String, Object> paramMap, String mapperName, String sqlId) {
-		String sql = mapperName + "." + sqlId;
-		return sqlSession.delete(sql, paramMap);
+	public int delete(Map paramMap,String sqlId) {
+		return sqlSession.delete(sqlId, paramMap);
 	}
 }
