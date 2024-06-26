@@ -24,7 +24,7 @@ import com.springframework.chapark.common.commonMap;
 @Controller
 public class MainController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
+	 Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private ChaparkService ChaparkService;
