@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,7 @@ public class LoginController {
 
 	@SuppressWarnings("rawtypes" )
 	@RequestMapping(value = "/login.do")
-	public String loginMain(Model model, Map paramMap, HttpServletRequest request) throws Exception {
+	public String loginMain(Map paramMap, HttpServletRequest request) throws Exception {
 			//paramMap.put("mberId", "test1");
 			//paramMap.put("mberPw", "test1");
 			
@@ -36,15 +38,15 @@ public class LoginController {
 					session.setAttribute("memberInfo", memberInfo);
 					session.setMaxInactiveInterval(60 * 30); // 세션 유지시간 30분 설정, 60초 * 30분 = 1800초
 			} else { // 로그인 정보가 없을 시
-				request.setAttribute("msg", "로그인 정보가 없습니다.");
-				request.setAttribute("url", "/chapark/login.do");
+				return "mberTest";
 			}
-		return "/login.do";
+		return "login";
 	}
 
 	@RequestMapping(value = "/logout.do")
-	public String logout(Model model, Map paramMap) {
-
+	public String logout(Model model, Map paramMap, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("memberInfo");
 		return "logout";
 	}
 

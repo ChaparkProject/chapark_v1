@@ -23,7 +23,7 @@ public class ChaparkDAO {
 	}
 
 	// 단건 조회 (Map)
-	public Map selectMap(Map paramMap, String sqlId) throws IOException, SQLException {
+	public Map selectMap(Map paramMap, String sqlId)  {
 		return sqlSession.selectOne(sqlId, paramMap);
 	}
 

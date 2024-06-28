@@ -10,23 +10,35 @@
 	//alert(msg);
 
 	//location.href = url;
-	function loginButton() {
-		var mberId = document.getElementById("mberId").value;
-		var mberPw = document.getElementById("mberPw").value;
-
+	function login() {
+		
+		if($('#mberId').val() == '') {
+			alert("아이디를 입력하세요");
+			$('#mberId').focus;
+			return;
+		} else if($('#mberPw').val() == '') {
+			alert("비밀번호를 입력하세요");
+			$('#mberPw').focus;
+			return;
+		}
+		
 		$.ajax({
 			type : "POST", 
-			url : "/loginCheck.do", 
+			url : "/login.do", 
 			data : {
-				mberId: mberId,
-				mberPw: mberPw
+				mberId : $('#mberId').val(),
+				mberPw : $('#mberPw').val() 
 			},
 			success : function(result) {
-				alert('로그인 성공!');
-				location.href = "/sucessPage";
+				if(result == 'true') {
+					location.href = "/mber.do";
+				} else {
+					alert('아이디와 비밀번호가 일치하지 않습니다.');
+					$('#mberId').focus;
+				}
 			},
-			error : function(result) {
-				alert('로그인 실패');
+			error: function(error) {
+				alert(error); 
 			}
 		});
 	}
@@ -36,6 +48,6 @@
 	<div>
 		<input type="text" id="mberId" placeholder="아이디" /> 
 		<input type="password" id="mberPw" placeholder="비밀번호" />
-		<button onclick="loginButton()">로그인</button>
+		<a onclick="login()">로그인</a>
 	</div>
 </form>
