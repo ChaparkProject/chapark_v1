@@ -23,20 +23,21 @@ public class LoginController {
 	@Autowired
 	private ChaparkService ChaparkService;
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "null" })
 	@RequestMapping(value = "/login.do")
 	public String loginMain(Model model, Map paramMap, HttpServletRequest request) throws Exception {
 
 		Map memberInfo = ChaparkService.selectMap("lo_login.selectUserInfo", paramMap);
 
-		if (memberInfo != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("memberInfo", memberInfo);
-			session.setMaxInactiveInterval(60 * 30); // 세션 유지시간 30분 설정
+		if (memberInfo != null ||  !memberInfo.isEmpty()) { // 정보가 null이지 않을 때 or ""이지 않을때
+			if(memberInfo.get("MBER_ID").equals( paramMap.get("MBER_ID")) && memberInfo.get("MBER_PW").equals( paramMap.get("MBER_PW"))) {
+				HttpSession session = request.getSession();
+				session.setAttribute("memberInfo", memberInfo);
+				session.setMaxInactiveInterval(60 * 30); // 세션 유지시간 30분 설정,  초 * 분 = 초 ex) 60초 * 30분 = 1800초
+			}
 		} else { //로그인 정보가 없을 시
 			request.setAttribute("msg", "로그인이 필요합니다.");
 			request.setAttribute("url", "/chapark/login.do");
-
 		}
 
 		return "login";
