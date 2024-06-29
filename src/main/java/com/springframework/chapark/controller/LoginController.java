@@ -4,6 +4,7 @@ package com.springframework.chapark.controller;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -40,11 +41,11 @@ public class LoginController {
 					HttpSession session = request.getSession();
 					session.setAttribute("memberInfo", memberInfo);
 					session.setMaxInactiveInterval(60 * 30); // 세션 유지시간 30분 설정, 60초 * 30분 = 1800초
-					return "WEB-INF/views/mberTest";
+					//return "WEB-INF/views/mberTest";
 			} else { // 로그인 정보가 없을 시
 				return "login";
 			}
-		//return "login";
+		return "login";
 	}
 
 	@RequestMapping(value = "/logout.do")

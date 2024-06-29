@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.commonMap;
+import com.springframework.chapark.common.commonUtils;
 
 @Controller
 public class MainController {
@@ -69,5 +70,13 @@ public class MainController {
 
 		return "main";
 	}
+	
+
+	@RequestMapping(value = "/")
+    public String home(Model model) {
+		model.addAttribute("mainContent", "main.jsp");
+		return "layout";
+    }
+
 
 }
