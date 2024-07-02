@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.commonMap;
 import com.springframework.chapark.common.commonUtils;
+import com.springframework.chapark.utils.ChaparkUtil;
 
 @Controller
 public class MainController {
@@ -68,7 +69,7 @@ public class MainController {
 
 		model.addAttribute("serverTime", formattedDate);
 
-		return "main";
+		return ChaparkUtil.getLayoutPage();
 	}
 	
 
