@@ -23,8 +23,8 @@
 		  <c:forEach items="${memberList}" var="list">
 				<tr>
 					<td>${list.MBER_ID}</td>
-            		<td>${list.mberPw}</td>
-            		<td>${list.mberName}</td>
+          <td>${list.mberPw}</td>
+          <td>${list.mberName}</td>
 				</tr>
 			</c:forEach>
 		</tbody>

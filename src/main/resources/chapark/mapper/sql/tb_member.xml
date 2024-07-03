@@ -17,7 +17,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{mberId}
+			MBER_SEQ = '1'
 	</select>
 
 </mapper>
