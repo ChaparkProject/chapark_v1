@@ -7,9 +7,9 @@
 
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://129.154.54.137/chapark_v1" />
+    <property name="url" value="jdbc:mysql://database.ctses2imofvv.ap-northeast-2.rds.amazonaws.com/chapark" />
     <property name="username" value="chapark" />
-    <property name="password" value="ckqkr12#$" />
+    <property name="password" value="Ckqkr12#$" />
 </bean>
 
 

@@ -15,7 +15,7 @@
 			, MBER_TEL
 			, MBER_AUTH
 		FROM
-			TB_MEMBER
+			TB_MBER
 		WHERE
 			MBER_ID = #{mberId}
 	</select>

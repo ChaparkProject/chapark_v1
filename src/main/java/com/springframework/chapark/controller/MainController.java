@@ -1,13 +1,16 @@
 package com.springframework.chapark.controller;
 
 import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.commonMap;
-import com.springframework.chapark.common.commonUtils;
 import com.springframework.chapark.utils.ChaparkUtil;
 
 @Controller
@@ -39,10 +41,10 @@ public class MainController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
-	public String mber(Model model, Map paramMap) {
+	public String mber(Model model, commonMap commonMap) {
 		try {
-			paramMap.put("mberId", "test1");
-			List<Map> memberList = ChaparkService.selectList(paramMap, "tb_member.selectMberTest");
+			//paramMap.put("mberId", "test1");
+			List memberList = ChaparkService.selectList(commonMap.getMap(), "tb_member.selectMberTest");
 			model.addAttribute("memberList", memberList);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,6 +80,5 @@ public class MainController {
 		model.addAttribute("mainContent", "main.jsp");
 		return "layout";
     }
-
 
 }
