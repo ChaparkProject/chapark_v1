@@ -34,7 +34,7 @@ public class ChaparkService {
 
 	// 다건 조회 (List)
 	// 추후 수정 예정
-	public List<Map> selectList(Map paramMap,String sqlId) {
+	public List selectList(String sqlId,Map paramMap) {
 		// 여기에 다건 조회 로직 추가
 		return chaparkDAO.selectList(paramMap, sqlId);
 	}

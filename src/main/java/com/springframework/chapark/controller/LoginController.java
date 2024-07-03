@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springframework.chapark.common.ChaparkService;
+import com.springframework.chapark.common.commonMap;
 
 @Controller
 public class LoginController {
@@ -30,11 +31,11 @@ public class LoginController {
 	@SuppressWarnings({ "rawtypes", "unchecked" } )
 	@RequestMapping(value = "/login.do")
 
-	public String loginMain(@RequestParam Map<String, Object> paramMap, HttpServletRequest request) throws Exception {
-			paramMap.put("mberId",(String) paramMap.get("mberId"));
-			paramMap.put("mberPw",(String) paramMap.get("mberPw"));
+	public String loginMain(commonMap commonMap, HttpServletRequest request) throws Exception {
+		//commonMap.put("mberId",(String) commonMap.get("mberId"));
+		//commonMap.put("mberPw",(String) commonMap.get("mberPw"));
 			
-			Map memberInfo = ChaparkService.selectMap( "lo_login.selectUserInfo", paramMap);
+			Map memberInfo = ChaparkService.selectMap( "lo_login.selectUserInfo", commonMap.getMap());
 
 			if (memberInfo != null && !memberInfo.isEmpty()) { // 정보가 null이 아니고 비어있지 않을 때
 

@@ -40,7 +40,7 @@ public class ChaparkDAO {
 
 	// 다건 조회 (List)
 	// 추후 수정 예정
-	public List<Map> selectList(Map paramMap, String sqlId) {
+	public List selectList(Map paramMap, String sqlId) {
 		return sqlSession.selectList(sqlId, paramMap);
 	}
 

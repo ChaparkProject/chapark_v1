@@ -44,7 +44,7 @@ public class MainController {
 	public String mber(Model model, commonMap commonMap) {
 		try {
 			//paramMap.put("mberId", "test1");
-			List memberList = ChaparkService.selectList(commonMap.getMap(), "tb_member.selectMberTest");
+			Map memberList = ChaparkService.selectMap("tb_member.selectMberTest", commonMap.getMap());
 			model.addAttribute("memberList", memberList);
 		} catch (Exception e) {
 			e.printStackTrace();
