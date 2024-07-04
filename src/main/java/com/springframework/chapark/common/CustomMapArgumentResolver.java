@@ -17,14 +17,14 @@ public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver 
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
-		return commonMap.class.isAssignableFrom(parameter.getParameterType());
+		return CommonMap.class.isAssignableFrom(parameter.getParameterType());
 	}
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-		commonMap commonMap = new commonMap();
+		CommonMap CommonMap = new CommonMap();
 
 		HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 		Enumeration<?> enumeration = request.getParameterNames();
@@ -35,10 +35,10 @@ public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver 
 			key = (String) enumeration.nextElement();
 			values = request.getParameterValues(key);
 			if (values != null) {
-				commonMap.put(key, (values.length > 1) ? values : values[0]);
+				CommonMap.put(key, (values.length > 1) ? values : values[0]);
 			}
 		}
 
-		return commonMap;
+		return CommonMap;
 	}
 }

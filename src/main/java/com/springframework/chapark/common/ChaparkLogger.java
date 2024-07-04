@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class chaparkLogger extends HandlerInterceptorAdapter {
-	protected Logger log = LoggerFactory.getLogger(chaparkLogger.class);
+public class ChaparkLogger extends HandlerInterceptorAdapter {
+	protected Logger log = LoggerFactory.getLogger(ChaparkLogger.class);
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

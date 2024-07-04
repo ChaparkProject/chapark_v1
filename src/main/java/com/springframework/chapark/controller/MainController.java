@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.springframework.chapark.common.ChaparkService;
-import com.springframework.chapark.common.commonMap;
+import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.utils.ChaparkUtil;
 
 @Controller
@@ -41,10 +41,10 @@ public class MainController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
-	public String mber(Model model, commonMap commonMap) {
+	public String mber(Model model, CommonMap CommonMap) {
 		try {
 			//paramMap.put("mberId", "test1");
-			List<commonMap> memberList = ChaparkService.selectList("tb_member.selectMberTest", commonMap.getMap());
+			List<CommonMap> memberList = ChaparkService.selectList("tb_member.selectMberTest", CommonMap.getMap());
 			model.addAttribute("memberList", memberList);
 		} catch (Exception e) {
 			e.printStackTrace();
