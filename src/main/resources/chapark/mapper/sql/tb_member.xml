@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="tb_member">
-	<select id="selectMberTest" resultType="map" parameterType="map">
+	<select id="selectMberTest" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -16,8 +16,6 @@
 			, MBER_AUTH
 		FROM
 			TB_MBER
-		WHERE
-			MBER_SEQ = '1'
 	</select>
 
 </mapper>

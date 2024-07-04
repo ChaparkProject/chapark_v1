@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 
 @Repository
 public class ChaparkDAO {

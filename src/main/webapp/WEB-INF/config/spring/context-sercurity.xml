@@ -32,5 +32,6 @@
 			<password-encoder ref="bcryptPasswordEncoder" />
 		</authentication-provider>
 	</authentication-manager>
+	
 
 </beans:beans>
