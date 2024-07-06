@@ -36,6 +36,11 @@
 		<appender-ref ref="console" />
 	</logger>
 
+	<logger name="org.springframework" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+	</logger>
+
 	<!-- Root Logger -->
 	<root>
 		<priority value="off" />
