@@ -47,5 +47,9 @@
 	<!-- Define password encoder -->
 	<bean id="passwordEncoder"
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+		
+		<!-- Define custom UserDetailsService bean -->
+	<!--  <bean id="customUserDetailsService"
+		class="com.example.CustomUserDetailsService" />-->
 
 </beans>
