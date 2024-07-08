@@ -23,7 +23,7 @@
 		<security:form-login login-page="/login.do"
 			login-processing-url="/login.do"
 			authentication-failure-url="/login.do?error=true"
-			default-target-url="/welcome" username-parameter="mberName"
+			default-target-url="/mber.do" username-parameter="mberName"
 			password-parameter="password" />
 
 		<!-- Disable CSRF -->
