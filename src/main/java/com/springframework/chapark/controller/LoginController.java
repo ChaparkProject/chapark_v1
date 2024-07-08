@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
+import com.springframework.chapark.security.CustomUserDetails;
+import com.springframework.chapark.security.CustomUserDetailsService;
 
 @Controller
 public class LoginController {
@@ -27,24 +29,35 @@ public class LoginController {
 
 	@Autowired
 	private ChaparkService ChaparkService;
+	
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
+	
+	
 
 	@SuppressWarnings({ "rawtypes", "unchecked" } )
 	@RequestMapping(value = "/login.do")
 
-	public String loginMain(CommonMap CommonMap, HttpServletRequest request) throws Exception {
+	public String loginMain(CommonMap commonMap, HttpServletRequest request) throws Exception {
 			
-			Map memberInfo = ChaparkService.selectMap( "lo_login.selectUserInfo", CommonMap.getMap());
+			//Map memberInfo = ChaparkService.selectMap( "lo_login.selectUserInfo", CommonMap.getMap());
+		try {
+			String username = commonMap.get("username").toString();
+			CustomUserDetails userDetails = CustomUserDetailsService.loadUserByUsername(username, commonMap, request);
 
-			if (memberInfo != null && !memberInfo.isEmpty()) { // 정보가 null이 아니고 비어있지 않을 때
-
+			if (userDetails != null) { // 정보가 null이 아니고 비어있지 않을 때
+					//세션에 저장
 					HttpSession session = request.getSession();
-					session.setAttribute("memberInfo", memberInfo);
+					session.setAttribute("userDetails", userDetails);
 					session.setMaxInactiveInterval(60 * 30); // 세션 유지시간 30분 설정, 60초 * 30분 = 1800초
-					//return "WEB-INF/views/mberTest";
+					return "redirect:/main.jsp";
 			} else { // 로그인 정보가 없을 시
 				return "login";
 			}
-		return "login";
+		}catch (Exception e) {
+	        // 예외 발생 시
+	        return "main";
+	    }
 	}
 
 	@RequestMapping(value = "/logout.do")

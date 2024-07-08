@@ -17,7 +17,7 @@ import com.springframework.chapark.common.CommonMap;
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private ChaparkService chaparkService;
+	private static ChaparkService chaparkService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -26,11 +26,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 	}
 
 	@SuppressWarnings("unchecked")
-	public CustomUserDetails loadUserByUsername(String username, CommonMap commonMap, HttpServletRequest request)
+	public static CustomUserDetails loadUserByUsername(String username, CommonMap commonMap, HttpServletRequest request)
 			throws UsernameNotFoundException {
 		try {
 			// 사용자 정보 조회
-			Map<String, Object> memberInfo = chaparkService.selectMap("lo_login.selectUserInfo", commonMap.getMap());
+			Map<String, Object> memberInfo = chaparkService.selectMap("lo_login.selectSecurityUserInfo", commonMap.getMap());
 
 			if (memberInfo != null && !memberInfo.isEmpty()) {
 				// 사용자 정보를 CustomUserDetails 객체에 매핑
@@ -42,8 +42,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 				userDetails.setEnabled((Boolean) memberInfo.get("ENABLED"));
 
 				// 세션에 사용자 정보를 저장
-				request.getSession().setAttribute("userDetails", userDetails);
-
+				if (request != null) {
+					request.getSession().setAttribute("userDetails",userDetails);
+				}
+				
 				return userDetails;
 			} else {
 				throw new UsernameNotFoundException("오류가 발생했습니다. 사용자 이름: " + username);
