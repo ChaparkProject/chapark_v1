@@ -50,6 +50,6 @@
 		
 		<!-- Define custom UserDetailsService bean -->
 	<!--  <bean id="customUserDetailsService"
-		class="com.example.CustomUserDetailsService" />-->
+		class="com.springframework.chapark.security.CustomUserDetailsService" />-->
 
 </beans>

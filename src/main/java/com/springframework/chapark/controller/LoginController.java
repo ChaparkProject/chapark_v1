@@ -32,8 +32,6 @@ public class LoginController {
 	@RequestMapping(value = "/login.do")
 
 	public String loginMain(CommonMap CommonMap, HttpServletRequest request) throws Exception {
-		//commonMap.put("mberId",(String) commonMap.get("mberId"));
-		//commonMap.put("mberPw",(String) commonMap.get("mberPw"));
 			
 			Map memberInfo = ChaparkService.selectMap( "lo_login.selectUserInfo", CommonMap.getMap());
 
