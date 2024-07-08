@@ -56,7 +56,7 @@ public class LoginController {
 			}
 		}catch (Exception e) {
 	        // 예외 발생 시
-	        return "main";
+	        return "login";
 	    }
 	}
 

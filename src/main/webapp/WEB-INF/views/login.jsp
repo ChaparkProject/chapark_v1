@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!--  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+ <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 	function login() {
 		if ($('#mberId').val() == '') {
@@ -36,17 +36,17 @@
 			}
 		});
 	}
-</script>-->
+</script>
 
 <form id="loginForm" action="<c:url value='/login.do' />" method="post">
 	<label for="username">Username:</label>
-		<input type="text" id="username" name="username" required="required" />
+		<input type="text" id="mberId" name="mberId" required="required" />
 		<br/>
 		<label for="password">Password:</label>
-		<input type="password" id="password" name="password" required="required" />
+		<input type="password" id="mberId" name="mberId" required="required" />
 		<br/>
 		<input type="submit" value="Login" />
 		<c:if test="${param.error != null}">
-			<p style="color:red;">Invalid username or password.</p>
+			<p style="color:red;">error!</p>
 		</c:if>
 </form>
