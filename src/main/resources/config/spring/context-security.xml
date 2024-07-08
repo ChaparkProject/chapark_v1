@@ -23,7 +23,7 @@
 		<security:form-login login-page="/login.do"
 			login-processing-url="/login.do"
 			authentication-failure-url="/login.do?error=true"
-			default-target-url="/welcome" username-parameter="username"
+			default-target-url="/welcome" username-parameter="mberName"
 			password-parameter="password" />
 
 		<!-- Disable CSRF -->
@@ -37,7 +37,7 @@
 				<security:user name="admin"
 					password="{bcrypt}$2a$10$0S3QvTug7Rz9hSxVFR20v.N/9Vs.D4MM4XqfB82eTGl7K05xw9V0m"
 					authorities="ROLE_ADMIN" />
-				<security:user name="user"
+				<security:user name="client"
 					password="{bcrypt}$2a$10$T.8XhGxHH6rdNWH4d76h7e22doZu8wpgMcwm0iEFi2MA6H0Oxv9Vi"
 					authorities="ROLE_USER" />
 			</security:user-service>
@@ -49,7 +49,7 @@
 		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 		
 		<!-- Define custom UserDetailsService bean -->
-	<!--  <bean id="customUserDetailsService"
-		class="com.springframework.chapark.security.CustomUserDetailsService" />-->
+	<bean id="customUserDetailsService"
+		class="com.springframework.chapark.security.CustomUserDetailsService" />
 
 </beans>
