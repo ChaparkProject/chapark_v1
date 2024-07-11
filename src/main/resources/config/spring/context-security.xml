@@ -1,55 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd
            http://www.springframework.org/schema/security
            http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<!-- Define Spring Security configuration -->
-	<security:http auto-config="true">
-		<!-- Define URL patterns and access permissions -->
-		<security:intercept-url pattern="/"
-			access="permitAll" />
-		<security:intercept-url pattern="/login.do"
-			access="permitAll" />
-		<security:intercept-url pattern="/admin/**"
-			access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/**"
-			access="authenticated" />
+    <!-- Define Spring Security configuration -->
+    <security:http auto-config="true">
+        <!-- Define URL patterns and access permissions -->
+        <security:intercept-url pattern="/" access="permitAll" />
+        <security:intercept-url pattern="/login.do" access="permitAll" />
+        <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+        <security:intercept-url pattern="/**" access="authenticated" />
 
-		<!-- Configure form login -->
-		<security:form-login login-page="/login.do"
-			login-processing-url="/login.do"
-			authentication-failure-url="/login.do?error=true"
-			default-target-url="/main.do" username-parameter="mberName"
-			password-parameter="password" />
+        <!-- Configure form login -->
+        <security:form-login 
+            login-page="/login.do"
+            login-processing-url="/login.do"
+            authentication-failure-url="/login.do?error=true"
+            default-target-url="/main.do" 
+            username-parameter="mberId"
+            password-parameter="mberPw" />
 
-		<!-- Disable CSRF -->
-		<security:csrf disabled="true" />
-	</security:http>
+        <!-- Disable CSRF -->
+        <security:csrf disabled="true" />
+    </security:http>
 
-	<!-- Define authentication provider -->
-	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="admin"
-					password="{bcrypt}$2a$10$0S3QvTug7Rz9hSxVFR20v.N/9Vs.D4MM4XqfB82eTGl7K05xw9V0m"
-					authorities="ROLE_ADMIN" />
-				<security:user name="client"
-					password="{bcrypt}$2a$10$T.8XhGxHH6rdNWH4d76h7e22doZu8wpgMcwm0iEFi2MA6H0Oxv9Vi"
-					authorities="ROLE_USER" />
-			</security:user-service>
-		</security:authentication-provider>
-	</security:authentication-manager>
+    <!-- Define authentication manager with custom UserDetailsService -->
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="customUserDetailsService">
+            <!-- <security:password-encoder ref="passwordEncoder"/> -->
+            <security:password-encoder ref="NoOpPasswordEncoder"/>
+        </security:authentication-provider>
+    </security:authentication-manager>
 
-	<!-- Define password encoder -->
-	<bean id="passwordEncoder"
-		class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-		
-		<!-- Define custom UserDetailsService bean -->
-	<bean id="customUserDetailsService"
-		class="com.springframework.chapark.security.CustomUserDetailsService" />
+    <!-- Define password encoder -->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
+    <!-- Define custom UserDetailsService bean -->
+    <bean id="customUserDetailsService" class="com.springframework.chapark.security.CustomUserDetailsService" />
+    
 </beans>
