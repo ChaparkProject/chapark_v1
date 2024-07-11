@@ -1,20 +1,25 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page session="false"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8" errorPage="IsErrorPage.jsp"%>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script></script>
 <html>
 <head>
-<title>Home</title>
+<meta name="viewport" content="width-device-width", initial-scale = "1"/>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+   <style type="text/css">
+      .main{
+         display: flex;
+         justify-content: center;
+      }
+   </style>
+   <meta charset="UTF-8">
 </head>
 <body>
-	<h2>Welcome</h2>
-	<sec:authorize access="isAuthenticated()">
-		<p>
-			Logged in as:
-			<sec:authentication property="principal.username" />
-		</p>
-		<form action="<c:url value='/logout' />" method="post">
-			<input type="submit" value="Logout" />
-		</form>
-	</sec:authorize>
+   <div class="main">
+   
+
+   </div>
 </body>
 </html>
+
+
