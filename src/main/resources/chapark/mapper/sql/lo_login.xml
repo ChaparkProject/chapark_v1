@@ -19,8 +19,9 @@
 		WHERE
 			MBER_ID = #{mberId}
 			AND MBER_PW = #{mberPw}
+			AND MBER_NAME = #{mberName}
 	</select>
-	<select id="selectSecurityUserInfo" parameterType="String" resultType="com.springframework.chapark.security.CustomUserDetails">
+	<select id="selectSecurityUserInfo" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -35,7 +36,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_NAME = #{mberName}
+			MBER_ID = #{mberId}
 	</select>
 
 </mapper>

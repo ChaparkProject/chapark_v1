@@ -31,8 +31,8 @@
     <!-- Define authentication manager with custom UserDetailsService -->
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="customUserDetailsService">
-            <!-- <security:password-encoder ref="passwordEncoder"/> -->
-            <security:password-encoder ref="NoOpPasswordEncoder"/>
+             <security:password-encoder ref="passwordEncoder"/>
+            <!--  <0security:password-encoder ref="NoOpPasswordEncoder"/>-->
         </security:authentication-provider>
     </security:authentication-manager>
 
