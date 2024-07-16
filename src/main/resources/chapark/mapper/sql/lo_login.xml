@@ -19,28 +19,6 @@
 		WHERE
 			MBER_ID = #{mberId}
 			AND MBER_PW = #{mberPw}
-			AND MBER_NAME = #{mberName}
-	</select>
-<<<<<<< HEAD
-
-=======
->>>>>>> branch 'master' of https://github.com/ChaparkProject/chapark_v1.git
-	<select id="selectSecurityUserInfo" parameterType="map" resultType="map">
-		SELECT 
-			MBER_SEQ
-			, MBER_ID
-			, MBER_PW
-			, MBER_NAME
-			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
-			, MBER_AUTH
-		FROM
-			TB_MBER
-		WHERE
-			MBER_ID = #{mberId}
 	</select>
 
 </mapper>
