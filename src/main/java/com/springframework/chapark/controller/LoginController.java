@@ -1,33 +1,39 @@
 package com.springframework.chapark.controller;
 
-
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
+=======
+>>>>>>> branch 'master' of https://github.com/ChaparkProject/chapark_v1.git
 
 @Controller
 public class LoginController {
-	Logger logger = LoggerFactory.getLogger(this.getClass());
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
+<<<<<<< HEAD
 	@Autowired
 	private ChaparkService ChaparkService;
+=======
+    @RequestMapping(value = "/login.do")
+    public String loginPage() {
+        return "login";
+    }
+>>>>>>> branch 'master' of https://github.com/ChaparkProject/chapark_v1.git
 
+<<<<<<< HEAD
 	@SuppressWarnings({ "rawtypes", "unchecked" } )
 	@RequestMapping(value = "/login.do")
 
@@ -56,4 +62,12 @@ public class LoginController {
 		return "logout";
 	}
 
+=======
+    @RequestMapping(value = "/logout.do")
+    public String logout(Model model, Map paramMap, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("memberInfo");
+        return "logout";
+    }
+>>>>>>> branch 'master' of https://github.com/ChaparkProject/chapark_v1.git
 }
