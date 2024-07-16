@@ -4,7 +4,6 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
@@ -30,7 +29,7 @@ public class CustomUserDetails implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return MBER_NAME;
+		return MBER_ID; // 사용자 ID로 설정
 	}
 
 	@Override
@@ -57,16 +56,16 @@ public class CustomUserDetails implements UserDetails {
 		return MBER_NAME;
 	}
 
-	public void setName(String mberName) {
-		this.MBER_NAME = mberName;
+	public void setName(String MBER_NAME) {
+		this.MBER_NAME = MBER_NAME;
 	}
 
-	public void setUsername(String mberName) {
-		this.MBER_NAME = mberName;
+	public void setUsername(String MBER_ID) {
+		this.MBER_ID = MBER_ID; // 사용자 ID로 설정
 	}
 
-	public void setPassword(String mberPw) {
-		this.MBER_PW = mberPw;
+	public void setPassword(String MBER_PW) {
+		this.MBER_PW = MBER_PW;
 	}
 
 	public void setRole(String mberAuth) {

@@ -4,7 +4,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link href="/assets/css/common.css" rel="stylesheet" type="text/css">
+<link href="/asset/css/common.css" rel="stylesheet" type="text/css">
 <script>
 function pageChange(page) {
 	$.ajax({
@@ -34,16 +34,16 @@ function login() {
 		return;
 	}
 	
-	$.ajax({
+	<%--$.ajax({
 		type: "POST",
-		url: "/chapark/login.do",
+		url: "/login.do",
 		data: {
 			'mberId': $('#mberId').val(),
 			'mberPw': $('#mberPw').val()
 		},
 		success: function(result) {
 			if (result) {
-				location.href = "/chapark/mber.do";
+				location.href = "/main.do";
 			} else {
 				alert('아이디와 비밀번호가 일치하지 않습니다.');
 				$('#mberId').focus();
@@ -52,7 +52,7 @@ function login() {
 		error: function() {
 			alert("오류가 발생했습니다.");
 		}
-	});
+	});--%>
 }
 </script>
 <html> 

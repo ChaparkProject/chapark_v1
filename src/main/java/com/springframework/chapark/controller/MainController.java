@@ -36,13 +36,14 @@ import com.springframework.chapark.utils.ChaparkUtil;
 @Controller
 public class MainController {
 
-	 Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private ChaparkService ChaparkService;
 
 	/**
 	 * 테스트용
+	 * 
 	 * @param model
 	 * @param paramMap
 	 * @return
@@ -51,7 +52,7 @@ public class MainController {
 	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
 	public String mber(Model model, CommonMap CommonMap) {
 		try {
-			//paramMap.put("mberId", "test1");
+			// paramMap.put("mberId", "test1");
 			List<CommonMap> memberList = ChaparkService.selectList("tb_member.selectMberTest", CommonMap.getMap());
 			model.addAttribute("memberList", memberList);
 		} catch (Exception e) {
@@ -60,9 +61,10 @@ public class MainController {
 
 		return "mberTest";
 	}
-	
+
 	/**
 	 * 테스트용
+	 * 
 	 * @param locale
 	 * @param model
 	 * @return
@@ -73,43 +75,40 @@ public class MainController {
 
 		// 현재 날짜 및 시간 가져오기
 		LocalDateTime currentDateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG)
-				.withLocale(locale);
+		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG).withLocale(locale);
 		String formattedDate = currentDateTime.format(formatter);
 
 		model.addAttribute("serverTime", formattedDate);
 
 		return ChaparkUtil.getLayoutPage();
 	}
-	
 
 	@RequestMapping(value = "/")
-    public String home(Model model) {
+	public String home(Model model) {
 		model.addAttribute("mainContent", "main.jsp");
 		return "index";
-    }
-	
+	}
 
-    @RequestMapping(value = "/changePage", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-    @ResponseBody
-    public String changePage(@RequestParam("page") String page, HttpServletRequest request, HttpServletResponse response) {
-        try {
-            response.setCharacterEncoding("UTF-8");
-            response.setContentType("text/html; charset=UTF-8");
+	@RequestMapping(value = "/changePage", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String changePage(@RequestParam("page") String page, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html; charset=UTF-8");
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/" + page);
-            StringWriter stringWriter = new StringWriter();
-            dispatcher.include(request, new HttpServletResponseWrapper(response) {
-                @Override
-                public java.io.PrintWriter getWriter() {
-                    return new java.io.PrintWriter(stringWriter);
-                }
-            });
-            return stringWriter.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "오류가 발생했습니다.";
-        }
-    }
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/" + page);
+			StringWriter stringWriter = new StringWriter();
+			dispatcher.include(request, new HttpServletResponseWrapper(response) {
+				@Override
+				public java.io.PrintWriter getWriter() {
+					return new java.io.PrintWriter(stringWriter);
+				}
+			});
+			return stringWriter.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "오류가 발생했습니다.";
+		}
+	}
 
 }

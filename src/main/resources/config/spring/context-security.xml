@@ -20,26 +20,26 @@
             login-page="/login.do"
             login-processing-url="/login.do"
             authentication-failure-url="/login.do?error=true"
-            default-target-url="/main.do" 
-            username-parameter="mberId"
-            password-parameter="mberPw" />
+            default-target-url="/" 
+            username-parameter="MBER_ID"
+            password-parameter="MBER_PW" />
 
         <!-- Disable CSRF -->
         <security:csrf disabled="true" />
     </security:http>
 
-    <!-- Define authentication manager with custom UserDetailsService -->
-    <security:authentication-manager>
-        <security:authentication-provider user-service-ref="customUserDetailsService">
-             <security:password-encoder ref="passwordEncoder"/>
-            <!--  <0security:password-encoder ref="NoOpPasswordEncoder"/>-->
-        </security:authentication-provider>
-    </security:authentication-manager>
+<!-- Define authentication manager with custom UserDetailsService -->
+<security:authentication-manager>
+    <security:authentication-provider user-service-ref="CustomUserDetailsService">
+        <security:password-encoder ref="passwordEncoder"/>
+    </security:authentication-provider>
+</security:authentication-manager>
 
-    <!-- Define password encoder -->
-    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+<!-- Define password encoder -->
+<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 
-    <!-- Define custom UserDetailsService bean -->
-    <bean id="customUserDetailsService" class="com.springframework.chapark.security.CustomUserDetailsService" />
+<!-- Define custom UserDetailsService bean -->
+<bean id="customUserDetailsService" class="com.springframework.chapark.security.CustomUserDetailsService" />
+
     
 </beans>

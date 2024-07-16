@@ -20,7 +20,7 @@
 	</appender>
 
 	<!-- Application Loggers -->
-	<logger name="com.mycompany.myapp" additivity="false">
+	<logger name="com.springframework.chapark" additivity="false">
 		<level value="debug" />
 		<appender-ref ref="console" />
 	</logger>
@@ -34,6 +34,18 @@
 	<logger name="jdbc.resultsettable" additivity="false">
 		<level value="INFO" />
 		<appender-ref ref="console" />
+	</logger>
+
+	<logger name="org.springframework">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
+	</logger>
+
+	<logger name="org.springframework.security">
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+		<appender-ref ref="file" />
 	</logger>
 
 	<!-- Root Logger -->

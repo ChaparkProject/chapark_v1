@@ -4,6 +4,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,15 +17,17 @@ import com.springframework.chapark.common.CommonMap;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ChaparkService chaparkService;
 
     @Override
-    public UserDetails loadUserByUsername(String mberId) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String MBER_ID) throws UsernameNotFoundException {
         CommonMap commonMap = new CommonMap();
-        commonMap.put("mberId", mberId);
-        return loadUserByUsername(mberId, commonMap, null);
+        commonMap.put("MBER_ID", MBER_ID);
+        return loadUserByUsername(MBER_ID, commonMap, null);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,8 +37,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             // 사용자 정보 조회
             Map<String, Object> memberInfo = chaparkService.selectMap("lo_login.selectSecurityUserInfo", commonMap.getMap());
 
-            System.out.println("================================= memberInfo ==> ");
-            System.out.println(memberInfo);
             if (memberInfo != null && !memberInfo.isEmpty()) {
                 // 사용자 정보를 CustomUserDetails 객체에 매핑
                 CustomUserDetails userDetails = new CustomUserDetails();
