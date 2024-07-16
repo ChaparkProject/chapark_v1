@@ -1,0 +1,19 @@
+.div{
+	background-color: silver;
+}
+.container{
+	background-color: skyblue;
+}
+.footer{
+	display: flex;
+	justify-content: center;
+}
+.main{
+	display: flex;
+	justify-content: center;
+}
+
+.d-flex{
+	display: flex;
+	justify-content: center;
+}

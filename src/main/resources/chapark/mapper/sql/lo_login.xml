@@ -20,22 +20,5 @@
 			MBER_ID = #{mberId}
 			AND MBER_PW = #{mberPw}
 	</select>
-	<select id="selectSecurityUserInfo" parameterType="String" resultType="com.springframework.chapark.security.CustomUserDetails">
-		SELECT 
-			MBER_SEQ
-			, MBER_ID
-			, MBER_PW
-			, MBER_NAME
-			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
-			, MBER_AUTH
-		FROM
-			TB_MBER
-		WHERE
-			MBER_NAME = #{mberName}
-	</select>
 
 </mapper>
