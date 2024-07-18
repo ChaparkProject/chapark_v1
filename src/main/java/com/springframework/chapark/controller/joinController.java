@@ -24,20 +24,20 @@ public class joinController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@GetMapping("/join")
+	@GetMapping("/join.do")
 	public String joinForm() {
 		return "join";
 	}
 
-	@RequestMapping("/join")
+	@PostMapping("/join.do")
 	public String join(CommonMap commonMap, Model model) {
 		try {
 			// 비밀번호 암호화
-			String encryptedPassword = passwordEncoder.encode((String) commonMap.get("MBER_PW"));
+			String encryptedPassword = passwordEncoder.encode((String) commonMap.get("password"));
 
 			// 회원 정보 저장
-			commonMap.put("password", encryptedPassword);
-			chaparkService.insert("tb_member.insertMember",commonMap.getMap());
+			commonMap.put("MBER_PW", encryptedPassword);
+			chaparkService.insert("tb_member.insertMberJoin",commonMap.getMap());
 
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");

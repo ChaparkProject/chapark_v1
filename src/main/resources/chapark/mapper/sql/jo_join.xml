@@ -1,27 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="lo_login">
-	<select id="selectUserInfo" resultType="map" parameterType="map">
-		SELECT 
-			MBER_SEQ
-			, MBER_ID
-			, MBER_PW
-			, MBER_NAME
-			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
-			, MBER_AUTH
-		FROM
-			TB_MBER
-		WHERE
-			MBER_ID = #{mberId}
-			AND MBER_PW = #{mberPw}
-			AND MBER_NAME = #{mberName}
-	</select>
-	<select id="selectSecurityUserInfo" parameterType="map" resultType="com.springframework.chapark.security.CustomUserDetails">
+<mapper namespace="jo_join">
+	<select id="selectSecurityUserInfo" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -38,5 +19,29 @@
 		WHERE
 			MBER_ID = #{MBER_ID}
 	</select>
+	<insert id="insertMberJoin" parameterType="map">
+		INSERT TB_MBER INTO
+				MBER_SEQ
+			, MBER_ID
+			, MBER_PW
+			, MBER_NAME
+			, MBER_EMAIL
+			, MBER_ZIP
+			, MBER_JIB
+			, MBER_ADDR
+			, MBER_TEL
+			, MBER_AUTH
+			VALUES
+			#{mberSeq}
+			, #{mberId}
+			, #{mberPw}
+			, #{mberName}
+			, #{mberEmail}
+			, #{mberzip}
+			, #{mberJib}
+			, #{mberAddr}
+			, #{mberTel}
+			, #{mberAuth}
+	</insert>
 
 </mapper>

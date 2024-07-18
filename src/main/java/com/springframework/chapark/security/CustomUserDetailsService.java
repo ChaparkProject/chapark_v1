@@ -36,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         try {
         	logger.debug("Attempting to load user by username: " + MBER_ID);
             // 사용자 정보 조회
-            Map<String, Object> memberInfo = chaparkService.selectMap("lo_login.selectSecurityUserInfo", commonMap.getMap());
+            Map memberInfo = chaparkService.selectMap("lo_login.selectSecurityUserInfo", commonMap.getMap());
 
             if (memberInfo != null && !memberInfo.isEmpty()) {
             	logger.debug("User found: " + memberInfo);

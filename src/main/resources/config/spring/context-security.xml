@@ -9,23 +9,23 @@
 
 	<security:http auto-config="true">
 		<!-- URL에 따른 접근 제어 -->
-		<security:intercept-url pattern="/" access="permitAll" />
-		<security:intercept-url pattern="/login.do" access="permitAll" />
-		<security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/login.do"
+			access="permitAll" />
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
 		<!-- <security:intercept-url pattern="/**" access="authenticated" /> -->
 
 		<!-- 로그인 설정 -->
-		<security:form-login 
-			login-page="/login.do"
+		<security:form-login login-page="/login.do"
 			login-processing-url="/login.do"
 			authentication-failure-url="/login.do?error=true"
-			default-target-url="/" 
-			username-parameter="MBER_ID"
-			password-parameter="MBER_PW" />
+			default-target-url="/" username-parameter="username"
+			password-parameter="password" />
 
 		<!-- 로그아웃 설정 -->
-		<security:logout 
-			logout-url="/logout"
+		<security:logout logout-url="/logout"
 			logout-success-url="/login?logout" />
 
 		<!-- Disable CSRF -->
@@ -34,8 +34,10 @@
 
 	<!-- Define authentication manager with custom UserDetailsService -->
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="customUserDetailsService">
-			<security:password-encoder ref="passwordEncoder" />
+		<security:authentication-provider
+			user-service-ref="customUserDetailsService">
+			<security:password-encoder
+				ref="passwordEncoder" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 
@@ -46,6 +48,4 @@
 	<!-- Define custom UserDetailsService bean -->
 	<bean id="customUserDetailsService"
 		class="com.springframework.chapark.security.CustomUserDetailsService" />
-
-
 </beans>
