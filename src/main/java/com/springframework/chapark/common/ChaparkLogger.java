@@ -10,27 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-public class ChaparkLogger extends HandlerInterceptorAdapter {
-	protected Logger log = LoggerFactory.getLogger(ChaparkLogger.class);
-
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		if (log.isDebugEnabled()) {
-			log.debug(
-					"======================================          START         ======================================");
-			log.debug(" Request URI \t:  " + request.getRequestURI());
-		}
-		return super.preHandle(request, response, handler);
+public class ChaparkLogger {
+	 static Logger logger = LoggerFactory.getLogger(ChaparkLogger.class);
+	
+	public static void debug(Exception e,  Class c, String method) {
+		logger.debug("chapark" + c.getName() + method + e.getClass().getName());
 	}
-
-	@Override
-	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
-		if (((org.slf4j.Logger) log).isDebugEnabled()) {
-			log.debug(
-					"======================================           END          ======================================\n");
-		}
-	}
-
 }
