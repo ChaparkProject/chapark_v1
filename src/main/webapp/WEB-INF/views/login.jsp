@@ -72,8 +72,8 @@ body {
 				return;
 			}
 		}
-
 		$('#loginForm').on('submit', function() {
+			console.log("mberId의 값:", $('#mberId').val());
 			login();
 		});
 	</script>

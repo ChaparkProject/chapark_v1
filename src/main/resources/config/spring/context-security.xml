@@ -30,7 +30,7 @@
 
 <!-- Define authentication manager with custom UserDetailsService -->
 <security:authentication-manager>
-    <security:authentication-provider user-service-ref="CustomUserDetailsService">
+    <security:authentication-provider user-service-ref="customUserDetailsService">
         <security:password-encoder ref="passwordEncoder"/>
     </security:authentication-provider>
 </security:authentication-manager>
