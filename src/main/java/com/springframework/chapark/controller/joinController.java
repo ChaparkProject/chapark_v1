@@ -33,7 +33,7 @@ public class joinController {
 	public String join(CommonMap commonMap, Model model) {
 		try {
 			// 비밀번호 암호화
-			String encryptedPassword = passwordEncoder.encode((String) commonMap.get("password"));
+			String encryptedPassword = passwordEncoder.encode((String) commonMap.get("MBER_PW"));
 
 			// 회원 정보 저장
 			commonMap.put("password", encryptedPassword);
