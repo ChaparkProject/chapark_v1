@@ -13,7 +13,6 @@ function pageChange(page) {
 		data: {
 			'page': page,
 		},
-		dataType: 'html',
 		success: function(result) {
             $('#mainContent').html(result);
 		},
@@ -34,7 +33,7 @@ function login() {
 		return;
 	}
 	
-	<%--$.ajax({
+	$.ajax({
 		type: "POST",
 		url: "/login.do",
 		data: {
@@ -52,7 +51,7 @@ function login() {
 		error: function() {
 			alert("오류가 발생했습니다.");
 		}
-	});--%>
+	});
 }
 </script>
 <html> 

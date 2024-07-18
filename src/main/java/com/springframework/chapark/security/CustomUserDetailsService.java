@@ -31,13 +31,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @SuppressWarnings("unchecked")
-    public CustomUserDetails loadUserByUsername(String mberId, CommonMap commonMap, HttpServletRequest request)
+    public CustomUserDetails loadUserByUsername(String MBER_ID, CommonMap commonMap, HttpServletRequest request)
             throws UsernameNotFoundException {
         try {
+        	logger.debug("Attempting to load user by username: " + MBER_ID);
             // 사용자 정보 조회
             Map<String, Object> memberInfo = chaparkService.selectMap("lo_login.selectSecurityUserInfo", commonMap.getMap());
 
             if (memberInfo != null && !memberInfo.isEmpty()) {
+            	logger.debug("User found: " + memberInfo);
+            	
                 // 사용자 정보를 CustomUserDetails 객체에 매핑
                 CustomUserDetails userDetails = new CustomUserDetails();
                 userDetails.setUsername((String) memberInfo.get("MBER_ID"));
@@ -53,7 +56,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
                 return userDetails;
             } else {
-                throw new UsernameNotFoundException("오류가 발생했습니다. 사용자 아이디: " + mberId);
+                throw new UsernameNotFoundException("오류가 발생했습니다. 사용자 아이디: " + MBER_ID);
             }
         } catch (Exception e) {
             throw new UsernameNotFoundException("사용자 정보를 검색하는 중 오류가 발생했습니다.", e);

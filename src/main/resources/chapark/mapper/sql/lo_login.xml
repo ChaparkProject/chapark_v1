@@ -36,7 +36,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{mberId}
+			MBER_ID = #{MBER_ID}
 	</select>
 
 </mapper>

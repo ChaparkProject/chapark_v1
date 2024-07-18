@@ -11,12 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.springframework.chapark.common.CommonMap;
+
 @Controller
 public class LoginController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @RequestMapping(value = "/login.do")
-    public String loginPage() {
+    public String loginPage(CommonMap commonMap) {
         return "login";
     }
 

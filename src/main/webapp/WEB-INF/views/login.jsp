@@ -37,7 +37,6 @@ body {
 </style>
 </head>
 <body>
-
 	<div class="login-form">
 		<h2 class="text-center">Login</h2>
 		<form id="loginForm" action="<c:url value='/login.do' />" method="post">
@@ -55,28 +54,5 @@ body {
 			<button type="submit" class="btn btn-primary">Login</button>
 		</form>
 	</div>
-
-	<!-- Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-	<script>
-		function login() {
-			if ($('#mberId').val() === '') {
-				alert("아이디를 입력하세요");
-				$('#mberId').focus();
-				return;
-			} else if ($('#mberPw').val() === '') {
-				alert("비밀번호를 입력하세요");
-				$('#mberPw').focus();
-				return;
-			}
-		}
-		$('#loginForm').on('submit', function() {
-			console.log("mberId의 값:", $('#mberId').val());
-			login();
-		});
-	</script>
-
 </body>
 </html>
