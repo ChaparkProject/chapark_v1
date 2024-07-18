@@ -15,17 +15,17 @@ import com.springframework.chapark.common.CommonMap;
 
 @Controller
 public class LoginController {
-    Logger logger = LoggerFactory.getLogger(this.getClass());
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping(value = "/login.do")
-    public String loginPage(CommonMap commonMap) {
-        return "login";
-    }
+	@RequestMapping(value = "/login.do")
+	public String loginPage(CommonMap commonMap) {
+		return "login";
+	}
 
-    @RequestMapping(value = "/logout.do")
-    public String logout(Model model, Map paramMap, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.removeAttribute("memberInfo");
-        return "logout";
-    }
+	@RequestMapping(value = "/logout.do")
+	public String logout(Model model, Map paramMap, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("memberInfo");
+		return "logout";
+	}
 }
