@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class joinController {
@@ -28,8 +29,8 @@ public class joinController {
 		return "join";
 	}
 
-	@PostMapping("/join")
-	public void join(CommonMap commonMap, Model model) {
+	@RequestMapping("/join")
+	public String join(CommonMap commonMap, Model model) {
 		try {
 			// 비밀번호 암호화
 			String encryptedPassword = passwordEncoder.encode((String) commonMap.get("password"));
@@ -42,5 +43,6 @@ public class joinController {
 			ChaparkLogger.debug(e, this.getClass(), "join");
 			model.addAttribute("signupError", true);
 		}
+		return "join";
 	}
 }
