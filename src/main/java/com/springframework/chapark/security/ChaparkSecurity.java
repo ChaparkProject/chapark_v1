@@ -4,8 +4,11 @@ import java.security.MessageDigest;
 
 import org.springframework.stereotype.Component;
 
+/**
+ * SHA-256 암호화
+ */
 @Component
-public class Encryption {
+public class ChaparkSecurity {
 	public static String encrypt(String planText) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
