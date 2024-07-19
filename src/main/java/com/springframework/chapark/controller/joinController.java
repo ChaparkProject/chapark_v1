@@ -7,7 +7,6 @@ import com.springframework.chapark.common.CommonMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +20,6 @@ public class joinController {
 	@Autowired
 	private ChaparkService chaparkService;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/join.do")
 	public String joinForm() {
@@ -32,16 +29,10 @@ public class joinController {
 	@PostMapping("/join.do")
 	public String join(CommonMap commonMap, Model model) {
 		try {
-			// 비밀번호 암호화
-			String encryptedPassword = passwordEncoder.encode((String) commonMap.get("password"));
-
-			// 회원 정보 저장
-			commonMap.put("MBER_PW", encryptedPassword);
 			chaparkService.insert("tb_member.insertMberJoin",commonMap.getMap());
 
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
-			model.addAttribute("signupError", true);
 		}
 		return "join";
 	}
