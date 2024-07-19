@@ -29,7 +29,7 @@ public class joinController {
 	@PostMapping("/join.do")
 	public String join(CommonMap commonMap, Model model) {
 		try {
-			chaparkService.insert("tb_member.insertMberJoin",commonMap.getMap());
+			chaparkService.insert("jo_join.insertMberJoin",commonMap.getMap());
 
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");

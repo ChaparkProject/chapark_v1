@@ -44,27 +44,6 @@ public class MainController {
 	/**
 	 * 테스트용
 	 * 
-	 * @param model
-	 * @param paramMap
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/mber.do", method = RequestMethod.GET)
-	public String mber(Model model, CommonMap CommonMap) {
-		try {
-			// paramMap.put("mberId", "test1");
-			List<CommonMap> memberList = ChaparkService.selectList("tb_member.selectMberTest", CommonMap.getMap());
-			model.addAttribute("memberList", memberList);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "mberTest";
-	}
-
-	/**
-	 * 테스트용
-	 * 
 	 * @param locale
 	 * @param model
 	 * @return

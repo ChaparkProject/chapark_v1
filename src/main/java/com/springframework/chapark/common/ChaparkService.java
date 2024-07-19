@@ -3,11 +3,16 @@ package com.springframework.chapark.common;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ChaparkService {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	private final ChaparkDAO chaparkDAO;
 
 	@Autowired
@@ -41,6 +46,7 @@ public class ChaparkService {
 
 	// 삽입
 	public int insert(String sqlId, Map paramMap) {
+		logger.debug("Service - insert: sqlId={}, paramMap={}", sqlId, paramMap);
 		return chaparkDAO.insert(paramMap, sqlId);
 	}
 

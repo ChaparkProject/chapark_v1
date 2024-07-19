@@ -1,6 +1,8 @@
 package com.springframework.chapark.common;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +15,8 @@ import java.util.Map;
 
 @Repository
 public class ChaparkDAO {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 
 	private SqlSession sqlSession;
@@ -46,6 +50,7 @@ public class ChaparkDAO {
 
 	// 삽입
 	public int insert(Map paramMap, String sqlId) {
+		logger.debug("Service - insert: sqlId={}, paramMap={}", sqlId, paramMap);
 		return sqlSession.insert(sqlId, paramMap);
 	}
 

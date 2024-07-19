@@ -20,8 +20,8 @@
 			MBER_ID = #{MBER_ID}
 	</select>
 	<insert id="insertMberJoin" parameterType="map">
-		INSERT TB_MBER INTO
-				MBER_SEQ
+		INSERT INTO TB_MBER (
+			MBER_SEQ
 			, MBER_ID
 			, MBER_PW
 			, MBER_NAME
@@ -31,17 +31,19 @@
 			, MBER_ADDR
 			, MBER_TEL
 			, MBER_AUTH
-			VALUES
+			)
+			VALUES (
 			#{mberSeq}
-			, #{mberId}
-			, #{mberPw}
-			, #{mberName}
-			, #{mberEmail}
-			, #{mberzip}
-			, #{mberJib}
-			, #{mberAddr}
-			, #{mberTel}
-			, #{mberAuth}
+			, #{MBER_ID}
+			, #{MBER_PW}
+			, #{MBER_NAME}
+			, #{MBER_EMAIL}
+			, #{MBER_ZIP}
+			, #{MBER_JIB}
+			, #{MBER_ADDR}
+			, #{MBER_TEL}
+			, #{MBER_AUTH}
+			)
 	</insert>
 
 </mapper>
