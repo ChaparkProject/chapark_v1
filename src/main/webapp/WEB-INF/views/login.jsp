@@ -48,6 +48,9 @@ body {
 				<label for="password" class="form-label">Password</label> 
 				<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
 			</div>
+			<c:if test="${not empty loginError}">
+				<div class="alert alert-danger" role="alert">${loginError}</div>
+			</c:if>
 			<button type="submit" class="btn btn-primary">Login</button>
 		</form>
 	</div>
