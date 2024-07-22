@@ -1,0 +1,15 @@
+@charset "EUC-KR";
+
+.signup-form {
+	background-color: #ffffff;
+	padding: 2rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+	width: 400px;
+}
+.signup-form .form-control {
+	margin-bottom: 1rem;
+}
+.signup-form .btn {
+	width: 100%;
+}

@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" errorPage="IsErrorPage.jsp"%>
 
-
-<footer class="py-5 bg-dark">
+<footer class="py-4 bg-dark fixed-bottom">
 	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; Codevang
-			2024</p>
+		<p class="m-0 text-center text-white">Fuckyou Donghee &copy; Chapark_v1 2024</p>
 	</div>
 	<!-- /.container -->
 </footer>

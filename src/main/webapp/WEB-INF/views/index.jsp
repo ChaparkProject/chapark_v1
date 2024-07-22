@@ -1,77 +1,61 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" errorPage="IsErrorPage.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="IsErrorPage.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link href="/asset/css/common.css" rel="stylesheet" type="text/css">
-<script>
-function pageChange(page) {
-	$.ajax({
-		type: "POST",
-		url: "/changePage",
-		data: {
-			'page': page,
-		},
-		success: function(result) {
-            $('#mainContent').html(result);
-		},
-		error: function() {
-			alert("오류가 발생했습니다.");
-		}
-	});
-}
 
-function login() {
-	if ($('#mberId').val() == '') {
-		alert("아이디를 입력하세요");
-		$('#mberId').focus();
-		return;
-	} else if ($('#mberPw').val() == '') {
-		alert("비밀번호를 입력하세요");
-		$('#mberPw').focus();
-		return;
-	}
-	
-	$.ajax({
-		type: "POST",
-		url: "/login.do",
-		data: {
-			'mberId': $('#mberId').val(),
-			'mberPw': $('#mberPw').val()
-		},
-		success: function(result) {
-			if (result) {
-				location.href = "/main.do";
-			} else {
-				alert('아이디와 비밀번호가 일치하지 않습니다.');
-				$('#mberId').focus();
-			}
-		},
-		error: function() {
-			alert("오류가 발생했습니다.");
-		}
-	});
-}
-</script>
-<html> 
-	<head>
-		<style type="text/css">
-		</style>
-		<meta charset="UTF-8">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-	</head>
-	<body class="pt-5">
-		<jsp:include page="header.jsp" />
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Page Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="/asset/css/common.css" rel="stylesheet" type="text/css">
+    <link href="/asset/css/layout.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</head>
+<body>
+    <jsp:include page="header.jsp" />
+    <div class="container-fluid">
+        <div id="mainContent" class="d-flex align-items-center justify-content-center"></div>
+    </div>
+    <jsp:include page="footer.jsp" />
+    
+    <script>
+		$(document).ready(function() {
+		    adjustMainContentHeight();
 		
-		<div class="container-fluid" >
-			<div class="row d-flex">
-				<div id="mainContent"></div>
-			</div>
-		</div>
-		<jsp:include page="footer.jsp" />	
-	</body>
+		    $(window).resize(function() {
+		        adjustMainContentHeight();
+		    });
+		
+		    function adjustMainContentHeight() {
+		        var headerHeight = $('.header').outerHeight() || 0;
+		        var footerHeight = $('footer').outerHeight() || 0;
+		        var mainContentHeight = headerHeight + footerHeight;
+		
+		        $('#mainContent').css('min-height', 'calc(100vh - ' + mainContentHeight + 'px)');
+		        $('#mainContent').css('max-height', 'calc(100vh - ' + mainContentHeight + 'px)');
+		        $('#mainContent').css('margin-top', headerHeight + 'px');
+		        $('#mainContent').css('margin-bottom', footerHeight + 'px');
+		    }
+		});
+
+        function pageChange(page) {
+            $.ajax({
+                type: "POST",
+                url: "/changePage",
+                data: {
+                    'page': page,
+                },
+                success: function(result) {
+                    $('#mainContent').html(result);
+                    $('.nav-link').removeClass('active');
+                    $(element).addClass('active');
+                },
+                error: function() {
+                    alert("오류가 발생했습니다.");
+                }
+            });
+        }
+    </script>
+</body>
 </html>
-
-

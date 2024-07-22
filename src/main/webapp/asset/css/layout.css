@@ -1,0 +1,12 @@
+@charset "EUC-KR";
+/*헤더*/
+
+/*메인*/
+#mainContent{
+	overflow-y: auto;
+}
+/*푸터*/
+.footer{
+	display: flex;
+	justify-content: center;
+}

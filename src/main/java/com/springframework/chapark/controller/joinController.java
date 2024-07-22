@@ -49,6 +49,6 @@ public class joinController {
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
 		}
-		return "join";
+		return "";
 	}
 }

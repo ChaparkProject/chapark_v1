@@ -20,6 +20,7 @@
 	</mvc:annotation-driven>
 
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/asset/**" location="/asset/"/>
 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
