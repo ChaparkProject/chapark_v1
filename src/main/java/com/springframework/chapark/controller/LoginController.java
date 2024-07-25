@@ -64,6 +64,10 @@ public class LoginController {
 			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
 			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", userInfo); // 사용자 정보를 세션에 저장
+			
+			String mberName = (String) userInfo.get("MBER_NAME");
+			session.setAttribute("mberName", mberName);
+			
 			return "redirect:/"; // 로그인 성공 시 메인 화면으로 리다이렉트
 		} else {
 			model.addAttribute("loginError", "아이디와 비밀번호가 일치하지 않습니다.");
@@ -77,6 +81,6 @@ public class LoginController {
 		if(session != null) {
 			session.invalidate(); // 세션 제거
 		}
-		return "redirect:/login"; // 로그아웃 후 로그인 페이지로 리다이렉트
+		return "redirect:/"; // 로그아웃 후 로그인 페이지로 리다이렉트
 	}
 }

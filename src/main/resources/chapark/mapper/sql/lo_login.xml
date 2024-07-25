@@ -19,7 +19,6 @@
 		WHERE
 			MBER_ID = #{mberId}
 			AND MBER_PW = #{mberPw}
-			AND MBER_NAME = #{mberName}
 	</select>
 	<!-- 사용자 인증  -->
 	<select id="selectCertificationUserInfo" parameterType="map" resultType="map">
@@ -27,6 +26,7 @@
 			MBER_SEQ
 			, MBER_ID
 			, MBER_PW
+			, MBER_NAME
 		FROM
 			TB_MBER
 		WHERE
