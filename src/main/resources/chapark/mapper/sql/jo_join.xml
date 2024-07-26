@@ -34,15 +34,15 @@
 			)
 			VALUES (
 			#{mberSeq}
-			, #{MBER_ID}
-			, #{MBER_PW}
-			, #{MBER_NAME}
-			, #{MBER_EMAIL}
-			, #{MBER_ZIP}
-			, #{MBER_JIB}
-			, #{MBER_ADDR}
-			, #{MBER_TEL}
-			, #{MBER_AUTH}
+			, #{mberId}
+			, #{mberPw}
+			, #{mberName}
+			, #{mberEmail}
+			, #{mberZip}
+			, #{mberJib}
+			, #{mberAddr}
+			, #{mberTel}
+			, #{mberAuth}
 			)
 	</insert>
 

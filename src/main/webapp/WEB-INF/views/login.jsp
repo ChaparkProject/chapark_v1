@@ -5,17 +5,18 @@
     <link href="${pageContext.request.contextPath}/asset/css/login.css" rel="stylesheet" type="text/css">
 
 <script>
-    function loginCheck() {
-        if ($('#mberId').val() == '') {
-            alert("아이디를 입력하세요");
-            $('#mberId').focus();
-            return;
-        } else if ($('#mberPw').val() == '') {
-            alert("비밀번호를 입력하세요");
-            $('#mberPw').focus();
-            return;
-        }
-    }
+	// 아이디 비번 빈값 체크
+	function loginCheck() {
+		if ($('#mberId').val() == '') {
+			alert("아이디를 입력하세요");
+			$('#mberId').focus();
+			return;
+		} else if ($('#mberPw').val() == '') {
+			alert("비밀번호를 입력하세요");
+			$('#mberPw').focus();
+			return;
+		}
+	}
 </script>
 
 <div class="login-form">

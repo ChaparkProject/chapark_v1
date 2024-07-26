@@ -44,7 +44,7 @@
                 type: "POST",
                 url: "/changePage",
                 data: {
-                    'page': page,
+                    'page': page
                 },
                 success: function(result) {
                     $('#mainContent').html(result);
