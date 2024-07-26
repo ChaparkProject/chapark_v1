@@ -44,11 +44,11 @@
 <script>
 	//사용자 이름 김**으로 표시되게 처리
 	document.addEventListener("DOMContentLoaded", function() {
-		const userNameElement = document.getElementById('mberName');
-		if (userNameElement) {
-			let userName = userNameElement.textContent;
+		const mberNameElement = document.getElementById('mberName');
+		if (mberNameElement) {
+			let mberName = mberNameElement.textContent;
 			if (userName.length > 1) {
-				userNameElement.textContent = userName.charAt(0) + '**';
+				mberNameElement.textContent = mberName.charAt(0) + '**';
 			}
 		}
 	});

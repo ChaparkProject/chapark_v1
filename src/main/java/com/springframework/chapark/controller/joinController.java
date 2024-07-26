@@ -5,6 +5,7 @@ import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.ChaparkSecurity;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,10 +57,10 @@ public class joinController {
 		}
 		//return "join";
 	}
-	@SuppressWarnings({ "unchecked", "null" })
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/idCheck.do")
 	@ResponseBody
-	public Map idCheck(HttpServletRequest request, CommonMap commonMap) {
+	public Map idCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		Map <String, Object> map = new HashMap();
 		try {
 			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
@@ -68,13 +69,10 @@ public class joinController {
 				 mberId = (String) userInfo.get("MBER_ID"); // DB에서 사용자 아이디 
 			}
 			String id = commonMap.get("mberId").toString(); // 사용자가 입력한 아이디
-			if((userInfo == null || mberId.equals("")) && !mberId.equals(id)) {
+			if( mberId.trim().isEmpty() && !mberId.equals(id)) {
 				map.put("result","success");
-			} else if((mberId != null || !mberId.equals("")) && mberId.equals(id)){
+			} else{
 				map.put("result", "fail");
-			} else {
-				map.put("result", "error");
-				map.put("msg","오류가 발생했습니다, \n관리자에게 문의하세요.");
 			}
 			return map;
 		} catch (Exception e) {

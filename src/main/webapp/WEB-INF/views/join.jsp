@@ -63,19 +63,20 @@ function idCheck() {
 	const mberId = $('#mberId').val();
 	
 	$.ajax({
-		url  : "/idCheck.do",
 		type : "POST",
+		url  : "/idCheck.do",
 		data : {mberId : mberId},
 		success  : function(data) {
-			if(data.result === 'success') {
-				$("#result_checkId").html("아이디를 사욯하실수 있습니다.").css("color","green");
+			if(data.result == 'success') {
+				//$("#result_checkId").html("아이디를 사욯하실수 있습니다.").css("color","green");
+				alert(data.msg);
 			} else{
-				$("#result_checkId").html("이미 사용중인 아이디 입니다").css("color","red");
+				//$("#result_checkId").html("이미 사용중인 아이디 입니다").css("color","red");
+				alert(data.msg);
 			}
-		},
-		error : function(e) {
-			alert("오류가 발생했습니다");
-			console.dir(e);
+		}
+		,error : function(data) {
+			alert(data.msg);
 		}
 	});
 }
