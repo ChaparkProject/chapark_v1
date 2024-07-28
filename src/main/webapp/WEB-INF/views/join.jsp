@@ -10,10 +10,10 @@
 			<label for="MBER_ID" class="form-label">ID</label>
 			<input type="text" class="form-control" id="mberId" name="mberId" required="required">
 		</div>
+		<div><span id="result_checkId" style="font-size:12px;"></span></div>
 		<div class="mb-3">
 			<button type="button" class="btn btn-primary " onclick="idCheck();">아이디 중복체크</button>
 		</div>
-		<div><span id="result_checkId" style="font-size:12px;"></span></div>
 		<div class="mb-3">
 			<label for="MBER_PW" class="form-label">Password</label>
 			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
@@ -68,15 +68,15 @@ function idCheck() {
 		data : {mberId : mberId},
 		success  : function(data) {
 			if(data.result == 'success') {
-				//$("#result_checkId").html("아이디를 사욯하실수 있습니다.").css("color","green");
-				alert(data.msg);
+				$("#result_checkId").html("아이디를 사욯하실수 있습니다.").css("color","green");
 			} else{
-				//$("#result_checkId").html("이미 사용중인 아이디 입니다").css("color","red");
-				alert(data.msg);
+				$("#result_checkId").html("이미 사용중인 아이디 입니다").css("color","red");
 			}
 		}
 		,error : function(data) {
-			alert(data.msg);
+			if(data.result == 'fail') {
+				alert("오류가 발생했습니다");
+			}
 		}
 	});
 }

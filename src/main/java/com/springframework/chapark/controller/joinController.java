@@ -1,6 +1,7 @@
 package com.springframework.chapark.controller;
 
 import com.springframework.chapark.common.ChaparkLogger;
+
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.ChaparkSecurity;
@@ -8,6 +9,7 @@ import com.springframework.chapark.security.ChaparkSecurity;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+import com.google.gson.Gson;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,11 +28,13 @@ public class joinController {
 
 	@Autowired
 	private ChaparkService chaparkService;
-	
+
 	@Autowired
 	private ChaparkSecurity chaparkSecurity;
+
 	/**
-	 * íšŒì›ê°€ì…
+	 * È¸¿ø°¡ÀÔ
+	 * 
 	 * @param commonMap
 	 * @param model
 	 * @param request
@@ -40,44 +44,50 @@ public class joinController {
 	@RequestMapping("/join.do")
 	public void join(CommonMap commonMap, Model model, HttpServletRequest request) {
 		try {
-			// ì•”í˜¸ í™•ì¸
-			//System.out.println("ì²«ë²ˆì§¸:" + userVO.getUser_pw());
-			// ë¹„ë°€ë²ˆí˜¸ ì•”í˜¸í™” (sha-256)
-			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString()); // mapì—ì„œ ê°€ì ¸ì˜¨ ë¹„ë°€ë²ˆí˜¸ë¥¼ ì•”í˜¸í™”
-			commonMap.put("MBER_PW",encryPassword); //ì•”í˜¸í™”í•œ ë¹„ë°€ë²ˆí˜¸ mapì— ë‹¤ì‹œ ë„£ê¸°
-			//System.out.println("ë‘ë²ˆì§¸:" + commonMap.getUser_pw());
-			// íšŒì›ê°€ì… ë©”ì„œë“œ
-			chaparkService.insert("jo_join.insertMberJoin",commonMap.getMap()); //íšŒì›ê°€
-			// ì¸ì¦ ë©”ì¼ ë³´ë‚´ê¸° ë©”ì„œë“œ
-			//mailsender.mailSendWithUserKey(userVO.getUser_email(), userVO.getUser_id(), request);
-			
-
+			// ºñ¹Ğ¹øÈ£ ¾ÏÈ£È­ (sha-256)
+			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString()); // map¿¡¼­ °¡Á®¿Â ºñ¹Ğ¹øÈ£¸¦ ¾ÏÈ£È­
+			commonMap.put("MBER_PW", encryPassword); // ¾ÏÈ£È­ÇÑ ºñ¹Ğ¹øÈ£ map¿¡ ´Ù½Ã ³Ö±â
+			// È¸¿ø°¡ÀÔ ¸Ş¼­µå
+			chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); // È¸¿ø°¡ÀÔ insert
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
 		}
-		//return "join";
+		// return "join";
 	}
+
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/idCheck.do")
 	@ResponseBody
-	public Map idCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
-		Map <String, Object> map = new HashMap();
+	public void idCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+		Map<String, Object> map = new HashMap();
 		try {
-			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
+			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo",
+					commonMap.getMap());
 			String mberId = "";
-			if(userInfo != null) {
-				 mberId = (String) userInfo.get("MBER_ID"); // DBì—ì„œ ì‚¬ìš©ì ì•„ì´ë”” 
+			if (userInfo != null) {
+				mberId = (String) userInfo.get("MBER_ID"); // DB¿¡¼­ »ç¿ëÀÚ ¾ÆÀÌµğ
 			}
-			String id = commonMap.get("mberId").toString(); // ì‚¬ìš©ìê°€ ì…ë ¥í•œ ì•„ì´ë””
-			if( mberId.trim().isEmpty() && !mberId.equals(id)) {
-				map.put("result","success");
-			} else{
+			String id = commonMap.get("mberId").toString(); // »ç¿ëÀÚ°¡ ÀÔ·ÂÇÑ ¾ÆÀÌµğ
+			if (mberId.trim().isEmpty() && !mberId.equals(id)) {
+				map.put("result", "success");
+			} else {
 				map.put("result", "fail");
 			}
-			return map;
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "idCheck");
 		}
-		return map;
+		try {
+			response.setContentType("application/json;charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+
+			// GsonÀ» »ç¿ëÇÏ¿© ¸ÊÀ» JSON ¹®ÀÚ¿­·Î º¯È¯
+			Gson gson = new Gson();
+			String data = gson.toJson(map);
+
+			pw.write(data);
+			pw.flush();
+		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "json");
+		}
 	}
 }
