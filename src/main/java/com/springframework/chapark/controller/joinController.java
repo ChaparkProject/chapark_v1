@@ -22,6 +22,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
+
+/**
+ * joinController
+ * 회원가입 컨트롤러
+ */
 @Controller
 public class joinController {
 	Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -55,6 +61,12 @@ public class joinController {
 		// return "join";
 	}
 
+	/**
+	 * 아이디 중복체크
+	 * @param request
+	 * @param response
+	 * @param commonMap
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/idCheck.do")
 	public void idCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
@@ -74,18 +86,17 @@ public class joinController {
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "idCheck");
 		}
-		try {
+		try { // Gson을 사용하여 맵을 JSON 문자열로 변환
 			response.setContentType("application/json;charset=UTF-8");
 			PrintWriter pw = response.getWriter();
 
-			// Gson을 사용하여 맵을 JSON 문자열로 변환
 			Gson gson = new Gson();
 			String data = gson.toJson(map);
 
 			pw.write(data);
 			pw.flush();
 		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "json");
+			ChaparkLogger.debug(e, this.getClass(), "idCheckJson");
 		}
 	}
 }
