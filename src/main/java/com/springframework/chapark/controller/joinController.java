@@ -57,12 +57,10 @@ public class joinController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/idCheck.do")
-	@ResponseBody
 	public void idCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		Map<String, Object> map = new HashMap();
 		try {
-			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo",
-					commonMap.getMap());
+			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
 			String mberId = "";
 			if (userInfo != null) {
 				mberId = (String) userInfo.get("MBER_ID"); // DB에서 사용자 아이디
