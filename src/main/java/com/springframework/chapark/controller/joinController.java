@@ -89,7 +89,6 @@ public class joinController {
 		Gson gson = new Gson();
 		PrintWriter pw = null;
 		String json = "";
-		json = gson.toJson(map);
 		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
 			response.setContentType("application/json;charset=UTF-8");
 			json = gson.toJson(map);
