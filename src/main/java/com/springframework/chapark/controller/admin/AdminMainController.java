@@ -3,6 +3,7 @@ package com.springframework.chapark.controller.admin;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,17 +27,16 @@ public class AdminMainController {
 	
 	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/admin/main.do")
-	public String adminMain(Model model, HttpSession session, CommonMap commonMap) {
+	public String adminMain(Model model, HttpSession session, CommonMap commonMap, HttpServletResponse response) {
 		
 		Map userInfo =(Map) chaparkUtil.sessionUserInfo(session);
 		Boolean flag = false;
 
 		if(chaparkUtil.authorCheck(userInfo)) {
 			flag = true;
-			return "admin/main";
+			return "admin/index";
 		} else {
-			model.addAttribute("error", "회원권한이 없습니다");
-			return "redirect:/";
+			return ChaparkUtil.alertException(response, "회원권한이 없습니다.", "/");
 		}
 	}
 }
