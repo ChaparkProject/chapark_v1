@@ -51,6 +51,8 @@ public class joinController {
 			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString()); // map���� ������
 																								// ��й�ȣ�� ��ȣȭ
 			commonMap.put("MBER_PW", encryPassword); // ��ȣȭ�� ��й�ȣ map�� �ٽ� �ֱ�
+			commonMap.put("MBER_AUTH", "C"); // ��ȣȭ�� ��й�ȣ map�� �ٽ� �ֱ�
+			
 			// ȸ������ �޼���
 			chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); // ȸ������ insert
 		} catch (Exception e) {
@@ -98,7 +100,7 @@ public class joinController {
 			ChaparkLogger.debug(e, this.getClass(), "idCheckJson");
 		} finally {
 			if (pw != null) {
-				pw.close(); // close() 호출 시 flush()도 호출됨
+				pw.close();
 			}
 		}
 	}

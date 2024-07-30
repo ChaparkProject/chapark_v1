@@ -41,27 +41,6 @@ public class MainController {
 	@Autowired
 	private ChaparkService ChaparkService;
 
-	/**
-	 * 테스트용
-	 * 
-	 * @param locale
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
-	public String main(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
-		// 현재 날짜 및 시간 가져오기
-		LocalDateTime currentDateTime = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG).withLocale(locale);
-		String formattedDate = currentDateTime.format(formatter);
-
-		model.addAttribute("serverTime", formattedDate);
-
-		return ChaparkUtil.getLayoutPage();
-	}
-
 	@RequestMapping(value = "/")
 	public String home(Model model) {
 		model.addAttribute("mainContent", "main.jsp");
