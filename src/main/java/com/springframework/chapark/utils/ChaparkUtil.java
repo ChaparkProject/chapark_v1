@@ -40,7 +40,7 @@ public class ChaparkUtil {
 	
 	
 	// 예외처리
-	public static String alertException(HttpServletResponse response,  String message, String url) {
+	public static String alertException(HttpServletResponse response,  String message) {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
 		
@@ -50,7 +50,7 @@ public class ChaparkUtil {
 			out.println("<html><body>");
 			out.println("<script>");
 			out.println("alert('"+ message +"');");
-			out.println("location.href = '"+ url +"';");
+			out.println("history.back();");
 			out.println("</script>");
 			out.println("</body></html>");
 			

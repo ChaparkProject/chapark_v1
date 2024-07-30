@@ -36,7 +36,7 @@ public class AdminMainController {
 			flag = true;
 			return "admin/index";
 		} else {
-			return ChaparkUtil.alertException(response, "회원권한이 없습니다.", "/");
+			return ChaparkUtil.alertException(response, "회원권한이 없습니다.");
 		}
 	}
 }
