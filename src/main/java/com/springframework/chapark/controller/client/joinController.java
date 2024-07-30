@@ -1,4 +1,4 @@
-package com.springframework.chapark.controller;
+package com.springframework.chapark.controller.client;
 
 import com.springframework.chapark.common.ChaparkLogger;
 
