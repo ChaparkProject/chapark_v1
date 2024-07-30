@@ -68,6 +68,7 @@ public class LoginController {
 			String mberName = (String) userInfo.get("MBER_NAME");
 			session.setAttribute("mberName", mberName);
 			
+			model.addAttribute("userInfo", userInfo);
 			return "redirect:/"; // 로그인 성공 시 메인 화면으로 리다이렉트
 		} else {
 			model.addAttribute("loginError", "아이디와 비밀번호가 일치하지 않습니다.");

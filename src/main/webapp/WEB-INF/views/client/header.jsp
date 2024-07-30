@@ -18,6 +18,11 @@
 						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
 							<a class="nav-link" href="/logout.do">Logout</a>
 						</h5>
+						<c:if test="${userInfo.MBER_AUTH eq 'A'}">
+							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+								<a class="nav-link" href="/admin/main.do">관리자 페이지</a>
+							</h5>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
@@ -47,7 +52,7 @@
 		const mberNameElement = document.getElementById('mberName');
 		if (mberNameElement) {
 			let mberName = mberNameElement.textContent;
-			if (userName.length > 1) {
+			if (mberName.length > 1) {
 				mberNameElement.textContent = mberName.charAt(0) + '**';
 			}
 		}

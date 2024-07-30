@@ -35,7 +35,7 @@ public class AdminMainController {
 			flag = true;
 			return "admin/main";
 		} else {
-			commonMap.put("error", "회원권한이 없습니다");
+			model.addAttribute("error", "회원권한이 없습니다");
 			return "redirect:/";
 		}
 	}
