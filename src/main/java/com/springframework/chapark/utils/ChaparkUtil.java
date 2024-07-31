@@ -18,27 +18,6 @@ import com.springframework.chapark.common.ChaparkLogger;
  */
 @Component
 public class ChaparkUtil {
-	// 회원 권한 체크
-	public static Boolean authorCheck(Map userInfo) {
-		if(userInfo != null) {
-			String auth = (String) userInfo.get("MBER_AUTH");
-			if(auth.equals("A")) {
-				return true;
-			}
-		}
-		return false ;
-	}
-	// 세션 회원 정보 
-	public static Map sessionUserInfo(HttpSession session) {
-		
-		Map userInfo = null;
-		if(session != null) {
-			userInfo = (Map) session.getAttribute("userInfo");
-		}
-		return userInfo;
-	}
-	
-	
 	// 예외처리
 	public static String alertException(HttpServletResponse response,  String message) {
 		response.setContentType("text/html;charset=UTF-8");
@@ -54,7 +33,7 @@ public class ChaparkUtil {
 			out.println("</script>");
 			out.println("</body></html>");
 			
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		} finally {

@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.CertificationService;
+import com.springframework.chapark.security.SessionManagement;
 
 @Controller
 public class LoginController {
@@ -62,11 +63,15 @@ public class LoginController {
 		boolean success = certificationService.login(mberId, mberPw, commonMap); // 사용자 정보 true 또는 false
 		if (success) {
 			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
-			HttpSession session = request.getSession();
-			session.setAttribute("userInfo", userInfo); // 사용자 정보를 세션에 저장
+			/*HttpSession session = request.getSession();
+			session.setAttribute("userInfo", userInfo); // 사용자 정보를 세션에 저장*/
+			
+			SessionManagement.setSessionInfo(request, "userInfo", userInfo); // 사용자 정보를 세션에 저장
 			
 			String mberName = (String) userInfo.get("MBER_NAME");
-			session.setAttribute("mberName", mberName);
+			/*session.setAttribute("mberName", mberName);*/
+			SessionManagement.setSessionInfo(request, "mberName", mberName); // 사용자 이름을 세션에 저장
+			
 			
 			model.addAttribute("userInfo", userInfo);
 			return "redirect:/"; // 로그인 성공 시 메인 화면으로 리다이렉트

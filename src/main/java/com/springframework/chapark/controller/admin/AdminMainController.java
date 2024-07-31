@@ -14,25 +14,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
+import com.springframework.chapark.security.ChaparkAuthor;
+import com.springframework.chapark.security.ChaparkSecurity;
+import com.springframework.chapark.security.SessionManagement;
 import com.springframework.chapark.utils.ChaparkUtil;
 
 @Controller
 public class AdminMainController {
 	
 	@Autowired
-	private  ChaparkUtil chaparkUtil;
-	
-	@Autowired
 	private  ChaparkService chaparkService;
 	
-	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/admin/main.do")
-	public String adminMain(Model model, HttpSession session, CommonMap commonMap, HttpServletResponse response) {
+	public String adminMain(Model model, CommonMap commonMap, HttpServletResponse response, HttpServletRequest request) {
 		
-		Map userInfo =(Map) chaparkUtil.sessionUserInfo(session);
+		Map userInfo =(Map) SessionManagement.getSessionInfo(request,"");
 		Boolean flag = false;
 
-		if(chaparkUtil.authorCheck(userInfo)) {
+		if(ChaparkAuthor.authorCheck(userInfo)) {
 			flag = true;
 			return "admin/common/index";
 		} else {
