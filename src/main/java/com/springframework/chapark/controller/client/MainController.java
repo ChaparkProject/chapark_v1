@@ -44,7 +44,7 @@ public class MainController {
 	@RequestMapping(value = "/")
 	public String home(Model model) {
 		model.addAttribute("mainContent", "main.jsp");
-		return "client/index";
+		return "client/common/index";
 	}
 
 	@RequestMapping(value = "/changePage", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
@@ -54,7 +54,7 @@ public class MainController {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/client/" + page);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/client/mber/" + page);
 			StringWriter stringWriter = new StringWriter();
 			dispatcher.include(request, new HttpServletResponseWrapper(response) {
 				@Override

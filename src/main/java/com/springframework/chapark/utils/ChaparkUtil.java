@@ -50,7 +50,7 @@ public class ChaparkUtil {
 			out.println("<html><body>");
 			out.println("<script>");
 			out.println("alert('"+ message +"');");
-			out.println("history.back();");
+			out.println("window.history.back();");
 			out.println("</script>");
 			out.println("</body></html>");
 			
@@ -60,7 +60,7 @@ public class ChaparkUtil {
 		} finally {
 			if (out != null) {
 				out.flush(); 
-				//out.close(); 
+				out.close(); 
 			}
 		}
 		return null;

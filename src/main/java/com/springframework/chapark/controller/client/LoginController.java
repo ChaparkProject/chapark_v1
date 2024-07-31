@@ -40,7 +40,7 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
 	public String loginPage() {
-		return "client/login"; // 로그인 페이지 뷰를 반환
+		return "client/mber/login"; // 로그인 페이지 뷰를 반환
 	}
 
 	/**
@@ -72,7 +72,7 @@ public class LoginController {
 			return "redirect:/"; // 로그인 성공 시 메인 화면으로 리다이렉트
 		} else {
 			model.addAttribute("loginError", "아이디와 비밀번호가 일치하지 않습니다.");
-			return "client/login"; // 로그인 실패 시 로그인으로 이동
+			return "client/mber/login"; // 로그인 실패 시 로그인으로 이동
 		}
 	}
 
