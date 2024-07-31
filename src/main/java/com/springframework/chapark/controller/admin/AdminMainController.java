@@ -28,7 +28,7 @@ public class AdminMainController {
 	@RequestMapping(value = "/admin/main.do")
 	public String adminMain(Model model, CommonMap commonMap, HttpServletResponse response, HttpServletRequest request) {
 		
-		Map userInfo =(Map) SessionManagement.getSessionInfo(request,"");
+		Map userInfo =(Map) SessionManagement.getSessionInfo(request,"userInfo");
 		Boolean flag = false;
 
 		if(ChaparkAuthor.authorCheck(userInfo)) {
