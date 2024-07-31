@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,7 +47,7 @@ public class LoginController {
 	}
 
 	/**
-	 * 로그인 시도
+	 * 로그인 체크
 	 * 
 	 * @param request
 	 * @param response
@@ -81,6 +83,12 @@ public class LoginController {
 		}
 	}
 
+	/**
+	 * 로그아웃
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/logout.do")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false); // 현재 세션을 가져옴 (없으면 null 반환)
@@ -88,5 +96,17 @@ public class LoginController {
 			session.invalidate(); // 세션 제거
 		}
 		return "redirect:/"; // 로그아웃 후 로그인 페이지로 리다이렉트
+	}
+	
+	// 아이디 찾기
+	@RequestMapping(value = "/searchIdPw.do")
+	public String searchId(CommonMap commonMap) {
+		try {
+			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
+			
+			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", commonMap.getMap());
+		} catch (Exception e) {
+		}
+		return "client/mber/idPwSearch";
 	}
 }

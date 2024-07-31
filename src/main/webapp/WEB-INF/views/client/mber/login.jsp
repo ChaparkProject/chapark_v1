@@ -34,5 +34,8 @@
 			<div class="alert alert-danger" role="alert">${loginError}</div>
 		</c:if>
 		<button type="submit" class="btn btn-primary" onclick ='loginCheck()'>Login</button>
+		<div>
+			<a href = "/searchIdPw.do" type="button"  >아이디 찾기/비밀번호 찾기</a>
+		</div>
 	</form>
 </div>

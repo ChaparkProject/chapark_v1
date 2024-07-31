@@ -37,5 +37,49 @@
 		WHERE
 			MBER_ID = #{mberId}
 	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="selectIdSearch">
+		SELECT 
+			MBER_SEQ
+			, MBER_ID
+			, MBER_PW
+			, MBER_NAME
+			, MBER_EMAIL
+			, MBER_ZIP
+			, MBER_JIB
+			, MBER_ADDR
+			, MBER_TEL
+			, MBER_AUTH
+		FROM
+			TB_MBER
+		WHERE
+			MBER_NAME = #{mberName}
+		AND
+			MBER_TEL = #{mberTel}
+	</select>
+	
+		<!-- 비밀 번호 찾기 -->
+	<select id="selectPwSearch">
+		SELECT 
+			MBER_SEQ
+			, MBER_ID
+			, MBER_PW
+			, MBER_NAME
+			, MBER_EMAIL
+			, MBER_ZIP
+			, MBER_JIB
+			, MBER_ADDR
+			, MBER_TEL
+			, MBER_AUTH
+		FROM
+			TB_MBER
+		WHERE
+			MBER_ID = #{mberId}
+		AND
+			MBER_TEL = #{mberTel}
+	</select>
+	
+	
 
 </mapper>
