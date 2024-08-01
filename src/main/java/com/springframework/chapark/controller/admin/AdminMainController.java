@@ -33,7 +33,7 @@ public class AdminMainController {
 
 		if(ChaparkAuthor.authorCheck(userInfo)) {
 			flag = true;
-			return "admin/common/index";
+			return "admin/common/main";
 		} else {
 			return ChaparkUtil.alertException(response, "회원권한이 없습니다.");
 		}

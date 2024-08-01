@@ -13,6 +13,7 @@ import java.util.Map;
 
 //import javax.annotation.Resource;
 
+@SuppressWarnings("unused")
 @Repository
 public class ChaparkDAO {
 	

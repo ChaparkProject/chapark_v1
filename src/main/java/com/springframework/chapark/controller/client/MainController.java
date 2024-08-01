@@ -41,13 +41,13 @@ public class MainController {
 	@Autowired
 	private ChaparkService ChaparkService;
 
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/main.do")
 	public String home(Model model) {
-		model.addAttribute("mainContent", "main.jsp");
-		return "client/common/index";
+		//model.addAttribute("mainContent", "main.jsp");
+		return "client/common/main";
 	}
 
-	@RequestMapping(value = "/changePage", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
+	/*@RequestMapping(value = "/changePage", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String changePage(@RequestParam("page") String page, HttpServletRequest request, HttpServletResponse response) {
 		try {
@@ -67,6 +67,6 @@ public class MainController {
 			e.printStackTrace();
 			return "오류가 발생했습니다.";
 		}
-	}
+	}*/
 
 }
