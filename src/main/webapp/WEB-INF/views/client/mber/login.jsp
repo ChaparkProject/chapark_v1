@@ -35,7 +35,7 @@
 		</c:if>
 		<button type="submit" class="btn btn-primary" onclick ='loginCheck()'>Login</button>
 		<div>
-			<a href = "#" type="button" onclick="pageChange('idPwSearch.jsp')" >아이디 찾기/비밀번호 찾기</a>
+			<a href = "/searchIdPw.do" type="button" onclick= >아이디 찾기/비밀번호 찾기</a>
 		</div>
 	</form>
 </div>

@@ -26,10 +26,10 @@
 					</c:when>
 					<c:otherwise>
 						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-							<a class="nav-link" href="#" onclick="pageChange('login.jsp')">Login</a>
+							<a class="nav-link" href="/login.do" >Login</a>
 						</h5>
 						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-							<a class="nav-link" href="#" onclick="pageChange('join.jsp')">Join</a>
+							<a class="nav-link" href="/join.do" >Join</a>
 						</h5>
 					</c:otherwise>
 				</c:choose>

@@ -45,7 +45,7 @@ public class joinController {
 	 */
 	@SuppressWarnings("static-access")
 	@RequestMapping("/join.do")
-	public void join(CommonMap commonMap, Model model, HttpServletRequest request) {
+	public String join(CommonMap commonMap, Model model, HttpServletRequest request) {
 		try {
 			// ��й�ȣ ��ȣȭ (sha-256)
 			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString()); // map���� ������
@@ -58,7 +58,7 @@ public class joinController {
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
 		}
-		// return "join";
+		 return "client/mber/join";
 	}
 
 	/**
