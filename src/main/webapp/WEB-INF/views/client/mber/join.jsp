@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link href="${pageContext.request.contextPath}/asset/client/css/join.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/asset/css/client/join.css" rel="stylesheet" type="text/css">
 <div class="signup-form">
 	<h2 class="text-center">회원가입</h2>
 	<form id="signupForm" action="<c:url value='/join.do' />" method="post">
