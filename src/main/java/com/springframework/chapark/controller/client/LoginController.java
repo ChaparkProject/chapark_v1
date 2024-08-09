@@ -99,14 +99,24 @@ public class LoginController {
 	}
 	
 	// 아이디 찾기
-	@RequestMapping(value = "/searchIdPw.do")
-	public String searchId(CommonMap commonMap) {
+	@RequestMapping(value = "/searchId.do")
+	public String searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		try {
 			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
+			
+			
+		} catch (Exception e) {
+		}
+		return "client/mber/idSearch";
+	}
+	// 비밀번호 찾기
+	@RequestMapping(value = "/searchPw.do")
+	public String searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+		try {
 			
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", commonMap.getMap());
 		} catch (Exception e) {
 		}
-		return "client/mber/idPwSearch";
+		return "client/mber/pwSearch";
 	}
 }
