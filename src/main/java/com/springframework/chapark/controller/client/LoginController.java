@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.CertificationService;
@@ -109,7 +110,7 @@ public class LoginController {
 	@RequestMapping(value = "/searchId.do")
 	public String searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
 		try {
-			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
+			Map<String, Object> userIdInfo = chaparkService.selectMap("mb_mber.selectIdSearch", commonMap.getMap());
 			
 			if(userIdInfo != null) {
 				String mberName = userIdInfo.get("MBER_NAME").toString();
@@ -125,16 +126,24 @@ public class LoginController {
 				model.addAttribute("check", "false");
 			}
 		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "searchId");
 		}
 		return "client/mber/idSearch";
 	}
+	
+	// 비밀번호 찾기 페이지
+	@RequestMapping(value = "/searchPwPage.do")
+	public String searchPwPage(HttpServletRequest request, HttpServletResponse response) {
+		return "client/mber/pwSearch";
+	}
+	
 	// 비밀번호 찾기
 	@RequestMapping(value = "/searchPw.do")
 	public String searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		try {
-			
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", commonMap.getMap());
 		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "searchPw");
 		}
 		return "client/mber/pwSearch";
 	}

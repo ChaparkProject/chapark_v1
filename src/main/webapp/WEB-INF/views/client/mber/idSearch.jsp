@@ -6,6 +6,17 @@
 function searchId(){
 	$("#findForm").attr("action", "/searchId.do").submit();
 }
+function nullCheck() {
+	if ($('#mberName').val() == '') {
+		alert("사용자 이름을 입력하세요");
+		$('#mberName').focus();
+		return;
+	} else if ($('#mberTel').val() == '') {
+		alert("전화번호를 입력하세요");
+		$('#mberTel').focus();
+		return;
+	}
+}
 </script>
 <form id="findForm" class="login-form" method="post">
 	<div id= "searchId" class="mb-3">
@@ -24,10 +35,6 @@ function searchId(){
 	</div>
 	<c:choose>
 		<c:when test="${check == true}">
-			<script>
-				opener.document.findform.mberName.value = "";
-				opener.document.findform.mberTel.value = "";
-			</script>
 			<label>찾으시는 아이디는 ' ${mberId} ' 입니다.</label>
 		</c:when>
 		<c:when test="${check == false }">
