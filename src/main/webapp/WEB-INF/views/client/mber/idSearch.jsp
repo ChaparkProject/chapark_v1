@@ -58,7 +58,8 @@ function nullCheck() {
 	</div>
 	<!-- 결과를 표시할 부분 -->
 	<div id="resultSection" style="display: none;">
+		<label for="mberTel" class="form-label">찾으신 결과</label><br>
 		<label id="resultMessage"></label> <br>
-		<a href = "/login.do" type="button" >로그인</a> / <a href = "/searchPwPage.do" type="button" >비밀번호 찾기</a>
+		<button type="button" class="btn btn-primary" onclick="window.location.href='/login.do'">로그인</button> <button type="button" class="btn btn-primary" onclick="window.location.href='/searchPwPage.do'">비밀번호 찾기</button> 
 	</div>
 </form>
