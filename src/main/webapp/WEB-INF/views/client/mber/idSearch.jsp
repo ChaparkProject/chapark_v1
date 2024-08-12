@@ -20,6 +20,18 @@ function searchId(){
 		</div>
 	</div>
 	<div id="id">
-		<button type="button" class="btn btn-primary" onclick="">아이디 찾기</button>
+		<button type="button" class="btn btn-primary" onclick="searchId()">아이디 찾기</button>
 	</div>
+	<c:choose>
+		<c:when test="${check == true}">
+			<script>
+				opener.document.findform.mberName.value = "";
+				opener.document.findform.mberTel.value = "";
+			</script>
+			<label>찾으시는 아이디는 ' ${mberId} ' 입니다.</label>
+		</c:when>
+		<c:when test="${check == false }">
+			<label>일치하는 정보가 없습니다.</label>
+		</c:when>
+	</c:choose>
 </form>

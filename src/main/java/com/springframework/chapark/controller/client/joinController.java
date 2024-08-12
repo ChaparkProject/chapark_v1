@@ -36,7 +36,7 @@ public class joinController {
 	private ChaparkSecurity chaparkSecurity;
 
 	/**
-	 * ȸ������
+	 * 회원가입
 	 * 
 	 * @param commonMap
 	 * @param model
@@ -47,14 +47,12 @@ public class joinController {
 	@RequestMapping("/join.do")
 	public String join(CommonMap commonMap, Model model, HttpServletRequest request) {
 		try {
-			// ��й�ȣ ��ȣȭ (sha-256)
-			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString()); // map���� ������
-																								// ��й�ȣ�� ��ȣȭ
-			commonMap.put("MBER_PW", encryPassword); // ��ȣȭ�� ��й�ȣ map�� �ٽ� �ֱ�
-			commonMap.put("MBER_AUTH", "C"); // ��ȣȭ�� ��й�ȣ map�� �ٽ� �ֱ�
+			// 비밀번호 암호화
+			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString());
+			commonMap.put("MBER_PW", encryPassword); 
+			commonMap.put("MBER_AUTH", "C"); // 기본 권한 c
 			
-			// ȸ������ �޼���
-			chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); // ȸ������ insert
+			chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); //회원가입(insert)
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
 		}
@@ -62,7 +60,7 @@ public class joinController {
 	}
 
 	/**
-	 * ���̵� �ߺ�üũ
+	 * 아이디 중복체크
 	 * 
 	 * @param request
 	 * @param response
@@ -77,9 +75,9 @@ public class joinController {
 					commonMap.getMap());
 			String mberId = "";
 			if (userInfo != null) {
-				mberId = (String) userInfo.get("MBER_ID"); // DB���� ����� ���̵�
+				mberId = (String) userInfo.get("MBER_ID"); 
 			}
-			String id = commonMap.get("mberId").toString(); // ����ڰ� �Է��� ���̵�
+			String id = commonMap.get("mberId").toString(); 
 			if (mberId.trim().isEmpty() && !mberId.equals(id)) {
 				map.put("result", "success");
 			} else {

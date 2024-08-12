@@ -98,13 +98,32 @@ public class LoginController {
 		return "redirect:/"; // 로그아웃 후 로그인 페이지로 리다이렉트
 	}
 	
+	// 아이디 찾기 페이지
+	@RequestMapping(value = "/searchIdPage.do")
+	public String searchIdPage(HttpServletRequest request, HttpServletResponse response) {
+		return "client/mber/idSearch";
+	}
+	
 	// 아이디 찾기
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchId.do")
-	public String searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+	public String searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
 		try {
 			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
 			
-			
+			if(userIdInfo != null) {
+				String mberName = userIdInfo.get("MBER_NAME").toString();
+				String mberTel = userIdInfo.get("MBER_TEL").toString();
+				
+				if(commonMap.get(mberName).equals(mberName) && commonMap.get(mberTel).equals(mberTel)) {
+					model.addAttribute("check", "true");
+					model.addAttribute("mberId", userIdInfo.get("mberId"));
+				} else {
+					model.addAttribute("check", "false");
+				}
+			}else {
+				model.addAttribute("check", "false");
+			}
 		} catch (Exception e) {
 		}
 		return "client/mber/idSearch";
