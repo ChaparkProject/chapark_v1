@@ -59,7 +59,7 @@
 			MBER_TEL = #{mberTel}
 	</select>
 	
-		<!-- 비밀 번호 찾기 -->
+	<!-- 비밀 번호 찾기 조회 -->
 	<select id="selectPwSearch" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
@@ -77,9 +77,18 @@
 		WHERE
 			MBER_ID = #{mberId}
 		AND
-			MBER_TEL = #{mberTel}
+			MBER_EMAIL = #{mberEmail}
 	</select>
 	
-	
-
+	<!-- 임시 비밀번호 업데이트 -->
+	<update id="tempPasswordUpdate">
+		UPDATE
+			TB_MBER
+		SET
+			MBER_PW = #{mberPw}
+		WHERE
+			MBER_ID = #{mberId}
+		AND
+			MBER_EMAIL = #{mberEmail}
+	</update>
 </mapper>

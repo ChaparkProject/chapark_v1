@@ -1,5 +1,6 @@
 package com.springframework.chapark.controller.client;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,13 +158,47 @@ public class LoginController {
 	}
 	
 	// 비밀번호 찾기
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchPw.do")
-	public String searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+	public void searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", commonMap.getMap());
+			
+			if(userPwInfo != null) {
+				String mberId = userPwInfo.get("MBER_ID").toString();
+				String mberEmail = userPwInfo.get("MBER_EMAIL").toString();
+				
+				if(mberId.equals(commonMap.get("mberId")) && mberEmail.equals(commonMap.get("mberEmail"))) {
+					String tempPassword = RandomStringUtils.randomAlphanumeric(10); //임시 비밀번호 10자리 생성
+					commonMap.put("mberPw", tempPassword);
+					chaparkService.update("lo_login.tempPasswordUpdate", commonMap.getMap());
+					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
+					
+					resultMap.put("result", "true");
+				} else {
+					resultMap.put("result", "false");
+				}
+			}else {
+				resultMap.put("result", "false");;
+			}
 		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "searchPw");
+			ChaparkLogger.debug(e, this.getClass(), "searchId");
 		}
-		return "client/mber/pwSearch";
+		Gson gson = new Gson();
+		PrintWriter pw = null;
+		String json = "";
+		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
+			response.setContentType("application/json;charset=UTF-8");
+			json = gson.toJson(resultMap);
+			pw = response.getWriter();
+			pw.write(json);
+		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "searchId");
+		} finally {
+			if (pw != null) {
+				pw.close();
+			}
+		}
 	}
 }
