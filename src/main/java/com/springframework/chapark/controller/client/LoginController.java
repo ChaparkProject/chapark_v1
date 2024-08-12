@@ -9,18 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.CertificationService;
 import com.springframework.chapark.security.SessionManagement;
+import com.springframework.chapark.utils.ChaparkUtil;
 
 @Controller
 public class LoginController {
@@ -77,7 +81,7 @@ public class LoginController {
 			
 			
 			model.addAttribute("userInfo", userInfo);
-			return "redirect:/"; // 로그인 성공 시 메인 화면으로 리다이렉트
+			return "redirect:/main.do"; // 로그인 성공 시 메인 화면으로 리다이렉트
 		} else {
 			model.addAttribute("loginError", "아이디와 비밀번호가 일치하지 않습니다.");
 			return "client/mber/login"; // 로그인 실패 시 로그인으로 이동
@@ -96,7 +100,7 @@ public class LoginController {
 		if(session != null) {
 			session.invalidate(); // 세션 제거
 		}
-		return "redirect:/"; // 로그아웃 후 로그인 페이지로 리다이렉트
+		return "redirect:/login.do"; // 로그아웃 후 로그인 페이지로 리다이렉트
 	}
 	
 	// 아이디 찾기 페이지
@@ -108,27 +112,42 @@ public class LoginController {
 	// 아이디 찾기
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchId.do")
-	public String searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+	public void searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			Map<String, Object> userIdInfo = chaparkService.selectMap("mb_mber.selectIdSearch", commonMap.getMap());
+			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
 			
 			if(userIdInfo != null) {
 				String mberName = userIdInfo.get("MBER_NAME").toString();
 				String mberTel = userIdInfo.get("MBER_TEL").toString();
 				
-				if(commonMap.get(mberName).equals(mberName) && commonMap.get(mberTel).equals(mberTel)) {
-					model.addAttribute("check", "true");
-					model.addAttribute("mberId", userIdInfo.get("mberId"));
+				if(mberName.equals(commonMap.get("mberName")) && mberTel.equals(commonMap.get("mberTel"))) {
+					resultMap.put("result", "true");
+					resultMap.put("mberId", userIdInfo.get("MBER_ID"));
 				} else {
-					model.addAttribute("check", "false");
+					resultMap.put("result", "false");
 				}
 			}else {
-				model.addAttribute("check", "false");
+				resultMap.put("result", "false");;
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
 		}
-		return "client/mber/idSearch";
+		Gson gson = new Gson();
+		PrintWriter pw = null;
+		String json = "";
+		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
+			response.setContentType("application/json;charset=UTF-8");
+			json = gson.toJson(resultMap);
+			pw = response.getWriter();
+			pw.write(json);
+		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "searchId");
+		} finally {
+			if (pw != null) {
+				pw.close();
+			}
+		}
 	}
 	
 	// 비밀번호 찾기 페이지

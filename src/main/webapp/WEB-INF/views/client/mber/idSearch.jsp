@@ -4,7 +4,29 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 function searchId(){
-	$("#findForm").attr("action", "/searchId.do").submit();
+	if(nullCheck()) {
+		$.ajax({
+			url : "/searchId.do",
+			type : "POST",
+			data : {
+				mberName: $('#mberName').val(),
+				mberTel: $('#mberTel').val()
+			},
+			success : function(data) {
+				if(data.result == 'true') {
+					$('#resultMessage').text("찾으시는 아이디는 '" + data.mberId + "' 입니다.");
+				} else {
+					$('#resultMessage').text("일치하는 정보가 없습니다.");
+				}
+				$('#searchId').hide(); // 검색 폼을 숨김
+				$('#id').hide(); // 버튼을 숨김
+				$('#resultSection').show(); // 결과 섹션을 보여줌
+			},
+			error : function(){
+				alert('오류가 발생했습니다.')
+			}
+		});
+	}
 }
 function nullCheck() {
 	if ($('#mberName').val() == '') {
@@ -16,6 +38,7 @@ function nullCheck() {
 		$('#mberTel').focus();
 		return;
 	}
+	return true;
 }
 </script>
 <form id="findForm" class="login-form" method="post">
@@ -33,12 +56,9 @@ function nullCheck() {
 	<div id="id">
 		<button type="button" class="btn btn-primary" onclick="searchId()">아이디 찾기</button>
 	</div>
-	<c:choose>
-		<c:when test="${check == true}">
-			<label>찾으시는 아이디는 ' ${mberId} ' 입니다.</label>
-		</c:when>
-		<c:when test="${check == false }">
-			<label>일치하는 정보가 없습니다.</label>
-		</c:when>
-	</c:choose>
+	<!-- 결과를 표시할 부분 -->
+	<div id="resultSection" style="display: none;">
+		<label id="resultMessage"></label> <br>
+		<a href = "/login.do" type="button" >로그인</a> / <a href = "/searchPwPage.do" type="button" >비밀번호 찾기</a>
+	</div>
 </form>

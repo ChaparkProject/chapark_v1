@@ -39,7 +39,7 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="selectIdSearch">
+	<select id="selectIdSearch" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -60,7 +60,7 @@
 	</select>
 	
 		<!-- 비밀 번호 찾기 -->
-	<select id="selectPwSearch">
+	<select id="selectPwSearch" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
