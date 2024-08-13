@@ -33,7 +33,7 @@ public class MberInfoController {
 	
 	//회원정보 접근
 	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.GET)
-	public String mberInfoAcessPage(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+	public String mberInfoAcessPage() {
 		return "client/mber/mberInfoAcess";
 	}
 	
@@ -48,7 +48,7 @@ public class MberInfoController {
 			Map<String, Object> mberInfoCheck = chaparkService.selectMap("mb_mber.selectMberInfo", commonMap.getMap());
 			
 			if(mberInfoCheck != null) {
-				return "client/mber/mberInfo";
+				return "redirect:/mberInfo.do";
 			} else {
 				model.addAttribute("error", "비밀번호가 일치하지 않습니다." );
 			}
@@ -66,11 +66,14 @@ public class MberInfoController {
 		try {
 				Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
 				model.addAttribute("mberInfo", mberInfo );
-			
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "mberInfo");
 		}
 		return "client/mber/mberInfo";
+	}
+	
+	public String mberInfoPwChange() {
+		return "";
 	}
 
 }

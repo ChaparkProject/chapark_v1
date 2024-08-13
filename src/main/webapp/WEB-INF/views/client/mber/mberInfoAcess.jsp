@@ -13,6 +13,6 @@
 		<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">${error}</div>
 		</c:if>
-		<button type="submit" class="btn btn-primary" onclick ='loginCheck()'>비밀번호 확인</button>
+		<button type="submit" class="btn btn-primary">비밀번호 확인</button>
 	</form>
 </div>
