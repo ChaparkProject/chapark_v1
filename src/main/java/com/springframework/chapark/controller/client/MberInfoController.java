@@ -92,8 +92,12 @@ public class MberInfoController {
 	
 	// 비밂번호 변경
 	@RequestMapping(value = "/updateMberPw.do")
-	public String updateMberInfoPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
-		return "";
+	public String updateMberInfoPw() {
+		return "client/mber/updateMberPw";
+	}
+	
+	@RequestMapping(value = "/updatePassword.do")
+	public void updatePassword() {
 	}
 
 }

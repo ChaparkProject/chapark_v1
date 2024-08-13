@@ -12,16 +12,13 @@
 		</div>
 		<div class="mb-3">
 			<label for="password" class="form-label">새 비밀번호</label> 
-			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
+			<input type="password" class="form-control" id="newMberPw" name="newMberPw" required="required">
 		</div>
 		<div class="mb-3">
 			<label for="password" class="form-label">새 비밀번호 확인</label> 
-			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
+			<input type="password" class="form-control" id="checkNewPw" name="checkNewPw" required="required">
 		</div>
-		<c:if test="${not empty error}">
-			<div class="alert alert-danger" role="alert">${error}</div>
-		</c:if>
-		<button type="submit" class="btn btn-primary">비밀번호 확인</button>
+		<button type="submit" class="btn btn-primary" onclick="changePw">비밀번호 변경</button>
 	</form>
 </div>
 
