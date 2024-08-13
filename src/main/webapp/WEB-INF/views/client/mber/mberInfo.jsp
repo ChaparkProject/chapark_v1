@@ -12,7 +12,7 @@
 	</div>
 	<div class="mb-3">
 		<label for="MBER_PW" class="form-label">비밀번호</label>
-		<a class="btn btn-success" href="#" role="button">비밀번호 변경</a>
+		<a class="btn btn-success" href="/updateMberPw.do" role="button">비밀번호 변경</a>
 	</div>
 	<div class="mb-3">
 		<label for="MBER_NAME" class="form-label">이름</label>

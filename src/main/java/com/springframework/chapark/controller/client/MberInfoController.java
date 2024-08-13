@@ -90,8 +90,9 @@ public class MberInfoController {
 		return "client/mber/mberInfo";
 	}
 	
-	//
-	public String mberInfoPwChange() {
+	// 비밂번호 변경
+	@RequestMapping(value = "/updateMberPw.do")
+	public String updateMberInfoPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
 		return "";
 	}
 
