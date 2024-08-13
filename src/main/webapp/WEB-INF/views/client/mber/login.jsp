@@ -23,11 +23,11 @@
 	<h2 class="text-center">Login</h2>
 	<form id="loginForm" action="<c:url value='/login.do' />" method="post">
 		<div class="mb-3">
-			<label for="username" class="form-label">ID</label> 
+			<label for="username" class="form-label">아이디</label> 
 				<input type="text" class="form-control" id="mberId" name="mberId" required="required">
 		</div>
 		<div class="mb-3">
-			<label for="password" class="form-label">Password</label> 
+			<label for="password" class="form-label">비밀번호</label> 
 			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
 		</div>
 		<c:if test="${not empty loginError}">

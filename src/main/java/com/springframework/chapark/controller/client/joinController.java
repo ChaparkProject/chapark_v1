@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * joinController ȸ������ ��Ʈ�ѷ�
+ * joinController (회원가입 컨트롤러)
  */
 @Controller
 public class joinController {
@@ -71,8 +71,7 @@ public class joinController {
 	public void idCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		Map<String, Object> map = new HashMap();
 		try {
-			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo",
-					commonMap.getMap());
+			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
 			String mberId = "";
 			if (userInfo != null) {
 				mberId = (String) userInfo.get("MBER_ID"); 

@@ -14,7 +14,7 @@
 					<c:when test="${not empty sessionScope.userInfo}">
 						<nav class="nav">
 							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-								<span id="mberName">${sessionScope.mberName}</span>
+								<a class="nav-link " id="mberName" href="/mberInfo.do">${sessionScope.mberName}</a>
 							</h5>
 							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
 								<a class="nav-link " href="/logout.do">Logout</a>
@@ -27,12 +27,14 @@
 						</nav>
 					</c:when>
 					<c:otherwise>
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-							<a class="nav-link" href="/login.do" >Login</a>
-						</h5>
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-							<a class="nav-link" href="/join.do" >Join</a>
-						</h5>
+						<nav class="nav">
+							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+								<a class="nav-link" href="/login.do" >로그인</a>
+							</h5>
+							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+								<a class="nav-link" href="/join.do" >회원가입</a>
+							</h5>
+						</nav>
 					</c:otherwise>
 				</c:choose>
 				<button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>

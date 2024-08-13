@@ -28,6 +28,9 @@ import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.security.SessionManagement;
 import com.springframework.chapark.utils.ChaparkUtil;
 
+/**
+ * LoginController (로그인/ 아이디,비밀번호 찾기 컨트롤러)
+ */
 @Controller
 public class LoginController {
 
@@ -108,13 +111,22 @@ public class LoginController {
 		return "redirect:/login.do"; // 로그아웃 후 로그인 페이지로 리다이렉트
 	}
 	
-	// 아이디 찾기 페이지
+	/**
+	 * 아이디 찾기 페이지
+	 * @return
+	 */
 	@RequestMapping(value = "/searchIdPage.do")
-	public String searchIdPage(HttpServletRequest request, HttpServletResponse response) {
+	public String searchIdPage() {
 		return "client/mber/idSearch";
 	}
 	
-	// 아이디 찾기
+	/**
+	 * 아이디 찾기
+	 * @param request
+	 * @param response
+	 * @param commonMap
+	 * @param model
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/searchId.do")
 	public void searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
@@ -155,13 +167,21 @@ public class LoginController {
 		}
 	}
 	
-	// 비밀번호 찾기 페이지
+	/**
+	 * 비밀번호 찾기 페이지
+	 * @return
+	 */
 	@RequestMapping(value = "/searchPwPage.do")
-	public String searchPwPage(HttpServletRequest request, HttpServletResponse response) {
+	public String searchPwPage() {
 		return "client/mber/pwSearch";
 	}
 	
-	// 비밀번호 찾기
+	/**
+	 * 비밀번호 찾기
+	 * @param request
+	 * @param response
+	 * @param commonMap
+	 */
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@RequestMapping(value = "/searchPw.do")
 	public void searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {

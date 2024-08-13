@@ -5,7 +5,7 @@
 	<h2 class="text-center">회원가입</h2>
 	<form id="signupForm" action="<c:url value='/join.do' />" method="post">
 		<div class="mb-3">
-			<label for="MBER_ID" class="form-label">ID</label>
+			<label for="MBER_ID" class="form-label">아이디</label>
 			<input type="text" class="form-control" id="mberId" name="mberId" required="required">
 		</div>
 		<div><span id="result_checkId" style="font-size:12px;"></span></div>
@@ -13,7 +13,7 @@
 			<button type="button" class="btn btn-primary " onclick="idCheck();">아이디 중복체크</button>
 		</div>
 		<div class="mb-3">
-			<label for="MBER_PW" class="form-label">Password</label>
+			<label for="MBER_PW" class="form-label">비밀번호</label>
 			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
 		</div>
 		<div class="mb-3">
@@ -21,9 +21,9 @@
 			<input type="text" class="form-control" id="mberName" name="mberName" required="required">
 		</div>
 		<div class="mb-3">
-			<label for="MBER_EMAIL" class="form-label">Email</label>
-			<input type="email" class="form-control" id="mberEmail" name="mberEmail" required="required">
-		</div>
+		<label for="MBER_EMAIL" class="form-label">Email</label>
+		<input type="email" class="form-control" id="mberEmail" name="mberEmail" required="required">
+		</div>	
 		<div class="mb-3">
 			<label for="MBER_ZIP" class="form-label">우편번호</label>
 			<input type="text" class="form-control" id="postcode" name="mberZip" required="required" readonly="readonly" onclick="daumPostcode()">
@@ -59,6 +59,12 @@ function joinCheck() {
 // 아이디 중복체크
 function idCheck() {
 	const mberId = $('#mberId').val();
+	
+	//아이디 빈값에 아이디 중복체크 일시
+	if (mberId === '') {
+		$("#result_checkId").html("아이디를 입력하세요").css("color", "red").att("tabindex", -1).focus();
+		return; 
+	}
 	
 	$.ajax({
 		type : "POST",
