@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="tb_member">
-	<select id="selectMberTest" resultType="map">
+<mapper namespace="mb_mber">
+	<select id="selectMberInfo" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
-			, MBER_PW 
+			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
 			, MBER_ZIP
@@ -16,6 +16,10 @@
 			, MBER_AUTH
 		FROM
 			TB_MBER
+		WHERE
+			MBER_ID = #{mberId}
+		AND
+			MBER_NAME = #{mberName}
 	</select>
 
 </mapper>

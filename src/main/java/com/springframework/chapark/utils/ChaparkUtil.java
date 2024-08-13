@@ -54,10 +54,11 @@ public class ChaparkUtil {
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(mberEamil));
 
 			// Subject
-			message.setSubject("임시 비밀번호 발급");
+			message.setSubject("[Chapark]임시 비밀번호 발급");
 
 			// Text
-			message.setText("귀하의 임시 비밀번호는" + tempPassword + "입니다.");
+			String htmlContent = "<p>귀하의 임시 비밀번호는 <b><font size=\"+2\">" + tempPassword + "</font></b>입니다.</p>";
+			message.setContent(htmlContent, "text/html; charset=utf-8");
 
 			Transport.send(message); // send message
 
