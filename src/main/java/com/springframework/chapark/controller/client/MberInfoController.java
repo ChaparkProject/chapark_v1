@@ -31,12 +31,23 @@ public class MberInfoController {
 	@Autowired
 	private ChaparkSecurity chaparkSecurity;
 	
-	//회원정보 접근
+	/**
+	 * 회원정보 접근
+	 * @return
+	 */
 	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.GET)
 	public String mberInfoAcessPage() {
 		return "client/mber/mberInfoAcess";
 	}
 	
+	/**
+	 * 회원정보접근(비밀번호 체크)
+	 * @param request
+	 * @param response
+	 * @param commonMap
+	 * @param model
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.POST)
 	public String mberInfoAcessCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
@@ -59,19 +70,27 @@ public class MberInfoController {
 		return "client/mber/mberInfoAcess";
 	}
 	
-	//회원정보
+	/**
+	 * 회원정보수정페이지
+	 * @param request
+	 * @param response
+	 * @param commonMap
+	 * @param model
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mberInfo.do")
-	public String mberInfo(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+	public String mberInfoPage(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
 		try {
 				Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
 				model.addAttribute("mberInfo", mberInfo );
 		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "mberInfo");
+			ChaparkLogger.debug(e, this.getClass(), "mberInfoPage");
 		}
 		return "client/mber/mberInfo";
 	}
 	
+	//
 	public String mberInfoPwChange() {
 		return "";
 	}
