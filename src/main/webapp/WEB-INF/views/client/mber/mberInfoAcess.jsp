@@ -4,12 +4,15 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="${pageContext.request.contextPath}/asset/css/client/login.css" rel="stylesheet" type="text/css">
 <div class="login-form">
-	<h2 class="text-center">회원정보수정 확인</h2>
-	<form id="loginForm" action="<c:url value='/mberInfo.do' />" method="post">
+	<h2 class="text-center">회원정보수정</h2>
+	<form id="loginForm" method="post">
 		<div class="mb-3">
 			<label for="password" class="form-label">비밀번호</label> 
 			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
 		</div>
+		<c:if test="${not empty error}">
+			<div class="alert alert-danger" role="alert">${error}</div>
+		</c:if>
 		<button type="submit" class="btn btn-primary" onclick ='loginCheck()'>비밀번호 확인</button>
 	</form>
 </div>
