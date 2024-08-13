@@ -23,6 +23,11 @@ import javax.mail.internet.MimeMessage;
 @Component
 public class ChaparkUtil {
 
+	/**
+	 * 이메일 전송
+	 * @param mberEamil
+	 * @param tempPassword
+	 */
 	public static void sendEmail(String mberEamil, String tempPassword ) {
 		// 1. 발신자의 메일 계정과 비밀번호 설정
 		final String user = "pjchapark@gmail.com";
@@ -70,7 +75,12 @@ public class ChaparkUtil {
 
 	}
 
-	// 예외처리
+	/**
+	 * 예외처리
+	 * @param response
+	 * @param message
+	 * @return
+	 */
 	public static String alertException(HttpServletResponse response, String message) {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
@@ -97,7 +107,13 @@ public class ChaparkUtil {
 		return null;
 	}
 	
-	// 예외처리 (리다이렉트)
+	/**
+	 * 예외처리 (리다이렉트)
+	 * @param response
+	 * @param message
+	 * @param url
+	 * @return
+	 */
 	public static String alertUrlException(HttpServletResponse response, String message, String url) {
 		response.setContentType("text/html;charset=UTF-8");
 		response.setCharacterEncoding("utf-8");
@@ -109,6 +125,38 @@ public class ChaparkUtil {
 			out.println("<script>");
 			out.println("alert('" + message + "');");
 			out.println("window.location.href='" + url + "';");
+			out.println("</script>");
+			out.println("</body></html>");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			if (out != null) {
+				out.flush();
+				out.close();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 예외처리 (새로고침)
+	 * @param response
+	 * @param message
+	 * @return
+	 */
+	public static String alertReloadException(HttpServletResponse response, String message) {
+		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
+
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			out.println("<html><body>");
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("window.location.reload();");
 			out.println("</script>");
 			out.println("</body></html>");
 
