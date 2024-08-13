@@ -18,8 +18,8 @@ function searchPw(){
 				} else {
 					$('#resultMessage').text("일치하는 정보가 없습니다.");
 				}
-				$('#searchId').hide(); // 검색 폼을 숨김
-				$('#id').hide(); // 버튼을 숨김
+				$('#searchPw').hide(); // 검색 폼을 숨김
+				$('#pw').hide(); // 버튼을 숨김
 				$('#resultSection').show(); // 결과 섹션을 보여줌
 			},
 			error : function(){
@@ -59,6 +59,9 @@ function nullCheck() {
 		<!-- 결과를 표시할 부분 -->
 	<div id="resultSection" style="display: none;">
 		<label id="resultMessage"></label> <br>
-		<button type="button" class="btn btn-primary" onclick="window.location.href='/login.do'">로그인</button>
+		<div class="d-grid gap-2">
+			<button type="button" class="btn btn-primary" onclick="window.location.href='/login.do'">로그인</button>
+			<button type="button" class="btn btn-secondary btn-sm" onclick="window.location.href='/searchPwPage.do'">정보변경하기</button>
+		</div>
 	</div>
 </form>

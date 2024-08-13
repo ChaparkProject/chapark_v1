@@ -24,6 +24,7 @@ import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.CertificationService;
+import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.security.SessionManagement;
 import com.springframework.chapark.utils.ChaparkUtil;
 
@@ -34,6 +35,9 @@ public class LoginController {
 	
 	@Autowired
 	private ChaparkService chaparkService;
+	
+	@Autowired
+	private ChaparkSecurity chaparkSecurity;
 
 	private final CertificationService certificationService;
 
@@ -158,7 +162,7 @@ public class LoginController {
 	}
 	
 	// 비밀번호 찾기
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "static-access" })
 	@RequestMapping(value = "/searchPw.do")
 	public void searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		Map<String, Object> resultMap = new HashMap<>();
@@ -171,7 +175,8 @@ public class LoginController {
 				
 				if(mberId.equals(commonMap.get("mberId")) && mberEmail.equals(commonMap.get("mberEmail"))) {
 					String tempPassword = RandomStringUtils.randomAlphanumeric(10); //임시 비밀번호 10자리 생성
-					commonMap.put("mberPw", tempPassword);
+					String encryPassword = chaparkSecurity.encrypt(tempPassword); //임시 비빌번호 암호화
+					commonMap.put("mberPw", encryPassword);
 					chaparkService.update("lo_login.tempPasswordUpdate", commonMap.getMap());
 					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
 					

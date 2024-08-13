@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-dark bg-dark fixed-top header">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">차박 커뮤니티에 오신걸 환영합니다.</a>
+		<a class="navbar-brand" href="/main.do">chapark</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -12,17 +12,19 @@
 			<div class="offcanvas-header">
 				<c:choose>
 					<c:when test="${not empty sessionScope.userInfo}">
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-							<span id="mberName">${sessionScope.mberName}</span>
-						</h5>
-						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-							<a class="nav-link" href="/logout.do">Logout</a>
-						</h5>
-						<c:if test="${userInfo.MBER_AUTH eq 'A'}">
+						<nav class="nav">
 							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-								<a class="nav-link" href="/admin/main.do">관리자 페이지</a>
+								<span id="mberName">${sessionScope.mberName}</span>
 							</h5>
-						</c:if>
+							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+								<a class="nav-link " href="/logout.do">Logout</a>
+							</h5>
+							<c:if test="${userInfo.MBER_AUTH eq 'A'}">
+								<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
+									<a class="nav-link" href="/admin/main.do">관리자 페이지</a>
+								</h5>
+							</c:if>
+						</nav>
 					</c:when>
 					<c:otherwise>
 						<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
