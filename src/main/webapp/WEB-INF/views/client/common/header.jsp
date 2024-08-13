@@ -14,7 +14,7 @@
 					<c:when test="${not empty sessionScope.userInfo}">
 						<nav class="nav">
 							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
-								<a class="nav-link " id="mberName" href="/mberInfo.do">${sessionScope.mberName}</a>
+								<a class="nav-link " id="mberName" href="/mberInfoAcess.do">${sessionScope.mberName}</a>
 							</h5>
 							<h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">
 								<a class="nav-link " href="/logout.do">Logout</a>

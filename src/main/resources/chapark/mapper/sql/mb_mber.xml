@@ -17,9 +17,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{mberId}
-		AND
-			MBER_NAME = #{mberName}
+			MBER_PW = #{mberPw}
 	</select>
 
 </mapper>

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-    <link href="${pageContext.request.contextPath}/asset/css/client/login.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/asset/css/client/login.css" rel="stylesheet" type="text/css">
 
 <script>
 	// 아이디 비번 빈값 체크
@@ -20,7 +20,7 @@
 </script>
 
 <div class="login-form">
-	<h2 class="text-center">Login</h2>
+	<h2 class="text-center">로그인</h2>
 	<form id="loginForm" action="<c:url value='/login.do' />" method="post">
 		<div class="mb-3">
 			<label for="username" class="form-label">아이디</label> 

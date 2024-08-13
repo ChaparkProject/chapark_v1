@@ -25,51 +25,5 @@
 	<footer>
 		<tiles:insertAttribute name="clfooter"/>
 	</footer>
-
-
-   <%--  <jsp:include page="header.jsp" />
-    <div class="container-fluid">
-        <div id="mainContent" class="d-flex align-items-center justify-content-center"></div>
-    </div>
-    <jsp:include page="footer.jsp" />--%>
-    
-   <%--  <script>
-		$(document).ready(function() {
-		    adjustMainContentHeight();
-		
-		    $(window).resize(function() {
-		        adjustMainContentHeight();
-		    });
-		
-		    function adjustMainContentHeight() {
-		        var headerHeight = $('.header').outerHeight() || 0;
-		        var footerHeight = $('footer').outerHeight() || 0;
-		        var mainContentHeight = headerHeight + footerHeight;
-		
-		        $('#mainContent').css('min-height', 'calc(100vh - ' + mainContentHeight + 'px)');
-		        $('#mainContent').css('max-height', 'calc(100vh - ' + mainContentHeight + 'px)');
-		        $('#mainContent').css('margin-top', headerHeight + 'px');
-		        $('#mainContent').css('margin-bottom', footerHeight + 'px');
-		    }
-		});
-
-        function pageChange(page) {
-            $.ajax({
-                type: "POST",
-                url: "/changePage",
-                data: {
-                    'page': page
-                },
-                success: function(result) {
-                    $('#mainContent').html(result);
-                    $('.nav-link').removeClass('active');
-                    $(element).addClass('active');
-                },
-                error: function() {
-                    alert("오류가 발생했습니다.");
-                }
-            });
-        }
-    </script>--%>
 </body>
 </html>
