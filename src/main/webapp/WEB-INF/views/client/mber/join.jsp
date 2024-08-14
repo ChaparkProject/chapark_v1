@@ -49,13 +49,15 @@
 let submitCheck = false;
 
 function joinCheck() {
+	
 	if(submitCheck) {
+		alert('회원가입이 완료되었습니다.');
+		window.location.href = '/main.do';
 		return true;
 	} else {
 		alert('아이디 중복체크를 해야합니다');
 		return false;
 	}
-	
 }
 // 아이디 중복체크
 function idCheck() {
