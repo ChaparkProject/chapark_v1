@@ -3,29 +3,23 @@
 <link href="${pageContext.request.contextPath}/asset/css/client/join.css" rel="stylesheet" type="text/css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link href="${pageContext.request.contextPath}/asset/css/client/login.css" rel="stylesheet" type="text/css">
-<style>
-	/* 모든 경고 메시지를 기본적으로 숨깁니다 */
-	#mberPwAlert, #newMberPwAlert, #checkNewPwAlert {
-		display: none;
-	}
-</style>
 <div class="login-form">
 	<h2 class="text-center">비밀번호 변경</h2>
 	<form id="loginForm" method="post">
 		<div class="mb-3">
 			<label for="password" class="form-label">현재 비밀번호</label> 
 			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
-			<div class="alert alert-danger" id = "mberPwAlert" role="alert"></div>
+			<div class="alert alert-danger" id="mberPwAlert" role="alert" style="display: none;"></div>
 		</div>
 		<div class="mb-3">
 			<label for="password" class="form-label">새 비밀번호</label> 
 			<input type="password" class="form-control" id="newMberPw" name="newMberPw" required="required">
-			<div class="alert alert-danger" id = "newMberPwAlert" role="alert"></div>
+			<div class="alert alert-danger" id="newMberPwAlert" role="alert" style="display: none;"></div>
 		</div>
 		<div class="mb-3">
 			<label for="password" class="form-label">새 비밀번호 확인</label> 
 			<input type="password" class="form-control" id="checkNewPw" name="checkNewPw" required="required">
-			<div class="alert alert-danger" id = "checkNewPwAlert" role="alert"></div>
+			<div class="alert alert-danger" id="checkNewPwAlert" role="alert" style="display: none;"></div>
 		</div>
 		<button type="submit" class="btn btn-primary" onclick="changePw(event)">비밀번호 변경</button>
 	</form>
@@ -33,31 +27,32 @@
 <script>
 function changePw(event) {
 	
-	event.preventDefault();
+	event.preventDefault(); // 폼의 기본 제출 동작을 방지
 	
-	$("#mberPwAlert, #newMberPwAlert, #checkNewPwAlert").hide();
+	$("#mberPwAlert, #newMberPwAlert, #checkNewPwAlert").hide().html(""); // 경고 메시지 초기화 및 숨기기
 	
 	$.ajax({
 		type : "POST",
 		url : "/updatePassword.do",
 		data : {
-			mberPw :$('#mberPw').val(),
-			newMberPw :$('#newMberPw').val(),
-			checkNewPw :$('#checkNewPw').val(),
+			mberPw : $("#mberPw").val(),
+			newMberPw : $("#newMberPw").val(),
+			checkNewPw : $("#checkNewPw").val(),
 		},
 		success : function(data) {
-			if(data.result == 'Y') {
-				alert("비밀번호가 변경되었습니다.");
-			} else if(data.result == 'No') {
-				$("#checkNewPwAlert").html("비밀번호가 일치하지 않습니다.").show();
-			} else if(data.result == 'N'){
-				$("#mberPwAlert").html("기존비밀번호와 일치하지 않습니다.").show();
+			if(data.result === 'update') {
+				window.location.href = '/mberInfo.do';
+			} else if (data.result === 'C') {
+				$("#mberPwAlert").html("비밀번호가 다릅니다.").show();
+			} else if (data.result === 'B'){
+				$("#newMberPwAlert").html("기존 비밀번호와 동일합니다.").show();
+			} else if (data.result === 'A'){
+				$("#checkNewPwAlert").html("새 비밀번호와 다릅니다.").show();
 			}
 		},
 		error : function() {
-			alert("오류가 발생했습니다.");
+			alert('오류가 발생했습니다.');
 		}
-		
 	});
 }
 

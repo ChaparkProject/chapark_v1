@@ -39,7 +39,13 @@ public class MberInfoController {
 	 * @return
 	 */
 	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.GET)
-	public String mberInfoAcessPage() {
+	public String mberInfoAcessPage(HttpServletRequest request, HttpServletResponse response) {
+		
+		//세션에서 사용자 정보 가져오기
+		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); 
+		if(mberInfo == null) {
+			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+		}
 		return "client/mber/mberInfoAcess";
 	}
 	
@@ -54,6 +60,12 @@ public class MberInfoController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.POST)
 	public String mberInfoAcessCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+		
+		//세션에서 사용자 정보 가져오기
+		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); 
+		if(mberInfo == null) {
+			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+		}
 		
 		try {
 			String mberPw = commonMap.get("mberPw").toString();
@@ -86,48 +98,70 @@ public class MberInfoController {
 	public String mberInfoPage(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
 		try {
 				Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
-				model.addAttribute("mberInfo", mberInfo );
+				if(mberInfo != null) {
+					model.addAttribute("mberInfo", mberInfo );
+				} else {
+					ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+				}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "mberInfoPage");
 		}
 		return "client/mber/mberInfo";
 	}
 	
-	// 비밂번호 변경
+	/**
+	 * 비밂번호 변경
+	 * @return
+	 */
 	@RequestMapping(value = "/updateMberPw.do")
-	public String updateMberInfoPw() {
+	public String updateMberInfoPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
+		if(mberInfo == null) {
+			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+		}
 		return "client/mber/updateMberPw";
 	}
 	
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@RequestMapping(value = "/updatePassword.do")
-	public void updatePassword(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+	public void updatePassword(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+		Map<String, Object> map = new HashMap();
 		Map<String, Object> pwMap = new HashMap();
+		
+		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
+		if(mberInfo == null) {
+			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+		}
+		
 		try {
-			String mberPw = commonMap.get("mberPw").toString();
-			String newMberPw = commonMap.get("newMberPw").toString();
+			String mberPw = commonMap.get("mberPw").toString(); //기존 비밀번호
+			String newMberPw = commonMap.get("newMberPw").toString(); //새로운 비밀번호
+			String checkNewPw = commonMap.get("checkNewPw").toString(); //새로운 비밀번호 확인
 			
 			String encryPassword = chaparkSecurity.encrypt(mberPw); //입력받은 비밀번호 암호화
-			pwMap.put("mberPw", encryPassword); //현재 비밀번호 조건걸기 위함
-			Map<String, Object> mberPwCheck = chaparkService.selectMap("mb_mber.selectMberInfo", pwMap);
+			map.put("mberPw", encryPassword); //현재 비밀번호 조건걸기 위함
+			Map<String, Object> mberPwCheck = chaparkService.selectMap("mb_mber.selectMberInfo", map); //사용자가 있는지 없는지 체크
+			
 			if(mberPwCheck != null) {
-				if(!mberPw.equals(newMberPw)) { // 기존 비밀번호와 새로운 비밀번호가 같지 않을때
-					if(newMberPw.equals(commonMap.get("checkNewPw").toString())) { //새로운 비밀번호 == 새로운 비밀번호 확인
-						pwMap.put("result", "Y");
-						//update쿼리
+				if(!mberPw.equals(newMberPw)) {
+					if (newMberPw.equals(checkNewPw)) {
+						String encrytPassword = chaparkSecurity.encrypt(newMberPw); //입력받은 비밀번호 암호화
+						map.put("mberId", mberPwCheck.get("MBER_ID"));
+						map.put("newMberPw", encrytPassword);
+						chaparkService.update("mb_mber.updateMberPassword",map);
+						pwMap.put("result", "update");
 					} else {
-						pwMap.put("result", "No");
+						pwMap.put("result", "A");
 					}
 				} else {
-					pwMap.put("result", "equals"); //기존 비밀번호와 새로운 비밀번호가 같을때
+					pwMap.put("result", "B");
 				}
 			} else {
-				pwMap.put("result", "N");
+				pwMap.put("result", "C");
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "updatePassword");
 		}
-		
 		Gson gson = new Gson();
 		PrintWriter pw = null;
 		String json = "";
