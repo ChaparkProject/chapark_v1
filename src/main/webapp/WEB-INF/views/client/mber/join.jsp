@@ -58,6 +58,18 @@ function joinCheck() {
 		alert('아이디 중복체크를 해야합니다');
 		return false;
 	}
+	
+	$.ajax({
+		type : "POST",
+		url : "/insertMber.do",
+		data : $("#signupForm").serialize(),
+		success : function(result) {
+			
+		},
+		error : function (result) {
+			
+		}
+	});
 }
 // 아이디 중복체크
 function idCheck() {

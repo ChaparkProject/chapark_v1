@@ -58,6 +58,18 @@ public class joinController {
 		}
 		 return "client/mber/join";
 	}
+	
+	@SuppressWarnings("static-access")
+	@RequestMapping("/insertMber.do")
+	public void insertMber(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+		
+		// 비밀번호 암호화
+		String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString());
+		commonMap.put("mberPw", encryPassword); 
+		commonMap.put("mberAuth", "C"); // 기본 권한 c
+		
+		chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); //회원가입(insert)
+	}
 
 	/**
 	 * 아이디 중복체크
