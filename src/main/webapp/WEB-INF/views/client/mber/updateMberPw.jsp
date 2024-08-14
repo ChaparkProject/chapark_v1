@@ -18,7 +18,30 @@
 			<label for="password" class="form-label">새 비밀번호 확인</label> 
 			<input type="password" class="form-control" id="checkNewPw" name="checkNewPw" required="required">
 		</div>
-		<button type="submit" class="btn btn-primary" onclick="changePw">비밀번호 변경</button>
+		<button type="submit" class="btn btn-primary" onclick="changePw()">비밀번호 변경</button>
 	</form>
 </div>
+<script>
+function changePw() {
+	$.ajax({
+		type : "POST",
+		url : "/updatePassword.do",
+		data : {
+			mberPw :$('#mberPw').val(),
+			newMberPw :$('#newMberPw').val(),
+			checkNewPw :$('#checkNewPw').val(),
+		},
+		sucess : function(data) {
+			if(data.result == 'Y') {
+				
+			}
+		},
+		error : function(data) {
+			
+		}
+		
+	});
+}
+
+</script>
 

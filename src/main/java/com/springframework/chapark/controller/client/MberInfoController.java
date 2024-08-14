@@ -1,5 +1,7 @@
 package com.springframework.chapark.controller.client;
 
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.gson.Gson;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
@@ -96,8 +99,45 @@ public class MberInfoController {
 		return "client/mber/updateMberPw";
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/updatePassword.do")
-	public void updatePassword() {
+	public void updatePassword(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
+		Map<String, Object> pwMap = new HashMap();
+		try {
+			String mberPw = commonMap.get("mberPw").toString();
+			String newMberPw = commonMap.get("newMberPw").toString();
+			
+			pwMap.put("mberPw", mberPw); //현재 비밀번호 조건걸기 위함
+			Map<String, Object> mberPwCheck = chaparkService.selectMap("mb_mber.selectMberInfo", pwMap);
+			if(mberPwCheck != null) {
+				if(!mberPw.equals(newMberPw)) {
+					if(newMberPw.equals(commonMap.get("checkNewPw").toString())) {
+						pwMap.put("result", "Y");
+					}
+				} else {
+					pwMap.put("result", "X");
+				}
+			} else {
+				pwMap.put("result", "N");
+			}
+		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "updatePassword");
+		}
+		
+		Gson gson = new Gson();
+		PrintWriter pw = null;
+		String json = "";
+		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
+			response.setContentType("application/json;charset=UTF-8");
+			json = gson.toJson(pwMap);
+			pw = response.getWriter();
+			pw.write(json);
+		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "idCheckJson");
+		} finally {
+			if (pw != null) {
+				pw.close();
+			}
+		}
 	}
-
 }
