@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="jo_join">
+	<!-- 시큐리티 회원정보 조회 -->
 	<select id="selectSecurityUserInfo" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
@@ -19,6 +20,7 @@
 		WHERE
 			MBER_ID = #{MBER_ID}
 	</select>
+	<!-- 회원가입 -->
 	<insert id="insertMberJoin" parameterType="map">
 		INSERT INTO TB_MBER (
 			MBER_SEQ

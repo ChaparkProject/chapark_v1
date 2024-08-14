@@ -40,7 +40,7 @@
 			<label for="MBER_TEL" class="form-label">전화번호</label>
 			<input type="text" class="form-control" id="mberTel" name="mberTel" required="required">
 		</div>
-		<button type="submit" class="btn btn-primary">회원가입</button>
+		<button type="submit" class="btn btn-primary" onclick="join()">회원가입</button>
 	</form>
 	<span id="guide" class="fs14 pc_red addrsRoad"></span>
 </div>
@@ -83,6 +83,10 @@ function idCheck() {
 			}
 		}
 	});
+}
+
+function join() {
+	window.location.href='/login.do';
 }
 
 //카카오 주소 api url에 파라미터 안붙게 하기 위함

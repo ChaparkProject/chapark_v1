@@ -49,8 +49,8 @@ public class joinController {
 		try {
 			// 비밀번호 암호화
 			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString());
-			commonMap.put("MBER_PW", encryPassword); 
-			commonMap.put("MBER_AUTH", "C"); // 기본 권한 c
+			commonMap.put("mberPw", encryPassword); 
+			commonMap.put("mberAuth", "C"); // 기본 권한 c
 			
 			chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); //회원가입(insert)
 		} catch (Exception e) {
