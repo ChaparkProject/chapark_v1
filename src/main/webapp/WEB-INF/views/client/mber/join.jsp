@@ -40,7 +40,7 @@
 			<label for="MBER_TEL" class="form-label">전화번호</label>
 			<input type="text" class="form-control" id="mberTel" name="mberTel" required="required">
 		</div>
-		<button type="submit" class="btn btn-primary" onclick="join()">회원가입</button>
+		<button type="submit" class="btn btn-primary" onclick = "joinCheck()">회원가입</button>
 	</form>
 	<span id="guide" class="fs14 pc_red addrsRoad"></span>
 </div>
@@ -55,6 +55,7 @@ function joinCheck() {
 		alert('아이디 중복체크를 해야합니다');
 		return false;
 	}
+	
 }
 // 아이디 중복체크
 function idCheck() {
@@ -73,8 +74,10 @@ function idCheck() {
 		success  : function(data) {
 			if(data.result == 'success') {
 				$("#result_checkId").html("아이디를 사욯하실수 있습니다.").css("color","green");
+				submitCheck = true;
 			} else{
 				$("#result_checkId").html("이미 사용중인 아이디 입니다").css("color","red").att("tabindex", -1).focus();
+				submitCheck = false;
 			}
 		}
 		,error : function(data) {
@@ -83,10 +86,6 @@ function idCheck() {
 			}
 		}
 	});
-}
-
-function join() {
-	window.location.href='/login.do';
 }
 
 //카카오 주소 api url에 파라미터 안붙게 하기 위함
