@@ -99,7 +99,7 @@ public class MberInfoController {
 		return "client/mber/updateMberPw";
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "static-access" })
 	@RequestMapping(value = "/updatePassword.do")
 	public void updatePassword(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
 		Map<String, Object> pwMap = new HashMap();
@@ -107,15 +107,19 @@ public class MberInfoController {
 			String mberPw = commonMap.get("mberPw").toString();
 			String newMberPw = commonMap.get("newMberPw").toString();
 			
-			pwMap.put("mberPw", mberPw); //현재 비밀번호 조건걸기 위함
+			String encryPassword = chaparkSecurity.encrypt(mberPw); //입력받은 비밀번호 암호화
+			pwMap.put("mberPw", encryPassword); //현재 비밀번호 조건걸기 위함
 			Map<String, Object> mberPwCheck = chaparkService.selectMap("mb_mber.selectMberInfo", pwMap);
 			if(mberPwCheck != null) {
-				if(!mberPw.equals(newMberPw)) {
-					if(newMberPw.equals(commonMap.get("checkNewPw").toString())) {
+				if(!mberPw.equals(newMberPw)) { // 기존 비밀번호와 새로운 비밀번호가 같지 않을때
+					if(newMberPw.equals(commonMap.get("checkNewPw").toString())) { //새로운 비밀번호 == 새로운 비밀번호 확인
 						pwMap.put("result", "Y");
+						//update쿼리
+					} else {
+						pwMap.put("result", "No");
 					}
 				} else {
-					pwMap.put("result", "X");
+					pwMap.put("result", "equals"); //기존 비밀번호와 새로운 비밀번호가 같을때
 				}
 			} else {
 				pwMap.put("result", "N");
