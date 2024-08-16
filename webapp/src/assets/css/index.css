@@ -1,0 +1,31 @@
+/* 1. 기본 스타일(리셋/기본 설정) */
+@import url('./base/reset.css');  /* CSS 리셋 */
+@import url('./base/global.css'); /* 전역 스타일 설정 */
+
+/* 2. 유틸리티 스타일 */
+@import url('./utils/colors.css');    /* 색상 팔레트 */
+
+/* 3. 레이아웃 스타일 */
+@import url('./layouts/Header.css'); /* 헤더 스타일 */
+@import url('./layouts/Main.css');   /* 메인 스타일 */
+@import url('./layouts/Footer.css'); /* 푸터 스타일 */
+
+/* 4. 페이지별 스타일 */
+@import url('./pages/Home.css');      /* 홈 페이지 스타일 */
+
+/* 5. 최종 스타일 조정 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
