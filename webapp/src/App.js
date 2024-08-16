@@ -12,7 +12,6 @@ const App = () => {
   useEffect(() => {
       if (headerRef.current) {
           setHeaderHeight(headerRef.current.offsetHeight);
-          console.log("height ", headerRef.current.offsetHeight);
       }
 
       // Handle window resize to adjust header height

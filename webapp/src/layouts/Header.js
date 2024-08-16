@@ -5,9 +5,9 @@ import { Link } from 'react-router-dom';
 
 const Header = forwardRef((props, ref) => {
     return (
-        <Navbar expand="lg" className="bg-body-tertiary fixed-top" id='header' ref={ref}>
+        <Navbar expand="lg" className="bg-body-tertiarys fixed-top" id='header' ref={ref}>
           <Container>
-            <Navbar.Brand href='/'>Chapark</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">Chapark</Navbar.Brand>
 
             <Navbar.Toggle/>
 
@@ -20,7 +20,7 @@ const Header = forwardRef((props, ref) => {
                   <NavDropdown.Item href="#action/3.2">경상도 게시판</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">경기도 게시판</NavDropdown.Item>
                 </NavDropdown>
-                <Link to="/Login">로그인/회원가입</Link>
+                <Nav.Link as={Link} to="/Login">로그인/회원가입</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>
