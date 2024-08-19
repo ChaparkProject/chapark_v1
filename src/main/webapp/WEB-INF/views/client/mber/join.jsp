@@ -13,7 +13,7 @@
 			<button type="button" class="btn btn-primary " onclick="idCheck();">아이디 중복체크</button>
 		</div>
 		<div class="mb-3">
-			<label for="MBER_PW" class="form-label">비밀번호</label>
+			<label for="MBER_PW" class="form-label" >비밀번호</label>
 			<input type="password" class="form-control" id="mberPw" name="mberPw" required="required">
 		</div>
 		<div class="mb-3">
@@ -50,26 +50,33 @@ let submitCheck = false;
 
 function joinCheck() {
 	
-	if(submitCheck) {
-		alert('회원가입이 완료되었습니다.');
-		window.location.href = '/main.do';
-		return true;
-	} else {
-		alert('아이디 중복체크를 해야합니다');
-		return false;
-	}
+	const inputs = document.querySelectorAll('#signupForm input[required]');
+	let isValid = true;
+	let stopLoop = false;
 	
-	$.ajax({
-		type : "POST",
-		url : "/insertMber.do",
-		data : $("#signupForm").serialize(),
-		success : function(result) {
-			
-		},
-		error : function (result) {
-			
+	// 아이디 중복 체크 여부 확인
+	if (isValid && !submitCheck) {
+		alert('아이디 중복체크를 해야합니다');
+		isValid = false;
+	}
+
+	inputs.forEach(function(input) {
+		if (isValid && input.value.trim() === '') {
+			// 빈 값이 있는 경우 알림 표시
+			alert(input.name + '을(를) 입력하세요.');
+			input.focus();
+			isValid = false; // 유효성 검사 실패
+			stopLoop = true;
 		}
 	});
+
+
+	if (isValid) {
+		alert('회원가입이 완료되었습니다.');
+		window.location.href = '/main.do';
+	}
+
+    return isValid; // true일 경우에만 폼 제출
 }
 // 아이디 중복체크
 function idCheck() {

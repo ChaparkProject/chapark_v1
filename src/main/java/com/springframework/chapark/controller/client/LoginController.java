@@ -1,13 +1,20 @@
 package com.springframework.chapark.controller.client;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -31,14 +38,14 @@ import com.springframework.chapark.utils.ChaparkUtil;
 /**
  * LoginController (로그인/ 아이디,비밀번호 찾기 컨트롤러)
  */
-@Controller
+@RestController
 public class LoginController {
 
 	Logger logger = LoggerFactory.getLogger(LoginController.class);
-	
+
 	@Autowired
 	private ChaparkService chaparkService;
-	
+
 	@Autowired
 	private ChaparkSecurity chaparkSecurity;
 
@@ -49,79 +56,87 @@ public class LoginController {
 		this.certificationService = certificationService;
 	}
 
-	/**
-	 * 로그인
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/login.do", method = RequestMethod.GET)
-	public String loginPage() {
-		return "client/mber/login"; // 로그인 페이지 뷰를 반환
-	}
+	private final ObjectMapper objectMapper = new ObjectMapper(); // JSON 처리용 ObjectMapper
+	
+	private final TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
 
-	/**
-	 * 로그인 체크
-	 * 
-	 * @param request
-	 * @param response
-	 * @param commonMap
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String login(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) throws Exception {
-		String mberId = (String) commonMap.get("mberId");
-		String mberPw = (String) commonMap.get("mberPw");
+	@PostMapping("/login")
+	public ResponseEntity<Map<String, Object>> login(@RequestBody String jsonString, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap<>();
 
-		boolean success = certificationService.login(mberId, mberPw, commonMap); // 사용자 정보 true 또는 false
-		if (success) {
-			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", commonMap.getMap());
-			/*HttpSession session = request.getSession();
-			session.setAttribute("userInfo", userInfo); // 사용자 정보를 세션에 저장*/
-			
-			SessionManagement.setSessionInfo(request, "userInfo", userInfo); // 사용자 정보를 세션에 저장
-			
-			String mberName = (String) userInfo.get("MBER_NAME");
-			/*session.setAttribute("mberName", mberName);*/
-			SessionManagement.setSessionInfo(request, "mberName", mberName); // 사용자 이름을 세션에 저장
-			
-			
-			model.addAttribute("userInfo", userInfo);
-			return "redirect:/main.do"; // 로그인 성공 시 메인 화면으로 리다이렉트
-		} else {
-			model.addAttribute("loginError", "아이디와 비밀번호가 일치하지 않습니다.");
-			return "client/mber/login"; // 로그인 실패 시 로그인으로 이동
+		try {
+			// JSON 문자열을 Map으로 변환
+			Map<String, Object> loginMap = objectMapper.readValue(jsonString, typeReference);
+
+			// mberId와 mberPw 추출
+			String mberId = (String) loginMap.get("id");
+			String mberPw = (String) loginMap.get("pw");
+
+			// 로그인 처리
+			boolean success = certificationService.login(mberId, mberPw, loginMap);
+			if (success) {
+				Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", loginMap);
+				SessionManagement.setSessionInfo(request, "userInfo", userInfo);
+				String mberName = (String) userInfo.get("MBER_NAME");
+				SessionManagement.setSessionInfo(request, "mberName", mberName);
+
+				response.put("status", "success");
+				response.put("userInfo", userInfo);
+				return ResponseEntity.ok(response);
+			} else {
+				response.put("status", "error");
+				response.put("message", "아이디와 비밀번호가 일치하지 않습니다.");
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+			}
+		} catch (Exception e) {
+			logger.error("Login error", e);
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
 
 	/**
 	 * 로그아웃
+	 * 
 	 * @param request
-	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/logout.do")
-	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		HttpSession session = request.getSession(false); // 현재 세션을 가져옴 (없으면 null 반환)
-		if(session != null) {
-			session.invalidate(); // 세션 제거
+	@PostMapping("/logout")
+	public ResponseEntity<Map<String, Object>> logout(HttpServletRequest request) {
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			HttpSession session = request.getSession(false); // 현재 세션을 가져옴 (없으면 null 반환)
+			if (session != null) {
+				session.invalidate(); // 세션 제거
+			}
+			response.put("status", "success");
+			response.put("message", "로그아웃이 성공적으로 처리되었습니다.");
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			ChaparkLogger.debug(e, this.getClass(), "logout");
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
-		return "redirect:/login.do"; // 로그아웃 후 로그인 페이지로 리다이렉트
 	}
-	
+
+	/**************************** 수정 전 *******************************************/
+
 	/**
 	 * 아이디 찾기 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/searchIdPage.do")
 	public String searchIdPage() {
 		return "client/mber/idSearch";
 	}
-	
+
 	/**
 	 * 아이디 찾기
+	 * 
 	 * @param request
 	 * @param response
 	 * @param commonMap
@@ -133,19 +148,20 @@ public class LoginController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
-			
-			if(userIdInfo != null) {
+
+			if (userIdInfo != null) {
 				String mberName = userIdInfo.get("MBER_NAME").toString();
 				String mberTel = userIdInfo.get("MBER_TEL").toString();
-				
-				if(mberName.equals(commonMap.get("mberName")) && mberTel.equals(commonMap.get("mberTel"))) {
+
+				if (mberName.equals(commonMap.get("mberName")) && mberTel.equals(commonMap.get("mberTel"))) {
 					resultMap.put("result", "true");
 					resultMap.put("mberId", userIdInfo.get("MBER_ID"));
 				} else {
 					resultMap.put("result", "false");
 				}
-			}else {
-				resultMap.put("result", "false");;
+			} else {
+				resultMap.put("result", "false");
+				;
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
@@ -166,18 +182,20 @@ public class LoginController {
 			}
 		}
 	}
-	
+
 	/**
 	 * 비밀번호 찾기 페이지
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/searchPwPage.do")
 	public String searchPwPage() {
 		return "client/mber/pwSearch";
 	}
-	
+
 	/**
 	 * 비밀번호 찾기
+	 * 
 	 * @param request
 	 * @param response
 	 * @param commonMap
@@ -188,24 +206,25 @@ public class LoginController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", commonMap.getMap());
-			
-			if(userPwInfo != null) {
+
+			if (userPwInfo != null) {
 				String mberId = userPwInfo.get("MBER_ID").toString();
 				String mberEmail = userPwInfo.get("MBER_EMAIL").toString();
-				
-				if(mberId.equals(commonMap.get("mberId")) && mberEmail.equals(commonMap.get("mberEmail"))) {
-					String tempPassword = RandomStringUtils.randomAlphanumeric(10); //임시 비밀번호 10자리 생성
-					String encryPassword = chaparkSecurity.encrypt(tempPassword); //임시 비빌번호 암호화
+
+				if (mberId.equals(commonMap.get("mberId")) && mberEmail.equals(commonMap.get("mberEmail"))) {
+					String tempPassword = RandomStringUtils.randomAlphanumeric(10); // 임시 비밀번호 10자리 생성
+					String encryPassword = chaparkSecurity.encrypt(tempPassword); // 임시 비빌번호 암호화
 					commonMap.put("mberPw", encryPassword);
 					chaparkService.update("lo_login.tempPasswordUpdate", commonMap.getMap());
 					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
-					
+
 					resultMap.put("result", "true");
 				} else {
 					resultMap.put("result", "false");
 				}
-			}else {
-				resultMap.put("result", "false");;
+			} else {
+				resultMap.put("result", "false");
+				;
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
