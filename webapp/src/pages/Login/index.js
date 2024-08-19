@@ -1,7 +1,6 @@
 
-import { Label } from 'react-bootstrap';
-import React, { useEffect, useState } from 'react';
-import { mberApi } from '@API/v1';
+import React, { useState } from 'react';
+import mberApi from '../../API/v1';
 
 const Login = () =>{
   const [isLoginMode, setIsLoginMode] = useState(true);

@@ -1,3 +1,3 @@
 import mberApi from './mber'
 
-export {mberApi};
+export default mberApi;
