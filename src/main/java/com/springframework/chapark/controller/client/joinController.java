@@ -48,27 +48,17 @@ public class joinController {
 	public String join(CommonMap commonMap, Model model, HttpServletRequest request) {
 		try {
 			// 비밀번호 암호화
-			String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString());
-			commonMap.put("mberPw", encryPassword); 
-			commonMap.put("mberAuth", "C"); // 기본 권한 c
-			
-			chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); //회원가입(insert)
+			String mberPw = commonMap.get("mberPw") != null ? commonMap.get("mberPw").toString() : "";
+			if (!mberPw.isEmpty()) {
+				String encryPassword = chaparkSecurity.encrypt(mberPw);
+				commonMap.put("mberPw", encryPassword);
+				commonMap.put("mberAuth", "C"); // 기본 권한 c
+				chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); //회원가입(insert)
+			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
 		}
 		 return "client/mber/join";
-	}
-	
-	@SuppressWarnings("static-access")
-	@RequestMapping("/insertMber.do")
-	public void insertMber(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
-		
-		// 비밀번호 암호화
-		String encryPassword = chaparkSecurity.encrypt(commonMap.get("mberPw").toString());
-		commonMap.put("mberPw", encryPassword); 
-		commonMap.put("mberAuth", "C"); // 기본 권한 c
-		
-		chaparkService.insert("jo_join.insertMberJoin", commonMap.getMap()); //회원가입(insert)
 	}
 
 	/**

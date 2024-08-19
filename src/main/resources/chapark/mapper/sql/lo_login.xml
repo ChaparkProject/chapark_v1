@@ -9,15 +9,11 @@
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{mberId}
+			MBER_ID = #{id}
 	</select>
 	<!-- 사용자 인증  -->
 	<select id="selectCertificationUserInfo" parameterType="map" resultType="map">
@@ -27,15 +23,11 @@
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{mberId}
+			MBER_ID = #{id}
 	</select>
 	
 	<!-- 아이디 찾기 -->
@@ -46,10 +38,6 @@
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
 		FROM
 			TB_MBER
@@ -67,10 +55,6 @@
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
 		FROM
 			TB_MBER
