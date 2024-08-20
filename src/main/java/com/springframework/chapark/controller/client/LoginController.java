@@ -2,32 +2,25 @@ package com.springframework.chapark.controller.client;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
-import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.CertificationService;
 import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.security.SessionManagement;
@@ -98,7 +91,6 @@ public class LoginController {
 
 	/**
 	 * 로그아웃
-	 * 
 	 * @param request
 	 * @return
 	 */
@@ -163,17 +155,16 @@ public class LoginController {
 	}
 	/**
 	 * 비밀번호 찾기
-	 * 
+	 * @param data
 	 * @param request
-	 * @param response
-	 * @param commonMap
+	 * @return
 	 */
 	@SuppressWarnings({ "unchecked", "static-access" })
-	@GetMapping(value = "/searchPw.do")
+	@GetMapping(value = "/searchPw")
 	public ResponseEntity<Map<String, Object>> searchPw(@RequestBody String data, HttpServletRequest request) {
 		Map<String, Object> response = new HashMap<>();
 		try {
-			Map<String, Object> findMap = JsonUtil.JsonToMap(data);
+			Map<String, Object> findMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", findMap);
 
 			if (userPwInfo != null) {
@@ -187,7 +178,9 @@ public class LoginController {
 					chaparkService.update("lo_login.tempPasswordUpdate", findMap);
 					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
 
-					response.put("result", "true");
+					response.put("status", "success");
+					response.put("message", "임시 이메일이 발송되었습니다.");
+					return ResponseEntity.ok(response);
 				} else {
 					response.put("status", "fail");
 					response.put("message", "에러가 발생했습니다.");
