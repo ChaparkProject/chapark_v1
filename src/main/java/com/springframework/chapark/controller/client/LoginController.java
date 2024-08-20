@@ -1,6 +1,7 @@
 package com.springframework.chapark.controller.client;
 
 import org.apache.commons.lang3.RandomStringUtils;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
@@ -8,17 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +31,7 @@ import com.springframework.chapark.security.CertificationService;
 import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.security.SessionManagement;
 import com.springframework.chapark.utils.ChaparkUtil;
+import com.springframework.chapark.utils.JsonUtil;
 
 /**
  * LoginController (로그인/ 아이디,비밀번호 찾기 컨트롤러)
@@ -61,12 +59,12 @@ public class LoginController {
 	private final TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
 
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody String jsonString, HttpServletRequest request) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody String data, HttpServletRequest request) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			// JSON 문자열을 Map으로 변환
-			Map<String, Object> loginMap = objectMapper.readValue(jsonString, typeReference);
+			// 리액트에서 받아온 Json데이터 map으로 변환
+			Map<String, Object> loginMap = JsonUtil.JsonToMap(data);
 
 			// mberId와 mberPw 추출
 			String mberId = (String) loginMap.get("id");
