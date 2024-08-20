@@ -193,7 +193,9 @@ public class LoginController {
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
-		return null;
 	}
 }
