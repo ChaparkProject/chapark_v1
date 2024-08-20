@@ -10,6 +10,7 @@
 			, MBER_NAME
 			, MBER_EMAIL
 			, MBER_AUTH
+			, MBER_DATE
 		FROM
 			TB_MBER
 		WHERE
@@ -24,6 +25,7 @@
 			, MBER_NAME
 			, MBER_EMAIL
 			, MBER_AUTH
+			, MBER_DATE
 		FROM
 			TB_MBER
 		WHERE
