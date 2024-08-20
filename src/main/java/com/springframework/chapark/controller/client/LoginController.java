@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,17 +55,18 @@ public class LoginController {
 		this.certificationService = certificationService;
 	}
 
-	private final ObjectMapper objectMapper = new ObjectMapper(); // JSON 처리용 ObjectMapper
-	
-	private final TypeReference<Map<String, Object>> typeReference = new TypeReference<Map<String,Object>>() {};
-
+	/**
+	 * 로그인
+	 * @param data
+	 * @param request
+	 * @return
+	 */
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody String data, HttpServletRequest request) {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			// 리액트에서 받아온 Json데이터 map으로 변환
-			Map<String, Object> loginMap = JsonUtil.JsonToMap(data);
+			Map<String, Object> loginMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 
 			// mberId와 mberPw 추출
 			String mberId = (String) loginMap.get("id");
@@ -79,18 +81,18 @@ public class LoginController {
 				SessionManagement.setSessionInfo(request, "mberName", mberName);
 
 				response.put("status", "success");
-				response.put("userInfo", userInfo);
+				response.put("data", userInfo);
 				return ResponseEntity.ok(response);
 			} else {
-				response.put("status", "error");
+				response.put("status", "fail");
 				response.put("message", "아이디와 비밀번호가 일치하지 않습니다.");
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); //401에러(인증 필요)
 			}
 		} catch (Exception e) {
 			logger.error("Login error", e);
 			response.put("status", "error");
 			response.put("message", "서버 에러가 발생했습니다.");
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
 	}
 
@@ -115,82 +117,50 @@ public class LoginController {
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "logout");
 			response.put("status", "error");
-			response.put("message", "서버 에러가 발생했습니다.");
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+			response.put("message", "에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
-	}
-
-	/**************************** 수정 전 *******************************************/
-
-	/**
-	 * 아이디 찾기 페이지
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/searchIdPage.do")
-	public String searchIdPage() {
-		return "client/mber/idSearch";
 	}
 
 	/**
 	 * 아이디 찾기
-	 * 
+	 * @param data
 	 * @param request
-	 * @param response
-	 * @param commonMap
-	 * @param model
+	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/searchId.do")
-	public void searchId(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
-		Map<String, Object> resultMap = new HashMap<>();
+	@GetMapping(value = "/findId")
+	public  ResponseEntity<Map<String, Object>> searchId(@RequestBody String data, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap<>();
 		try {
-			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", commonMap.getMap());
+			Map<String, Object> findMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
+			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", findMap);
 
 			if (userIdInfo != null) {
 				String mberName = userIdInfo.get("MBER_NAME").toString();
-				String mberTel = userIdInfo.get("MBER_TEL").toString();
+				String mberEmail = userIdInfo.get("MBER_EMAIL").toString();
 
-				if (mberName.equals(commonMap.get("mberName")) && mberTel.equals(commonMap.get("mberTel"))) {
-					resultMap.put("result", "true");
-					resultMap.put("mberId", userIdInfo.get("MBER_ID"));
+				if (mberName.equals(findMap.get("mberName")) && mberEmail.equals(findMap.get("mberEmail"))) {
+					response.put("status", "success");
+					response.put("data", userIdInfo.get("MBER_ID"));
+					return ResponseEntity.ok(response);
 				} else {
-					resultMap.put("result", "false");
+					response.put("status", "fail");
+					response.put("message", "에러가 발생했습니다.");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 				}
 			} else {
-				resultMap.put("result", "false");
-				;
+				response.put("status", "fail");
+				response.put("message", "에러가 발생했습니다.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
-		}
-		Gson gson = new Gson();
-		PrintWriter pw = null;
-		String json = "";
-		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
-			response.setContentType("application/json;charset=UTF-8");
-			json = gson.toJson(resultMap);
-			pw = response.getWriter();
-			pw.write(json);
-		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "searchId");
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
 	}
-
-	/**
-	 * 비밀번호 찾기 페이지
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/searchPwPage.do")
-	public String searchPwPage() {
-		return "client/mber/pwSearch";
-	}
-
 	/**
 	 * 비밀번호 찾기
 	 * 
@@ -199,48 +169,38 @@ public class LoginController {
 	 * @param commonMap
 	 */
 	@SuppressWarnings({ "unchecked", "static-access" })
-	@RequestMapping(value = "/searchPw.do")
-	public void searchPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
-		Map<String, Object> resultMap = new HashMap<>();
+	@GetMapping(value = "/searchPw.do")
+	public ResponseEntity<Map<String, Object>> searchPw(@RequestBody String data, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap<>();
 		try {
-			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", commonMap.getMap());
+			Map<String, Object> findMap = JsonUtil.JsonToMap(data);
+			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", findMap);
 
 			if (userPwInfo != null) {
 				String mberId = userPwInfo.get("MBER_ID").toString();
 				String mberEmail = userPwInfo.get("MBER_EMAIL").toString();
 
-				if (mberId.equals(commonMap.get("mberId")) && mberEmail.equals(commonMap.get("mberEmail"))) {
+				if (mberId.equals(findMap.get("mberId")) && mberEmail.equals(findMap.get("mberEmail"))) {
 					String tempPassword = RandomStringUtils.randomAlphanumeric(10); // 임시 비밀번호 10자리 생성
 					String encryPassword = chaparkSecurity.encrypt(tempPassword); // 임시 비빌번호 암호화
-					commonMap.put("mberPw", encryPassword);
-					chaparkService.update("lo_login.tempPasswordUpdate", commonMap.getMap());
+					findMap.put("mberPw", encryPassword);
+					chaparkService.update("lo_login.tempPasswordUpdate", findMap);
 					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
 
-					resultMap.put("result", "true");
+					response.put("result", "true");
 				} else {
-					resultMap.put("result", "false");
+					response.put("status", "fail");
+					response.put("message", "에러가 발생했습니다.");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 				}
 			} else {
-				resultMap.put("result", "false");
-				;
+				response.put("status", "fail");
+				response.put("message", "에러가 발생했습니다.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
 		}
-		Gson gson = new Gson();
-		PrintWriter pw = null;
-		String json = "";
-		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
-			response.setContentType("application/json;charset=UTF-8");
-			json = gson.toJson(resultMap);
-			pw = response.getWriter();
-			pw.write(json);
-		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "searchId");
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
-		}
+		return null;
 	}
 }
