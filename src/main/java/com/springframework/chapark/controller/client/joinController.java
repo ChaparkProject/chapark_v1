@@ -50,7 +50,7 @@ public class joinController {
 	@SuppressWarnings("static-access")
 	@RequestMapping("/join")
 	public  ResponseEntity<Map<String, Object>> join(@RequestBody String data, HttpServletRequest request) {
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>(); //보낼 데이터 담기
 		try {
 			Map<String, Object> joinMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 			// 비밀번호 암호화
@@ -88,7 +88,7 @@ public class joinController {
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/idCheck")
 	public ResponseEntity<Map<String, Object>> idCheck(@RequestBody String data, HttpServletRequest request) throws Exception {
-		Map<String, Object> response = new HashMap();
+		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
 		Map<String, Object> chkMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 		try {
 			Map<String, Object> userInfo = chaparkService.selectMap("jo_join.selectMberInfo", chkMap); //회원정보 조회

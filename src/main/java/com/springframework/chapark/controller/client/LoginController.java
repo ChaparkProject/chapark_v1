@@ -56,7 +56,7 @@ public class LoginController {
 	 */
 	@PostMapping("/login")
 	public ResponseEntity<Map<String, Object>> login(@RequestBody String data, HttpServletRequest request) {
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>(); //보낼 데이터 담기
 
 		try {
 			Map<String, Object> loginMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
@@ -96,7 +96,7 @@ public class LoginController {
 	 */
 	@PostMapping("/logout")
 	public ResponseEntity<Map<String, Object>> logout(HttpServletRequest request) {
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>(); //보낼 데이터 담기
 
 		try {
 			HttpSession session = request.getSession(false); // 현재 세션을 가져옴 (없으면 null 반환)
@@ -123,7 +123,7 @@ public class LoginController {
 	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/findId")
 	public  ResponseEntity<Map<String, Object>> searchId(@RequestBody String data, HttpServletRequest request) {
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>(); //보낼 데이터 담기
 		try {
 			Map<String, Object> findMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", findMap);
@@ -162,7 +162,7 @@ public class LoginController {
 	@SuppressWarnings({ "unchecked", "static-access" })
 	@GetMapping(value = "/searchPw")
 	public ResponseEntity<Map<String, Object>> searchPw(@RequestBody String data, HttpServletRequest request) {
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> response = new HashMap<>(); //보낼 데이터 담기
 		try {
 			Map<String, Object> findMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", findMap);
