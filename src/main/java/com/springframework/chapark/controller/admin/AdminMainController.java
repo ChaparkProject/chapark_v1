@@ -29,7 +29,7 @@ public class AdminMainController {
 	@Autowired
 	private  ChaparkService chaparkService;
 	
-	@RequestMapping(value = "/admin/main.do")
+	@RequestMapping(value = "/admin/main")
 	public ResponseEntity<Map<String, Object>> adminMain(@RequestBody String data, HttpServletRequest request) {
 		
 		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
