@@ -2,29 +2,24 @@ package com.springframework.chapark.controller.client;
 
 import com.springframework.chapark.common.ChaparkLogger;
 
+
 import com.springframework.chapark.common.ChaparkService;
-import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.utils.JsonUtil;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import com.google.gson.Gson;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -48,7 +43,7 @@ public class joinController {
 	 * @return
 	 */
 	@SuppressWarnings("static-access")
-	@RequestMapping("/join")
+	@PostMapping("/join")
 	public  ResponseEntity<Map<String, Object>> join(@RequestBody String data, HttpServletRequest request) {
 		Map<String, Object> response = new HashMap<>(); //보낼 데이터 담기
 		try {
@@ -86,7 +81,7 @@ public class joinController {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/idCheck")
+	@GetMapping("/idCheck")
 	public ResponseEntity<Map<String, Object>> idCheck(@RequestBody String data, HttpServletRequest request) throws Exception {
 		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
 		Map<String, Object> chkMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
