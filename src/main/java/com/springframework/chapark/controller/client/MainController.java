@@ -46,27 +46,4 @@ public class MainController {
 		//model.addAttribute("mainContent", "main.jsp");
 		return "client/common/main";
 	}
-
-	/*@RequestMapping(value = "/changePage", method = RequestMethod.POST, produces = "text/html; charset=UTF-8")
-	@ResponseBody
-	public String changePage(@RequestParam("page") String page, HttpServletRequest request, HttpServletResponse response) {
-		try {
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/html; charset=UTF-8");
-
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/client/mber/" + page);
-			StringWriter stringWriter = new StringWriter();
-			dispatcher.include(request, new HttpServletResponseWrapper(response) {
-				@Override
-				public java.io.PrintWriter getWriter() {
-					return new java.io.PrintWriter(stringWriter);
-				}
-			});
-			return stringWriter.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "오류가 발생했습니다.";
-		}
-	}*/
-
 }

@@ -3,18 +3,15 @@
 
 <mapper namespace="jo_join">
 	<!-- 회원정보 조회 -->
-	<select id="selectUserInfo" parameterType="map" resultType="map">
+	<select id="selectMberInfo" parameterType="map" resultType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
+			, MBER_DATE
 		FROM
 			TB_MBER
 		WHERE
@@ -29,11 +26,8 @@
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
+			, MBER_DATE
 			)
 			VALUES (
 			#{mberSeq}
@@ -41,11 +35,8 @@
 			, #{mberPw}
 			, #{mberName}
 			, #{mberEmail}
-			, #{mberZip}
-			, #{mberJib}
-			, #{mberAddr}
-			, #{mberTel}
 			, #{mberAuth}
+			, Now()
 			)
 	</insert>
 

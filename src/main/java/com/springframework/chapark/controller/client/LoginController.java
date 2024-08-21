@@ -109,7 +109,7 @@ public class LoginController {
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "logout");
 			response.put("status", "error");
-			response.put("message", "에러가 발생했습니다.");
+			response.put("message", "서버 에러가 발생했습니다.");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
 	}
@@ -138,12 +138,12 @@ public class LoginController {
 					return ResponseEntity.ok(response);
 				} else {
 					response.put("status", "fail");
-					response.put("message", "에러가 발생했습니다.");
+					response.put("message", "회원정보가 일치하지 않습니다.");
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 				}
 			} else {
 				response.put("status", "fail");
-				response.put("message", "에러가 발생했습니다.");
+				response.put("message", "회원정보가 없습니다.");
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 			}
 		} catch (Exception e) {
@@ -179,16 +179,16 @@ public class LoginController {
 					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
 
 					response.put("status", "success");
-					response.put("message", "임시 이메일이 발송되었습니다.");
+					response.put("message", "임시 비밀번호가 발송되었습니다.");
 					return ResponseEntity.ok(response);
 				} else {
 					response.put("status", "fail");
-					response.put("message", "에러가 발생했습니다.");
+					response.put("message", "회원정보가 일치하지 않습니다.");
 					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 				}
 			} else {
 				response.put("status", "fail");
-				response.put("message", "에러가 발생했습니다.");
+				response.put("message", "회원정보가 없습니다.");
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 			}
 		} catch (Exception e) {
