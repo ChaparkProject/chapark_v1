@@ -27,6 +27,8 @@ public class AdminMainController {
 	public ResponseEntity<Map<String, Object>> adminMain(@RequestBody String data, HttpServletRequest request) {
 		
 		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
+		
+		//세션에서 회원 정보 가져오기
 		Map userInfo =(Map) SessionManagement.getSessionInfo(request,"userInfo");
 		Boolean flag = false;
 
