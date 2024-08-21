@@ -1,6 +1,5 @@
 package com.springframework.chapark.controller.client;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,20 +9,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.security.SessionManagement;
 import com.springframework.chapark.utils.ChaparkUtil;
+import com.springframework.chapark.utils.JsonUtil;
 
-@Controller
+@RestController
 public class MberInfoController {
 	
 	Logger logger = LoggerFactory.getLogger(MberInfoController.class);
@@ -34,55 +38,48 @@ public class MberInfoController {
 	@Autowired
 	private ChaparkSecurity chaparkSecurity;
 	
-	/**
-	 * 회원정보 접근
-	 * @return
-	 */
-	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.GET)
-	public String mberInfoAcessPage(HttpServletRequest request, HttpServletResponse response) {
-		
-		//세션에서 사용자 정보 가져오기
-		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); 
-		if(mberInfo == null) {
-			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
-		}
-		return "client/mber/mberInfoAcess";
-	}
 	
 	/**
-	 * 회원정보접근(비밀번호 체크)
+	 * 회원정보접근
+	 * @param data
 	 * @param request
-	 * @param response
-	 * @param commonMap
-	 * @param model
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	@RequestMapping(value="/mberInfoAcess.do", method = RequestMethod.POST)
-	public String mberInfoAcessCheck(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+	@GetMapping(value="/mberInfoAcess")
+	public ResponseEntity<Map<String, Object>> mberInfoAcess(@RequestBody String data, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
 		
 		//세션에서 사용자 정보 가져오기
 		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); 
+		
+		//사용자 정보 체크
 		if(mberInfo == null) {
-			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+			response.put("status", "fail");
+			response.put("message", "사용자 정보가 없습니다. 로그인 해주세요.");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 		}
 		
+		// 회원정보접근 체크
 		try {
-			String mberPw = commonMap.get("mberPw").toString();
+			Map<String, Object> acsMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
+			String mberPw = acsMap.get("mberPw").toString();
 			String encryPassword = chaparkSecurity.encrypt(mberPw); //입력받은 비밀번호 암호화
-			commonMap.put("mberPw",encryPassword); // 다시 commonMap에 넣기
-			Map<String, Object> mberInfoCheck = chaparkService.selectMap("mb_mber.selectMberInfo", commonMap.getMap());
+			acsMap.put("mberPw",encryPassword); // 다시 commonMap에 넣기
+			Map<String, Object> mberInfoCheck = chaparkService.selectMap("mb_mber.selectMberInfo", acsMap);
 			
 			if(mberInfoCheck != null) {
-				return "redirect:/mberInfo.do";
+				response.put("status", "success");
+				return ResponseEntity.ok(response);
 			} else {
-				model.addAttribute("error", "비밀번호가 일치하지 않습니다." );
+				response.put("status", "fail");
+				response.put("message", "비밀번호가 일치하지 않습니다.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 			}
 		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "mberInfoAcessCheck");
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
-		
-		return "client/mber/mberInfoAcess";
 	}
 	
 	/**
@@ -95,18 +92,25 @@ public class MberInfoController {
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/mberInfo.do")
-	public String mberInfoPage(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+	public ResponseEntity<Map<String, Object>> mberInfoPage(@RequestBody String data, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
 		try {
-				Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
-				if(mberInfo != null) {
-					model.addAttribute("mberInfo", mberInfo );
-				} else {
-					ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
-				}
+			Map<String, Object> acsMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
+			Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
+			if(mberInfo != null) {
+				response.put("status", "success");
+				return ResponseEntity.ok(response);
+			} else {
+				response.put("status", "fail");
+				response.put("message", "사용자 정보가 없습니다. 로그인 해주세요.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "mberInfoPage");
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
-		return "client/mber/mberInfo";
 	}
 	
 	/**
@@ -161,21 +165,6 @@ public class MberInfoController {
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "updatePassword");
-		}
-		Gson gson = new Gson();
-		PrintWriter pw = null;
-		String json = "";
-		try {// Gson을 사용하여 맵을 JSON 문자열로 변환
-			response.setContentType("application/json;charset=UTF-8");
-			json = gson.toJson(pwMap);
-			pw = response.getWriter();
-			pw.write(json);
-		} catch (Exception e) {
-			ChaparkLogger.debug(e, this.getClass(), "idCheckJson");
-		} finally {
-			if (pw != null) {
-				pw.close();
-			}
 		}
 	}
 }

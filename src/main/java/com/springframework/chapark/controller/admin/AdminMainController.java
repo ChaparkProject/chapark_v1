@@ -35,7 +35,6 @@ public class AdminMainController {
 		if(ChaparkAuthor.authorCheck(userInfo)) {
 			flag = true;
 			response.put("status", "success");
-			response.put("message", "관리자권한 성공!");
 			return ResponseEntity.ok(response);
 		} else {
 			response.put("status", "fail");
