@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
-import com.springframework.chapark.common.CommonMap;
 import com.springframework.chapark.security.ChaparkSecurity;
 import com.springframework.chapark.security.SessionManagement;
 import com.springframework.chapark.utils.ChaparkUtil;

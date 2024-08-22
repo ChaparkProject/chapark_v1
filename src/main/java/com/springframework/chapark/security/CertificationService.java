@@ -1,11 +1,11 @@
 package com.springframework.chapark.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
-import com.springframework.chapark.common.CommonMap;
 import java.util.Map;
 
 @Service
