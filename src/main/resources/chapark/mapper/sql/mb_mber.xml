@@ -10,11 +10,8 @@
 			, MBER_PW
 			, MBER_NAME
 			, MBER_EMAIL
-			, MBER_ZIP
-			, MBER_JIB
-			, MBER_ADDR
-			, MBER_TEL
 			, MBER_AUTH
+			, DATE_FORMAT(MBER_DATE, '%Y.%m.%d %H:%i:%S') AS MBER_DATE
 		FROM
 			TB_MBER
 		WHERE

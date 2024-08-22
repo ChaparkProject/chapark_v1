@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,7 +93,7 @@ public class MberInfoController {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	@RequestMapping(value = "/mberInfo.do")
+	@GetMapping(value = "/mberInfo")
 	public ResponseEntity<Map<String, Object>> mberInfoPage(@RequestBody String data, HttpServletRequest request) {
 		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
 		try {
@@ -116,33 +118,29 @@ public class MberInfoController {
 	}
 	
 	/**
-	 * 비밂번호 변경
+	 * 비밀번호 변경
+	 * @param data
+	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/updateMberPw.do")
-	public String updateMberInfoPw(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap) {
-		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
-		if(mberInfo == null) {
-			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
-		}
-		return "client/mber/updateMberPw";
-	}
-	
 	@SuppressWarnings({ "unchecked", "static-access" })
-	@RequestMapping(value = "/updatePassword.do")
-	public void updatePassword(HttpServletRequest request, HttpServletResponse response, CommonMap commonMap, Model model) {
+	@PatchMapping(value = "/updatePassword")
+	public ResponseEntity<Map<String, Object>> updatePassword(@RequestBody String data, HttpServletRequest request) {
+		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
 		Map<String, Object> map = new HashMap();
-		Map<String, Object> pwMap = new HashMap();
 		
 		Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
 		if(mberInfo == null) {
-			ChaparkUtil.alertUrlException(response, "사용자 정보가 없습니다.", "/main.do");
+			response.put("status", "fail");
+			response.put("message", "사용자 정보가 없습니다. 로그인 해주세요.");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 		}
 		
 		try {
-			String mberPw = commonMap.get("mberPw").toString(); //기존 비밀번호
-			String newMberPw = commonMap.get("newMberPw").toString(); //새로운 비밀번호
-			String checkNewPw = commonMap.get("checkNewPw").toString(); //새로운 비밀번호 확인
+			Map<String, Object> pwMap = JsonUtil.JsonToMap(data);
+			String mberPw = pwMap.get("mberPw").toString(); //기존 비밀번호
+			String newMberPw = pwMap.get("newMberPw").toString(); //새로운 비밀번호
+			String checkNewPw = pwMap.get("checkNewPw").toString(); //새로운 비밀번호 확인
 			
 			String encryPassword = chaparkSecurity.encrypt(mberPw); //입력받은 비밀번호 암호화
 			map.put("mberPw", encryPassword); //현재 비밀번호 조건걸기 위함
@@ -155,18 +153,28 @@ public class MberInfoController {
 						map.put("mberId", mberPwCheck.get("MBER_ID"));
 						map.put("newMberPw", encrytPassword);
 						chaparkService.update("mb_mber.updateMberPassword",map);
-						pwMap.put("result", "update");
+						response.put("status", "success");
+						return ResponseEntity.ok(response);
 					} else {
-						pwMap.put("result", "A");
+						response.put("status", "fail");
+						response.put("message", "비밀번호가 일치 하지 않습니다.");
+						return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 					}
 				} else {
-					pwMap.put("result", "B");
+					response.put("status", "fail");
+					response.put("message", "이미 사용중인 비밀번호 입니다.");
+					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 				}
 			} else {
-				pwMap.put("result", "C");
+				response.put("status", "fail");
+				response.put("message", "가입하지 않은 회원입니다.");
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "updatePassword");
+			response.put("status", "error");
+			response.put("message", "서버 에러가 발생했습니다.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response); //500 (서버 내부 오류)
 		}
 	}
 }
