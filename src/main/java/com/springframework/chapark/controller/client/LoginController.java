@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.security.CertificationService;
@@ -69,16 +72,15 @@ public class LoginController {
 			boolean success = certificationService.login(mberId, mberPw, loginMap);
 			if (success) {
 				Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", loginMap);
-				SessionManagement.setSessionInfo(request, "userInfo", userInfo);
+				SessionManagement.setSessionInfo(request, "userInfo", userInfo); //세션에 저장
 				String mberName = (String) userInfo.get("MBER_NAME");
-				SessionManagement.setSessionInfo(request, "mberName", mberName);
-
+				SessionManagement.setSessionInfo(request, "mberName", mberName); 
 				response.put("status", "success");
 				response.put("data", userInfo);
 				return ResponseEntity.ok(response);
 			} else {
 				response.put("status", "fail");
-				response.put("message", "아이디와 비밀번호가 일치하지 않습니다.");
+				response.put("message", "가입하지 않은 회원 입니다.");
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); //401에러(인증 필요)
 			}
 		} catch (Exception e) {

@@ -97,6 +97,8 @@ public class MberInfoController {
 		try {
 			Map<String, Object> acsMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 			Map<String, Object> mberInfo = (Map)SessionManagement.getSessionInfo(request, "userInfo" ); //세션에서 사용자 정보 가져오기
+			
+			//세션에 사용자 정보가 있는지 확인
 			if(mberInfo != null) {
 				response.put("status", "success");
 				return ResponseEntity.ok(response);
