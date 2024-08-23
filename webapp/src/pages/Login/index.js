@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import mberApi from '../../API/v1';
+import {LoginLogo} from '../../components';
 
 const Login = () =>{
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -62,7 +63,9 @@ const Login = () =>{
                 회원가입
               </button>
             </div>
-            <h1 class="animated fadeInUp animate1" id="title-signup">Chaprk 커뮤니티</h1>
+            <h1 class="animated fadeInUp animate1" id="title-signup">
+              <LoginLogo width={180} height={"auto"}/>
+            </h1>
             <>
               <fieldset id="login-fieldset">
                 <input 

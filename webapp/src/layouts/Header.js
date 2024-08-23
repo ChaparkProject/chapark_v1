@@ -2,12 +2,15 @@
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
+import {HeaderLogo} from '../components';
 
 const Header = forwardRef((props, ref) => {
     return (
         <Navbar expand="lg" className="bg-body-tertiarys fixed-top" id='header' ref={ref}>
           <Container>
-            <Navbar.Brand as={Link} to="/">Chapark</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">
+              <HeaderLogo width={180} height={"auto"}/>
+            </Navbar.Brand>
 
             <Navbar.Toggle/>
 
