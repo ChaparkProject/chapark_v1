@@ -15,7 +15,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{id}
+			MBER_ID = #{mberId}
 	</select>
 	<!-- 사용자 인증 -->
 	<select id="selectCertificationUserInfo" parameterType="map" resultType="map">
@@ -30,7 +30,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{id}
+			MBER_ID = #{mberId}
 	</select>
 	
 	<!-- 아이디 찾기 -->

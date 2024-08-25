@@ -62,8 +62,8 @@ public class LoginController {
 			Map<String, Object> loginMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
 
 			// mberId와 mberPw 추출
-			String mberId = (String) loginMap.get("id");
-			String mberPw = (String) loginMap.get("pw");
+			String mberId = (String) loginMap.get("mberId");
+			String mberPw = (String) loginMap.get("mberPw");
 
 			// 로그인 처리
 			boolean success = certificationService.login(mberId, mberPw, loginMap);
