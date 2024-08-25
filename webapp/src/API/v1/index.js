@@ -1,3 +1,6 @@
-import mberApi from './mber'
+import {loginApi, joinApi} from './mber'
 
-export default mberApi;
+export default {
+  loginApi, 
+  joinApi
+};

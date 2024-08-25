@@ -26,3 +26,17 @@ export const Delete = async (url, config) => {
   const response = await axiosInstance.delete(url, config);
   return response;
 };
+export const objectToQueryString = async (obj, prefix) => {
+  const queryString = Object.keys(obj).map(key => {
+    const value = obj[key];
+    const encodedKey = prefix ? `${prefix}[${encodeURIComponent(key)}]` : encodeURIComponent(key);
+
+    if (value !== null && typeof value === 'object') {
+      return objectToQueryString(value, encodedKey);
+    } else {
+      return `${encodedKey}=${encodeURIComponent(value)}`;
+    }
+  });
+
+  return queryString.join('&');
+};

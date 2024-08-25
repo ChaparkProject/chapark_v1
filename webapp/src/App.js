@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Header, Main, Footer } from './layouts';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Login from './pages/Login';
-
 
 const App = () => {
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -34,6 +35,18 @@ const App = () => {
         </Routes>
       </Main>
       <Footer/>
+      <ToastContainer 
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </>
   );
 }

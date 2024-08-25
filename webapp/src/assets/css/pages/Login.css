@@ -1,24 +1,25 @@
+/* 공통 설정 */
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-html {
-  width: 100%;
-  height: 100vh;
-}
-
+html,
 body {
-  background: #e5e5e5;
   width: 100%;
-  text-align: center;
+  height: 100%;
   font-family: 'Open Sans', sans-serif;
   font-weight: 600;
   letter-spacing: 1px;
-  background: url('../../images/main_backgound_image.jpg') #fff;
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
+  text-align: center;
+}
+
+body {
+  background: url('../../images/main_backgound_image.jpg') no-repeat top center /
+    cover;
+  background-color: #e5e5e5;
+  position: relative;
 }
 
 .panel {
@@ -26,42 +27,11 @@ body {
   width: 75%;
   max-width: 90%;
   height: 700px;
-  margin: 5% auto 0px;
+  margin: 5% auto 0;
 }
 
 .shadow1 {
-  -webkit-box-shadow: 0 20px 15px -15px rgba(119, 119, 119, 0.85);
-  -moz-box-shadow: 0 20px 15px -15px rgba(119, 119, 119, 0.85);
   box-shadow: 10px 10px 40px 20px rgba(119, 119, 119, 0.85);
-}
-
-.panel-switch {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.panel-switch button {
-  display: inline-block;
-  width: 100px;
-  height: 40px;
-  background: rgb(51, 21, 184);
-  margin: 0px 10px 50px;
-  border: none;
-  color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  font-size: 0.8em;
-
-  transition: background-color 0.2s;
-  color: 0.2s;
-  opacity: 0.2s;
-}
-
-.panel-switch button:active {
-  background: rgb(51, 21, 184);
-  color: #c9c9c9;
 }
 
 .active-button {
@@ -74,13 +44,12 @@ a {
   cursor: pointer;
 }
 
-.panel h1 {
-  /* color: #fff; */
+h1 {
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 4px;
-  margin: 50px 0;
+  margin: 45px 0;
   font-size: 1.7em;
 }
 
@@ -88,162 +57,66 @@ fieldset {
   border: none;
 }
 
-.animate1,
-.animate2,
-.animate3,
-.animate4 {
-  -webkit-animation-duration: 2s;
-  -moz-animation-duration: 2s;
-}
-
-.animate1 {
-  -webkit-animation-delay: 0.2s;
-  -moz-animation-delay: 0.2s;
-}
-
-.animate2 {
-  -webkit-animation-delay: 0.7s;
-  -moz-animation-delay: 0.7s;
-}
-
-.animate3 {
-  -webkit-animation-delay: 1.1s;
-  -moz-animation-delay: 1.1s;
-}
-
-.animate4 {
-  -webkit-animation-delay: 1.5s;
-  -moz-animation-delay: 1.5s;
-}
-
-.animate5 {
-  -webkit-animation-delay: 2.2s;
-  -moz-animation-delay: 2.2s;
-}
-
-@-webkit-keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-fieldset input {
+.panel input {
   background: rgba(255, 255, 255, 0.2);
-  /* border: none; */
   border: 1px solid black;
   border-radius: 5em;
-  /* height: 20px; */
   height: 60px;
-  width: 80%;
-  margin: 10px 0;
+  width: 100%;
   padding: 5px;
   text-indent: 10px;
   color: black;
   font-weight: 600;
+  margin: 15px 0;
 }
 
-fieldset input::placeholder {
+.panel input::placeholder {
   color: #c7c6c6;
 }
 
-fieldset input:focus {
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 5em;
-  margin: 9px 0;
+.panel input:focus {
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
-.signup-form {
-  width: 100%;
-  background-color: ivory;
-  height: 700px;
-  padding: 50px;
-}
-.blind {
-  background: url('https://picsum.photos/1000/1500?image=827') #fff;
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-}
-.login-form {
-  width: 100%;
-  background-color: ivory;
-  height: 700px;
-  padding: 50px;
+.panel-switch {
+  text-align: center;
 }
 
-.login_form {
-  position: relative;
-  bottom: 0;
-  width: 70%;
-  height: 4em;
-  margin-top: 20px;
+.panel-switch button {
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+  background: var(--darkBlue);
+  margin: 0 10px 30px;
   border: none;
-  border-radius: 10em;
-  background: rgb(51, 21, 184);
   color: #fff;
   font-family: 'Open Sans', sans-serif;
   text-transform: uppercase;
   font-weight: 600;
   letter-spacing: 2px;
-  z-index: 1;
-
-  transition: background-color 0.2s;
-  color: 0.2s;
+  font-size: 0.8em;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
 }
 
-#login-form-submit:active {
-  background: rgb(51, 21, 184);
+.panel-switch button:active {
+  background: var(--darkBlue);
   color: #c9c9c9;
-}
-
-p,
-a {
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  color: #898787;
-  font-size: 0.7em;
-  text-decoration: none;
 }
 
 .hidden {
   display: none;
 }
+.input-group {
+  flex-wrap: nowrap !important;
+}
 
-/*MEDIA QUERIES     */
-
+/* 미디어 쿼리 */
 @media (max-height: 800px) {
   body {
     max-height: 100vh;
   }
-
   .panel {
     max-width: 75%;
-    background-size: cover;
     margin: 1% auto;
   }
 }
@@ -251,44 +124,112 @@ a {
 @media (max-width: 500px) {
   html,
   body {
-    background: url(https://picsum.photos/3695/5543?image=827) #fff;
-    background-repeat: no-repeat;
-    background-position: top center;
-    background-size: cover;
+    background: url(https://picsum.photos/3695/5543?image=827) no-repeat top
+      center / cover;
+    margin: 0;
+    padding: 0;
     height: 100vh;
-    margin: 0px;
-    padding: 0px;
     position: fixed;
   }
-
   .panel {
     background: none;
     box-shadow: none;
   }
-
   form {
     padding: 50px;
   }
-
-  .panel-switch {
-    margin-top: 30px;
-  }
-
   .panel-switch button {
-    display: inline-block;
     width: 80px;
-    margin: 0px 40px 50px;
-    font-weight: 600;
+    margin: 0 40px 30px;
     font-size: 0.7em;
   }
-
-  .panel h1 {
+  h1 {
     font-size: 1.5em;
   }
-
-  .login_form {
-    bottom: 0;
+  .login_form,
+  .signup_form {
     width: 70%;
     margin-top: 20px;
   }
+}
+
+/* 로그인/회원가입 폼 */
+.login-form {
+  width: 100%;
+  background-color: ivory;
+  height: 700px;
+  padding: 30px;
+}
+
+.login_form,
+.signup_form {
+  position: relative;
+  bottom: 0;
+  width: 70%;
+  height: 4em;
+  margin-top: 60px;
+  border: none;
+  border-radius: 10em;
+  background: var(--darkBlue);
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  z-index: 1;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+#login-form-submit:active {
+  background: var(--darkBlue);
+  color: #c9c9c9;
+}
+
+.panel-switch button {
+  display: inline-block;
+  width: 100px;
+  height: 40px;
+  background: var(--darkBlue);
+  margin: 0 10px 30px;
+  border: none;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 0.8em;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+}
+
+.panel-switch button:active {
+  background: var(--darkBlue);
+  color: #c9c9c9;
+}
+.check-button {
+  display: inline-block;
+  width: 150px;
+  height: 60px;
+  background: var(--darkBlue);
+  margin: 15px 0;
+  border: none;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  font-size: 0.8em;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+  border-radius: 5em;
+}
+
+/* 로그인 로고 */
+.blind {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--darkBlue) no-repeat top center / cover;
+}
+
+#caption {
+  font-size: 12px;
 }
