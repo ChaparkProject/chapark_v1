@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -82,17 +83,19 @@ public class joinController {
 	 */
 	@SuppressWarnings("unchecked")
 	@GetMapping("/idCheck")
-	public ResponseEntity<Map<String, Object>> idCheck(@RequestBody String data, HttpServletRequest request) throws Exception {
+	public ResponseEntity<Map<String, Object>> idCheck(@RequestParam String mberId, HttpServletRequest request) throws Exception {
 		Map<String, Object> response = new HashMap(); //보낼 데이터 담기
-		Map<String, Object> chkMap = JsonUtil.JsonToMap(data); // 받아온 Json데이터 map으로 변환
+		//Map<String, Object> chkMap = JsonUtil.JsonToMap(mberId); // 받아온 Json데이터 map으로 변환
+		Map<String, Object> chkMap = new HashMap();
+		chkMap.put("mberId", mberId);
 		try {
 			Map<String, Object> userInfo = chaparkService.selectMap("jo_join.selectMberInfo", chkMap); //회원정보 조회
-			String mberId = "";
+			String id = "";
 			if (userInfo != null) {
-				mberId = (String) userInfo.get("MBER_ID"); 
+				id = (String) userInfo.get("MBER_ID"); 
 			}
-			String id = chkMap.get("mberId").toString(); 
-			if (mberId.trim().isEmpty() && !mberId.equals(id)) { //입력 받은 아이디와 DB상 아이디 불일치 => 아이디 사용가능
+			//String id = chkMap.get("mberId").toString(); 
+			if (mberId.trim().isEmpty() || !mberId.equals(id)) { //입력 받은 아이디와 DB상 아이디 불일치 => 아이디 사용가능
 				response.put("status", "success");
 				response.put("message", "사용 하실 수 있는 아이디 입니다.");
 				return ResponseEntity.ok(response);
