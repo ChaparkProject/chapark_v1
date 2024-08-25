@@ -13,15 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springframework.chapark.common.ChaparkLogger;
 import com.springframework.chapark.common.ChaparkService;
 import com.springframework.chapark.security.CertificationService;

@@ -13,20 +13,30 @@
         http://www.springframework.org/schema/mvc 
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:resources mapping="/asset/**" location="/asset/"/>
+	<mvc:annotation-driven>
+		<mvc:argument-resolvers>
+			<beans:bean
+				class="com.springframework.chapark.common.CustomMapArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<mvc:resources mapping="/resources/**"
+		location="/resources/" />
+	<mvc:resources mapping="/asset/**" location="/asset/" />
 
 
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="order" value="1" />
 	</beans:bean>
 
-	<context:component-scan base-package="com.springframework.chapark">
-		<!--  <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
-		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />-->
+	<context:component-scan
+		base-package="com.springframework.chapark">
+		<!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" 
+			/> <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" 
+			/> <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" 
+			/> -->
 	</context:component-scan>
 
 </beans:beans>
