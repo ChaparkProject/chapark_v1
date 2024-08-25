@@ -15,7 +15,7 @@
 		FROM
 			TB_MBER
 		WHERE
-			MBER_ID = #{MBER_ID}
+			MBER_ID = #{mberId}
 		
 	</select>
 	<!-- 회원가입 -->
