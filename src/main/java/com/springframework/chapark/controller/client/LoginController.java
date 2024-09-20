@@ -175,7 +175,7 @@ public class LoginController {
 					String encryPassword = chaparkSecurity.encrypt(tempPassword); // 임시 비빌번호 암호화
 					findMap.put("mberPw", encryPassword);
 					chaparkService.update("lo_login.tempPasswordUpdate", findMap);
-					ChaparkUtil.sendEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
+					ChaparkUtil.sendPasswordEmail(mberEmail, tempPassword); // 임시 비밀번호 이메일로 전송
 
 					response.put("status", "success");
 					response.put("message", "임시 비밀번호가 발송되었습니다.");
