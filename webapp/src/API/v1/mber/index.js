@@ -37,4 +37,12 @@ export const joinApi = {
     const response = await Get(`/idCheck?${queryString}`, {headers: {'Content-Type' : 'application/json'}})
     return response.data
   },
+  sendEmailCode: async (data) => {
+    const response = await Post('/certificationSend', data, {headers: {'Content-Type' : 'application/json'}})
+    return response.data
+  },
+  verifyEmailCode: async (data) => {
+    const response = await Post('/certificationCheck', data, {headers: {'Content-Type' : 'application/json'}})
+    return response.data
+  }
 }
