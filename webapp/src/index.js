@@ -4,8 +4,8 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/index.css';
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
+const wrap = ReactDOM.createRoot(document.getElementById('wrap'));
+wrap.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />

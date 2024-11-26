@@ -14,18 +14,38 @@
 @import url('./pages/Login.css'); /* 홈 페이지 스타일 */
 
 /* 5. 최종 스타일 조정 */
-body {
-  font-family: 'Arial', sans-serif;
+* {
+  font-family: Noto Sans KR, Apple SD Gothic Neo, Malgun Gothic, 맑은 고딕,
+    Dotum, 돋움, Arial, sans-serif;
   background-color: var(--background-color);
   color: var(--text-color);
-  margin: 0;
-  padding: 0;
   line-height: 1.6;
+  padding: 0 20px;
+  margin: 0 auto;
 }
 
-.container {
+body {
+  display: grid;
+  grid-template-rows: auto 1fr;
   width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+  max-width: 100%;
+  height: 100vh;
+  letter-spacing: 1px;
+  text-align: center;
+
+  font-size: 16px;
+  font-stretch: normal;
+  font-style: normal;
+  font-weight: 400;
+
+  word-wrap: break-word;
+  direction: ltr;
+  word-break: keep-all;
+}
+
+#wrap {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }

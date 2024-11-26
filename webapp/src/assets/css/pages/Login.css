@@ -1,235 +1,91 @@
-/* 공통 설정 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* Login.css */
 
-html,
-body {
-  width: 100%;
-  height: 100%;
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-align: center;
-}
-
-body {
-  background: url('../../images/main_backgound_image.jpg') no-repeat top center /
-    cover;
-  background-color: #e5e5e5;
-  position: relative;
-}
-
-.panel {
+.login-container {
   display: flex;
-  width: 75%;
-  max-width: 90%;
-  height: 700px;
-  margin: 5% auto 0;
-}
-
-.shadow1 {
-  box-shadow: 10px 10px 40px 20px rgba(119, 119, 119, 0.85);
-}
-
-.opacity-half {
-  opacity: 0.5;
-}
-
-button,
-.button,
-a {
-  cursor: pointer;
-}
-
-h1 {
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 4px;
-  margin: 45px 0;
-  font-size: 1.7em;
-}
-
-fieldset {
-  border: none;
-}
-
-.panel input {
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid black;
-  border-radius: 5em;
-  height: 60px;
-  width: 100%;
-  padding: 5px;
-  text-indent: 10px;
-  color: black;
-  font-weight: 600;
-  margin: 15px 0;
-}
-
-.panel input::placeholder {
-  color: #c7c6c6;
-}
-
-.panel input:focus {
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.panel-switch {
-  text-align: center;
-}
-
-.panel-switch button {
-  display: inline-block;
-  width: 100px;
-  height: 40px;
-  background: var(--darkBlue);
-  margin: 0 10px 30px;
-  border: none;
-  color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  font-size: 0.8em;
-  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
-}
-
-.panel-switch button:active {
-  background: var(--darkBlue);
-  color: #c9c9c9;
-}
-
-.hidden {
-  display: none;
-}
-.input-group {
-  flex-wrap: nowrap !important;
-}
-
-/* 미디어 쿼리 */
-@media (max-height: 800px) {
-  body {
-    max-height: 100vh;
-  }
-  .panel {
-    max-width: 75%;
-    margin: 1% auto;
-  }
-}
-
-@media (max-width: 500px) {
-  html,
-  body {
-    background: url(https://picsum.photos/3695/5543?image=827) no-repeat top
-      center / cover;
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    position: fixed;
-  }
-  .panel {
-    background: none;
-    box-shadow: none;
-  }
-  form {
-    padding: 50px;
-  }
-  .panel-switch button {
-    width: 80px;
-    margin: 0 40px 30px;
-    font-size: 0.7em;
-  }
-  h1 {
-    font-size: 1.5em;
-  }
-  .login_form,
-  .signup_form {
-    width: 70%;
-    margin-top: 20px;
-  }
-}
-
-/* 로그인/회원가입 폼 */
-.login-form {
-  width: 100%;
-  background-color: ivory;
-  height: 700px;
-  padding: 30px;
-}
-
-.login_form,
-.signup_form {
-  position: relative;
-  bottom: 0;
-  width: 70%;
-  height: 4em;
-  margin-top: 60px;
-  border: none;
-  border-radius: 10em;
-  background: var(--darkBlue);
-  color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  z-index: 1;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-#login-form-submit:active {
-  background: var(--darkBlue);
-  color: #c9c9c9;
-}
-
-.panel-switch button {
-  display: inline-block;
-  width: 100px;
-  height: 40px;
-  background: var(--darkBlue);
-  margin: 0 10px 30px;
-  border: none;
-  color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  font-size: 0.8em;
-  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
-}
-
-.panel-switch button:active {
-  background: var(--darkBlue);
-  color: #c9c9c9;
-}
-.check-button {
-  display: inline-block;
-  width: 150px;
-  height: 60px;
-  background: var(--darkBlue);
-  margin: 15px 0;
-  border: none;
-  color: #fff;
-  font-family: 'Open Sans', sans-serif;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  font-size: 0.8em;
-  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
-  border-radius: 5em;
-}
-
-/* 로그인 로고 */
-.blind {
-  display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  background: var(--darkBlue) no-repeat top center / cover;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
 }
 
-#caption {
-  font-size: 12px;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login-button {
+  border-color: #111;
+  border: 1px solid #cdcdcd;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 700;
+  height: 48px;
+  letter-spacing: -0.4px;
+  width: 100%;
+  cursor: pointer;
+  background: #111;
+  color: #fff !important;
+}
+
+#info_header {
+  font-size: 20px;
+  letter-spacing: -0.4px;
+  line-height: 1.5;
+  margin: 21px 0 0;
+  text-align: center;
+}
+.input_group {
+  margin-top: 8px;
+  position: relative;
+}
+.form_control {
+  background-color: #fff;
+  border: 1px solid #cdcdcd;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 48px;
+  margin-top: 8px;
+  padding: 13px 73px 13px 16px;
+  width: 100%;
+}
+
+.additional-links {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: space-between;
+  margin: 28px auto 0;
+  width: 142px;
+  a {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    line-height: 1.62;
+    text-decoration: underline;
+  }
+}
+
+.division p:before {
+  background-color: rgba(0, 0, 0, 0.1);
+  content: '';
+  display: inline-block;
+  height: 1px;
+  width: 100%;
+}
+
+.division p {
+  color: #999;
+  font-size: 14px;
+  font-weight: 400;
+  height: 16px;
+  letter-spacing: -0.4px;
+  line-height: 1.57;
+  line-height: 0;
+  margin-top: 36px;
+  text-align: center;
 }

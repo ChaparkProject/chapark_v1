@@ -1,5 +1,5 @@
 import React from 'react';
-import headerLogo from '../assets/images/header_logo.png';
+import headerLogo from '../assets/images/header_logo_green.png';
 
 const HeaderLogo = (width, height) => {
     return (
