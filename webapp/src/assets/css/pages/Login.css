@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin: 50px auto;
   max-width: 600px;
   text-align: center;
 }
@@ -28,6 +29,7 @@
   cursor: pointer;
   background: #111;
   color: #fff !important;
+  margin-top: 28px;
 }
 
 #info_header {
@@ -48,7 +50,7 @@
   box-sizing: border-box;
   height: 48px;
   margin-top: 8px;
-  padding: 13px 73px 13px 16px;
+  padding: 10px 73px 10px 16px;
   width: 100%;
 }
 
@@ -60,13 +62,18 @@
   display: flex;
   justify-content: space-between;
   margin: 28px auto 0;
-  width: 142px;
+  width: 200px;
+
   a {
     font-size: 13px;
     font-weight: 400;
     letter-spacing: -0.4px;
     line-height: 1.62;
     text-decoration: underline;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    text-decoration: none;
   }
 }
 
@@ -88,4 +95,53 @@
   line-height: 0;
   margin-top: 36px;
   text-align: center;
+}
+#socialFrm {
+  .sicial-btn-group {
+    margin-top: 32px;
+    .sicial-btn {
+      width: 250px;
+      height: 40px;
+      background-color: transparent;
+      border: 0;
+      color: #111;
+      cursor: pointer;
+      .ico_kakao {
+        background-image: url(../../images/kakao_login/ko/kakao_login_large_narrow.png);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        display: inline-block;
+        font-style: normal;
+        height: 100%;
+        width: 100%;
+      }
+      .ico_naver {
+        background-image: url(../../images/2021_Login_with_naver_guidelines_Kr/btnG_완성형.png);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        display: inline-block;
+        font-style: normal;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+.login-options {
+  align-items: center;
+  display: flex;
+  position: relative;
+  margin-top: 12px;
+  a {
+    color: #999;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: -0.4px;
+    line-height: 1.62;
+    margin-left: auto;
+    text-decoration: underline;
+  }
 }

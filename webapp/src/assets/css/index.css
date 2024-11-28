@@ -12,6 +12,7 @@
 
 /* 4. 페이지별 스타일 */
 @import url('./pages/Login.css'); /* 홈 페이지 스타일 */
+@import url('./pages/Join.css'); /* 홈 페이지 스타일 */
 
 /* 5. 최종 스타일 조정 */
 * {
