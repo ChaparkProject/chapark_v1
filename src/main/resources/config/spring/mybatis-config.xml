@@ -4,4 +4,8 @@
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
+	
+	<typeAliases>
+		<typeAlias alias="utilMap" type="com.springframework.portfolio.utils.MybatisCustomMap"/>
+	</typeAliases>
 </configuration>
