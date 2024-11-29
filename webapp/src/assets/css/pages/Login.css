@@ -32,18 +32,18 @@
   margin-top: 28px;
 }
 
-#info_header {
+#info-header {
   font-size: 20px;
   letter-spacing: -0.4px;
   line-height: 1.5;
   margin: 21px 0 0;
   text-align: center;
 }
-.input_group {
+.input-group {
   margin-top: 8px;
   position: relative;
 }
-.form_control {
+.form-control {
   background-color: #fff;
   border: 1px solid #cdcdcd;
   -webkit-box-sizing: border-box;
@@ -96,7 +96,7 @@
   margin-top: 36px;
   text-align: center;
 }
-#socialFrm {
+#social-form {
   .sicial-btn-group {
     margin-top: 32px;
     .sicial-btn {
@@ -106,7 +106,7 @@
       border: 0;
       color: #111;
       cursor: pointer;
-      .ico_kakao {
+      .ico-kakao {
         background-image: url(../../images/kakao_login/ko/kakao_login_large_narrow.png);
         background-position: 50% 50%;
         background-repeat: no-repeat;
@@ -116,7 +116,7 @@
         height: 100%;
         width: 100%;
       }
-      .ico_naver {
+      .ico-naver {
         background-image: url(../../images/2021_Login_with_naver_guidelines_Kr/btnG_완성형.png);
         background-position: 50% 50%;
         background-repeat: no-repeat;

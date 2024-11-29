@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import API from '../../API/v1';
 import { toast } from 'react-toastify';
+import { handleKeyDown } from '../../utils/common';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -36,61 +37,56 @@ const Login = () => {
     setLoginData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // 키다운 이벤트 핸들러
-  const handleKeyDown = (e, action) => {
-    if (e.key === 'Enter') {
-      action();
-    }
-  };
-
   return (
     <section className="login-container">
       <div>
         <h1>The Chapark</h1>
-        <h2 id='info_header'>로그인</h2>
+        <h2 id='info-header'>로그인</h2>
       </div>
       <div className="login-form">
-        <div className='input_group'>
+        <div className='input-group'>
           <input
-            className='form_control'
+            className='form-control'
             type="email"
             placeholder="아이디를 입력하세요"
+            name='mberId'
             value={loginData.mberId}
             onChange={handleLoginDataChange}
             onKeyDown={(e) => handleKeyDown(e, login)}
           />
         </div>
-        <div className='input_group'>
+        <div className='input-group'>
           <input
-            className='form_control'
+            className='form-control'
             type={'password'}
             placeholder="비밀번호를 입력하세요"
+            name='mberPw'
             value={loginData.mberPw}
             onChange={handleLoginDataChange}
             onKeyDown={(e) => handleKeyDown(e, login)}
           />
         </div>
-        <div className="login-options mt12">
-          <a href="/forgot-password">비밀번호 찾기</a>
+        <div className="login-options">
+          <a href="/ForgotPassword">비밀번호 찾기</a>
         </div>
-        <div className='btn_group mt28 position_re'>
+        <div className='btn-group'>
           <button onClick={login} className="login-button">로그인</button>
         </div>
         <div className="additional-links">
-          <a href="/Join">회원가입</a> | <a href="/find-email">이메일 찾기</a>
+          <a href="/Join">회원가입</a> | <a href="/ForgotId">아이디 찾기</a>
         </div>
         <div className="division social-login">
-          <form id="socialFrm" name="socialFrm" method="post">
+          <div id="social-form">
             <p><span>간편로그인</span></p>
             <div className='sicial-btn-group'>
               <button className='sicial-btn'>
-                <i className='ico_kakao' aria-hidden="true"></i>
+                <i className='ico-kakao' aria-hidden="true"></i>
               </button>
               <button className='sicial-btn'>
-                <i className='ico_naver' aria-hidden="true"></i>
+                <i className='ico-naver' aria-hidden="true"></i>
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </section>

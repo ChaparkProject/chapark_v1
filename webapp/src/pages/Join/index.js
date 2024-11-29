@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import API from '../../API/v1';
 import { toast } from 'react-toastify';
+import { handleKeyDown } from '../../utils/common';
 
 const Join = () => {
   // 회원가입 데이터 상태
@@ -193,18 +194,11 @@ const Join = () => {
     });
   };
 
-  // 키다운 이벤트 핸들러
-  const handleKeyDown = (e, action) => {
-    if (e.key === 'Enter') {
-      action();
-    }
-  };
-
   return (
     <div className="join-container">
       <header>
         <h1>The Chapark</h1>
-        <h2 id='info_header'>회원가입</h2>
+        <h2 id='info-header'>회원가입</h2>
         <div>회원가입을 위해 인증 가능한 이메일을<br/>입력해 주세요.</div>
       </header>
 

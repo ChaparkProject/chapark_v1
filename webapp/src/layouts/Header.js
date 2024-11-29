@@ -15,7 +15,7 @@ const Header = forwardRef((props, ref) => {
             <Navbar.Collapse >
               <Nav className="ms-auto">
                 <Nav.Link as={Link} to="/Login">로그인</Nav.Link>
-                <Nav.Link as={Link} to="/Signup">회원가입</Nav.Link>
+                <Nav.Link as={Link} to="/Join">회원가입</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Container>

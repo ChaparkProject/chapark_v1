@@ -5,9 +5,10 @@ import { ErrorBoundary } from 'react-error-boundary'
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Header, Main, Footer } from './layouts';
+import ErrorComponent from './components/errorBoundary';
 import Login from './pages/Login';
 import Join from './pages/Join';
-import ErrorComponent from './components/errorBoundary';
+import {ForgotPassword, ForgotId} from './pages/Forgot';
 
 const App = () => {
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -35,17 +36,24 @@ const App = () => {
   // 특정 경로에 대해 레이아웃을 변경
   const isLoginPage = location.pathname.startsWith('/Login');
   const isJoinPage = location.pathname.startsWith('/Join');
+  const isForgotPasswordPage = location.pathname.startsWith('/ForgotPassword');
+  const isForgotIdPage = location.pathname.startsWith('/ForgotId');
+
+  const isHeader = !isLoginPage && !isJoinPage && !isForgotPasswordPage && !isForgotIdPage;
+
 
   return (
     <ErrorBoundary 
        FallbackComponent={ErrorComponent}
        onError={logError}
     >
-      {!isLoginPage && !isJoinPage && <Header ref={headerRef} />}
+      {isHeader && <Header ref={headerRef} />}
       <Main headerHeight={headerHeight == 0 ? 80 : headerHeight}>
         <Routes>
           <Route path="/Login" element={<Login />} />
           <Route path="/Join" element={<Join />} />
+          <Route path="/ForgotPassword" element={<ForgotPassword />} />
+          <Route path="/ForgotId" element={<ForgotId />} />
         </Routes>
       </Main>
       
