@@ -2,15 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider  } from "react-redux";
+import store from "./reducer/store.js";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/index.css';
 const wrap = ReactDOM.createRoot(document.getElementById('wrap'));
 wrap.render(
-  <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </BrowserRouter>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

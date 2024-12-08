@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useDebugValue, useState } from 'react';
 import API from '../../API/v1';
-import { toast } from 'react-toastify';
 import { handleKeyDown } from '../../utils/common';
+import { loginUser } from "../../reducer/userSlice";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [loginData, setLoginData] = useState({
     mberId: '',
     mberPw: '',
@@ -13,22 +18,31 @@ const Login = () => {
   const login = async () => {
     const { mberId, mberPw } = loginData;
     if (!mberId) {
-      toast.warn('아이디를 입력하세요.');
+      setErrorMessage("아이디를 입력하세요.")
       return;
     }
     if (!mberPw) {
-      toast.warn('비밀번호를 입력하세요.');
+      setErrorMessage("비밀번호를 입력하세요.")
       return;
     }
+
     try {
-      const response = await API.loginApi.login({ mberId, mberPw });
-      // 로그인 성공 처리 로직 추가
-      console.log(response);
-      toast.success('로그인에 성공하였습니다.');
-      // 예: 토큰 저장, 페이지 이동 등
+      await API.loginApi.login({ mberId, mberPw }).then(response=>{
+        if(response){
+          // 로그인 성공 처리 로직 추가
+          // 예: 토큰 저장, 페이지 이동 등
+          console.log(response);
+          navigate("/"); // 로그인 성공시 홈으로 이동합니다.
+          dispatch(loginUser(response.userInfo)); // 로그인 성공시 리덕스에 로그인정보 저장
+
+          localStorage.setItem("token", token); // 로그인 성공시 JWT 로컬 스토리지에 저장
+        } else {
+          setErrorMessage("아이디 또는 비밀번호가 잘못 되었습니다.\n아이디와 비밀번호를 정확히 입력해주세요.")
+        }
+      });
     } catch (error) {
+      setErrorMessage("아이디 또는 비밀번호가 잘못 되었습니다.\n아이디와 비밀번호를 정확히 입력해주세요.")
       console.error(error);
-      toast.error('로그인에 실패하였습니다. 아이디와 비밀번호를 확인하세요.');
     }
   };
 
@@ -69,6 +83,7 @@ const Login = () => {
         <div className="login-options">
           <a href="/ForgotPassword">비밀번호 찾기</a>
         </div>
+        <div className='error-message'>{errorMessage}</div>
         <div className='btn-group'>
           <button onClick={login} className="login-button">로그인</button>
         </div>

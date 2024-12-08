@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import API from '../../API/v1';
-import { toast } from 'react-toastify';
 import { handleKeyDown } from '../../utils/common';
 
 const ForgotPassword = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [forgotPwData, setForgotPwData] = useState({
     mberId: '',
     mberPw: '',
@@ -41,6 +41,7 @@ const ForgotPassword = () => {
             onKeyDown={(e) => handleKeyDown(e, findPassword)}
           />
         </div>
+        <div className='error-message'>{errorMessage}</div>
         <div className='btn-group'>
           <button onClick={findPassword} className="login-button">인증메일찾기</button>
         </div>
@@ -50,6 +51,7 @@ const ForgotPassword = () => {
 };
 
 const ForgotId = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const [forgotIdData, setForgotIdData] = useState({
     mberId: '',
     mberPw: '',
@@ -87,6 +89,7 @@ const ForgotId = () => {
             onKeyDown={(e) => handleKeyDown(e, findId)}
           />
         </div>
+        <div className='error-message'>{errorMessage}</div>
         <div className='btn-group'>
           <button onClick={findId} className="login-button">인증메일찾기</button>
         </div>

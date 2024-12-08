@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import { ErrorBoundary } from 'react-error-boundary'
-import 'react-toastify/dist/ReactToastify.css';
 
 import { Header, Main, Footer } from './layouts';
 import ErrorComponent from './components/errorBoundary';
@@ -58,18 +56,6 @@ const App = () => {
       </Main>
       
       <Footer />
-      <ToastContainer 
-        position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
     </ErrorBoundary>
   );
 }
