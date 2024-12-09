@@ -149,7 +149,7 @@ public class MberInfoController {
 				if(!mberPw.equals(newMberPw)) {
 					if (newMberPw.equals(checkNewPw)) {
 						String encrytPassword = chaparkSecurity.encrypt(newMberPw); //입력받은 비밀번호 암호화
-						map.put("mberId", mberPwCheck.get("MBER_ID"));
+						map.put("mberId", mberPwCheck.get("mberId"));
 						map.put("newMberPw", encrytPassword);
 						chaparkService.update("mb_mber.updateMberPassword",map);
 						response.put("status", "success");

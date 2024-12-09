@@ -70,7 +70,7 @@ public class LoginController {
 			if (success) {
 				Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", loginMap);
 				SessionManagement.setSessionInfo(request, "userInfo", userInfo); //세션에 저장
-				String mberName = (String) userInfo.get("MBER_NAME");
+				String mberName = (String) userInfo.get("mberName");
 				SessionManagement.setSessionInfo(request, "mberName", mberName); 
 				response.put("status", "success");
 				response.put("data", userInfo);
@@ -128,12 +128,12 @@ public class LoginController {
 			Map<String, Object> userIdInfo = chaparkService.selectMap("lo_login.selectIdSearch", findMap);
 
 			if (userIdInfo != null) {
-				String mberName = userIdInfo.get("MBER_NAME").toString();
-				String mberEmail = userIdInfo.get("MBER_EMAIL").toString();
+				String mberName = userIdInfo.get("mberName").toString();
+				String mberEmail = userIdInfo.get("mberEmail").toString();
 
 				if (mberName.equals(findMap.get("mberName")) && mberEmail.equals(findMap.get("mberEmail"))) {
 					response.put("status", "success");
-					response.put("data", userIdInfo.get("MBER_ID"));
+					response.put("data", userIdInfo.get("mberId"));
 					return ResponseEntity.ok(response);
 				} else {
 					response.put("status", "fail");
@@ -167,8 +167,8 @@ public class LoginController {
 			Map<String, Object> userPwInfo = chaparkService.selectMap("lo_login.selectPwSearch", findMap);
 
 			if (userPwInfo != null) {
-				String mberId = userPwInfo.get("MBER_ID").toString();
-				String mberEmail = userPwInfo.get("MBER_EMAIL").toString();
+				String mberId = userPwInfo.get("mberId").toString();
+				String mberEmail = userPwInfo.get("mberEmail").toString();
 
 				if (mberId.equals(findMap.get("mberId")) && mberEmail.equals(findMap.get("mberEmail"))) {
 					String tempPassword = RandomStringUtils.randomAlphanumeric(10); // 임시 비밀번호 10자리 생성

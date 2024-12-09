@@ -30,7 +30,7 @@ public class CertificationService {
 			//DB에서 사용자 정보 가져오기
 			Map<String, Object> userInfo = chaparkService.selectMap("lo_login.selectCertificationUserInfo", map);
 			if (userInfo != null) {
-				String storedHashedPassword = (String) userInfo.get("MBER_PW"); //암호화된 비밀번호 가져오기
+				String storedHashedPassword = (String) userInfo.get("mberPw"); //암호화된 비밀번호 가져오기
 				String inputHashedPassword = chaparkSecurity.encrypt(mberPw); //입력받은 비밀번호 암호화
 				return storedHashedPassword.equals(inputHashedPassword); //비교
 			}

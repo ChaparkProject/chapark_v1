@@ -95,7 +95,7 @@ public class joinController {
 			Map<String, Object> userInfo = chaparkService.selectMap("jo_join.selectMberInfo", chkMap); //회원정보 조회
 			String id = "";
 			if (userInfo != null) {
-				id = (String) userInfo.get("MBER_ID"); 
+				id = (String) userInfo.get("mberId"); 
 			}
 			//String id = chkMap.get("mberId").toString(); 
 			if (mberId.trim().isEmpty() || !mberId.equals(id)) { //입력 받은 아이디와 DB상 아이디 불일치 => 아이디 사용가능
