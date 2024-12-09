@@ -35,7 +35,7 @@ const Login = () => {
           navigate("/"); // 로그인 성공시 홈으로 이동합니다.
           dispatch(loginUser(response.userInfo)); // 로그인 성공시 리덕스에 로그인정보 저장
 
-          localStorage.setItem("token", token); // 로그인 성공시 JWT 로컬 스토리지에 저장
+          //localStorage.setItem("token", token); // 로그인 성공시 JWT 로컬 스토리지에 저장
         } else {
           setErrorMessage("아이디 또는 비밀번호가 잘못 되었습니다.\n아이디와 비밀번호를 정확히 입력해주세요.")
         }
