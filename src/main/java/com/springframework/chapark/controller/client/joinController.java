@@ -67,7 +67,7 @@ public class joinController {
 			} else {
 				response.put("status", "fail");
 				response.put("message", "잘못된 요청입니다.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "join");
@@ -105,7 +105,7 @@ public class joinController {
 			} else {
 				response.put("status", "fail");
 				response.put("message", "이미 있는 아이디 입니다.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "idCheck");
@@ -141,7 +141,7 @@ public class joinController {
 			} else {
 				response.put("status", "fail");
 				response.put("message", "이메일을 입력해주세요.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "idCheck");
@@ -174,12 +174,12 @@ public class joinController {
 				} else {
 					response.put("status", "fail");
 					response.put("message", "인증번호가 다릅니다.");
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+					return ResponseEntity.ok(response);
 				}
 			} else {
 				response.put("status", "fail");
 				response.put("message", "이메일을 입력해주세요.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "idCheck");

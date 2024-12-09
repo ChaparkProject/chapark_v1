@@ -39,7 +39,7 @@ public class AdminMainController {
 		} else {
 			response.put("status", "fail");
 			response.put("message", "회원권한이 없습니다.");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+			return ResponseEntity.ok(response);
 		}
 	}
 }

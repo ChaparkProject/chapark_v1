@@ -74,7 +74,7 @@ public class MberInfoController {
 			} else {
 				response.put("status", "fail");
 				response.put("message", "비밀번호가 일치하지 않습니다.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			response.put("status", "error");
@@ -106,7 +106,7 @@ public class MberInfoController {
 			} else {
 				response.put("status", "fail");
 				response.put("message", "사용자 정보가 없습니다. 로그인 해주세요.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "mberInfoPage");
@@ -132,7 +132,7 @@ public class MberInfoController {
 		if(mberInfo == null) {
 			response.put("status", "fail");
 			response.put("message", "사용자 정보가 없습니다. 로그인 해주세요.");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+			return ResponseEntity.ok(response);
 		}
 		
 		try {
@@ -157,17 +157,17 @@ public class MberInfoController {
 					} else {
 						response.put("status", "fail");
 						response.put("message", "비밀번호가 일치 하지 않습니다.");
-						return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+						return ResponseEntity.ok(response);
 					}
 				} else {
 					response.put("status", "fail");
 					response.put("message", "이미 사용중인 비밀번호 입니다.");
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+					return ResponseEntity.ok(response);
 				}
 			} else {
 				response.put("status", "fail");
 				response.put("message", "가입하지 않은 회원입니다.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "updatePassword");

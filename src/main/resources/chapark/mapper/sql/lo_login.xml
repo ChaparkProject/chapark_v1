@@ -3,7 +3,7 @@
 
 <mapper namespace="lo_login">
 	<!-- 사용자 정보 조회 -->
-	<select id="selectUserInfo" resultType="map" parameterType="map">
+	<select id="selectUserInfo" resultType="customMap" parameterType="map">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -18,7 +18,7 @@
 			MBER_ID = #{mberId}
 	</select>
 	<!-- 사용자 인증 -->
-	<select id="selectCertificationUserInfo" parameterType="map" resultType="map">
+	<select id="selectCertificationUserInfo" parameterType="map" resultType="customMap">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -34,7 +34,7 @@
 	</select>
 	
 	<!-- 아이디 찾기 -->
-	<select id="selectIdSearch" parameterType="map" resultType="map">
+	<select id="selectIdSearch" parameterType="map" resultType="customMap">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
@@ -52,7 +52,7 @@
 	</select>
 	
 	<!-- 비밀 번호 찾기 -->
-	<select id="selectPwSearch" parameterType="map" resultType="map">
+	<select id="selectPwSearch" parameterType="map" resultType="customMap">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID

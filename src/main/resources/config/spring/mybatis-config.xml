@@ -6,6 +6,6 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="utilMap" type="com.springframework.chapark.utils.MybatisCustomMap"/>
+		<typeAlias alias="customMap" type="com.springframework.chapark.utils.MybatisCustomMap"/>
 	</typeAliases>
 </configuration>

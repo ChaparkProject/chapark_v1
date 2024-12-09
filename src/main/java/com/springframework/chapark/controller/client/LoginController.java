@@ -78,7 +78,7 @@ public class LoginController {
 			} else {
 				response.put("status", "fail");
 				response.put("message", "가입하지 않은 회원 입니다.");
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); //401에러(인증 필요)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			logger.error("Login error", e);
@@ -138,12 +138,12 @@ public class LoginController {
 				} else {
 					response.put("status", "fail");
 					response.put("message", "회원정보가 일치하지 않습니다.");
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+					return ResponseEntity.ok(response);
 				}
 			} else {
 				response.put("status", "fail");
 				response.put("message", "회원정보가 없습니다.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");
@@ -183,12 +183,12 @@ public class LoginController {
 				} else {
 					response.put("status", "fail");
 					response.put("message", "회원정보가 일치하지 않습니다.");
-					return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+					return ResponseEntity.ok(response);
 				}
 			} else {
 				response.put("status", "fail");
 				response.put("message", "회원정보가 없습니다.");
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response); //400 (잘못된 요청)
+				return ResponseEntity.ok(response);
 			}
 		} catch (Exception e) {
 			ChaparkLogger.debug(e, this.getClass(), "searchId");

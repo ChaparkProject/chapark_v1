@@ -3,7 +3,7 @@
 
 <mapper namespace="mb_mber">
 	<!-- 회원정보 조회 -->
-	<select id="selectMberInfo" resultType="map">
+	<select id="selectMberInfo" resultType="customMap">
 		SELECT 
 			MBER_SEQ
 			, MBER_ID
